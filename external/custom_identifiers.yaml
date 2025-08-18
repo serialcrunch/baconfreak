@@ -1,0 +1,22 @@
+company_identifiers:
+
+  - value: 0x3030
+    name: 'Furbo Dog Camera (Tomofun LLC)'
+  
+  - value: 0x8801
+    name: 'iHoment (Govee)'
+  
+  - value: 0x8802
+    name: 'Govee'
+
+  - value: 0xec88
+    name: 'Govee'
+  
+  - value: 0xdec2
+    name: 'ThermoPro'
+  
+  - value: 0x0ecb
+    name: 'Google'
+  
+  - value: 0x1903
+    name: 'Bose'

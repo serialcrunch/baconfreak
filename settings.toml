@@ -1,0 +1,64 @@
+# Baconfreak Configuration
+# Modern configuration using TOML format
+
+[default]
+# Base configuration for all environments
+
+[default.paths]
+base_dir = "."
+output_dir = "output"
+assets_dir = "assets"
+external_dir = "external"
+logs_dir = "logs"
+
+[default.bluetooth]
+interface = 1
+scan_timeout = 0  # 0 = infinite
+filter_duplicates = false
+
+[default.output]
+known_pcap = "bfreak-known.pcap"
+unknown_pcap = "bfreak-unknown.pcap"
+
+[default.database]
+company_identifiers_db = "company_identifiers.db"
+batch_size = 500
+sources = [
+    "company_identifiers.yaml",
+    "custom_identifiers.yaml"
+]
+
+[default.detection]
+device_timeout = 300  # seconds
+min_rssi = -100      # dBm
+max_devices = 10000  # maximum devices to track
+
+[default.logging]
+level = "INFO"
+# file = "baconfreak.log"  # uncomment to enable file logging
+rotation = "10 MB"
+retention = "7 days"
+format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+
+[default.rich]
+# Rich console settings
+console_width = 120
+console_force_terminal = false
+console_no_color = false
+
+[default.performance]
+packet_buffer_size = 1000
+statistics_interval = 10  # seconds
+
+# Development environment overrides
+[development]
+logging.level = "DEBUG"
+detection.min_rssi = -120
+performance.statistics_interval = 5
+
+# Production environment overrides  
+[production]
+logging.level = "WARNING"
+logging.file = "baconfreak.log"
+detection.min_rssi = -80
+performance.packet_buffer_size = 5000

@@ -1,0 +1,11 @@
+company_identifiers:
+  - value: 76
+    name: "Apple, Inc."
+  - value: 6
+    name: "Microsoft"
+  - value: 15
+    name: "Broadcom Corporation"
+  - value: 117
+    name: "Samsung Electronics Co. Ltd."
+  - value: 224
+    name: "Google"
