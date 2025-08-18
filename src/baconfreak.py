@@ -132,6 +132,17 @@ class BluetoothScanner:
         self._last_stats_update = datetime.now()
         self._packet_buffer: list = []
 
+        # TUI sorting state
+        self.sort_mode = "last_seen"  # Default sort by last seen
+        self.sort_ascending = False  # Default descending (most recent first)
+        self.sort_modes = {
+            "last_seen": ("Last Seen", lambda d: d.last_seen),
+            "first_seen": ("First Seen", lambda d: d.first_seen), 
+            "rssi": ("RSSI", lambda d: d.rssi),
+            "total_time": ("Total Time", lambda d: (datetime.now() - d.first_seen).total_seconds()),
+            "packets": ("Packets", lambda d: d.packet_count)
+        }
+
         # Initialize components
         try:
             self.company_resolver = ModernCompanyIdentifiers()
@@ -154,6 +165,39 @@ class BluetoothScanner:
         self.exit_event.set()
         self._running = False
 
+    def _handle_keyboard_input(self, key: str) -> None:
+        """Handle keyboard input for sorting and controls."""
+        if key.lower() == 'r':  # Toggle RSSI sorting
+            if self.sort_mode == "rssi":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "rssi"
+                self.sort_ascending = False  # Start with strongest signal first
+        elif key.lower() == 'f':  # Toggle First Seen sorting
+            if self.sort_mode == "first_seen":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "first_seen"
+                self.sort_ascending = False  # Start with most recent first
+        elif key.lower() == 'l':  # Toggle Last Seen sorting
+            if self.sort_mode == "last_seen":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "last_seen"
+                self.sort_ascending = False  # Start with most recent first
+        elif key.lower() == 't':  # Toggle Total Time sorting
+            if self.sort_mode == "total_time":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "total_time"
+                self.sort_ascending = False  # Start with longest time first
+        elif key.lower() == 'p':  # Toggle Packets sorting
+            if self.sort_mode == "packets":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "packets"
+                self.sort_ascending = False  # Start with most packets first
+
     def _create_live_display(self) -> Layout:
         """Create Rich live display layout."""
         layout = Layout()
@@ -168,13 +212,17 @@ class BluetoothScanner:
 
     def _update_display(self, layout: Layout):
         """Update the live display with current data."""
-        # Header
+        # Header with sort info
+        sort_name = self.sort_modes[self.sort_mode][0]
+        sort_dir = "↑" if self.sort_ascending else "↓"
+        
         header = Panel(
-            f"🛰️  [bold blue]baconfreak Live Monitor[/bold blue] - "
+            f"🛰️  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
             f"Interface: HCI{self.scan_config.interface} | "
             f"Devices: {len(self.devices)} | "
-            f"Packets: {self.stats.total_packets:,}",
-            style="blue",
+            f"Packets: {self.stats.total_packets:,} | "
+            f"Sort: [yellow]{sort_name} {sort_dir}[/yellow]",
+            style="bright_blue",
         )
         layout["header"].update(header)
 
@@ -192,20 +240,43 @@ class BluetoothScanner:
 
     def _create_device_table(self) -> Table:
         """Create table of detected devices."""
-        table = Table(show_header=True, header_style="bold blue")
-        table.add_column("Type", style="cyan")
-        table.add_column("Address", style="white")
-        table.add_column("RSSI", style="yellow")
-        table.add_column("Company", style="green")
-        table.add_column("Packets", style="magenta")
-        table.add_column("Last Seen", style="dim")
+        table = Table(show_header=True, header_style="bold bright_blue")
+        table.add_column("Type", style="cyan", width=12)
+        table.add_column("Address", style="white", width=17)
+        table.add_column("RSSI", style="yellow", width=5, justify="right")
+        table.add_column("Company", style="green", width=15)
+        table.add_column("Pkts", style="magenta", width=4, justify="right")
+        table.add_column("First", style="dim", width=8)
+        table.add_column("Last", style="dim", width=8)
+        table.add_column("Total", style="dim", width=8)
 
-        # Show most recent devices (limit for performance)
-        recent_devices = sorted(self.devices.values(), key=lambda d: d.last_seen, reverse=True)[:20]
+        # Sort devices based on current sort mode
+        if self.devices:
+            sort_key = self.sort_modes[self.sort_mode][1]
+            recent_devices = sorted(
+                self.devices.values(), 
+                key=sort_key, 
+                reverse=not self.sort_ascending
+            )[:20]
+        else:
+            recent_devices = []
 
         for device in recent_devices:
-            age = datetime.now() - device.last_seen
-            age_str = f"{age.seconds}s ago" if age.seconds < 60 else f"{age.seconds//60}m ago"
+            now = datetime.now()
+            last_seen_delta = now - device.last_seen
+            total_time_delta = now - device.first_seen
+            
+            # Format last seen
+            last_seen_str = self._format_time_delta(last_seen_delta)
+            
+            # Format first seen (show actual time if recent, otherwise relative)
+            if total_time_delta.total_seconds() < 3600:  # Less than 1 hour
+                first_seen_str = device.first_seen.strftime("%H:%M:%S")
+            else:
+                first_seen_str = self._format_time_delta(total_time_delta) + " ago"
+            
+            # Format total time seen
+            total_time_str = self._format_time_delta(total_time_delta)
 
             # Color RSSI based on signal strength
             rssi_style = "green" if device.rssi > -50 else "yellow" if device.rssi > -70 else "red"
@@ -216,10 +287,36 @@ class BluetoothScanner:
                 f"[{rssi_style}]{device.rssi}[/{rssi_style}]",
                 device.company_name or "Unknown",
                 str(device.packet_count),
-                age_str,
+                first_seen_str,
+                last_seen_str,
+                total_time_str,
             )
 
         return table
+
+    def _format_time_delta(self, delta) -> str:
+        """Format a timedelta into a compact human-readable string."""
+        total_seconds = int(delta.total_seconds())
+        
+        if total_seconds < 60:
+            return f"{total_seconds}s"
+        elif total_seconds < 3600:  # Less than 1 hour
+            minutes = total_seconds // 60
+            return f"{minutes}m"
+        elif total_seconds < 86400:  # Less than 1 day
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            if minutes > 0:
+                return f"{hours}h{minutes}m"
+            else:
+                return f"{hours}h"
+        else:  # 1 day or more
+            days = total_seconds // 86400
+            hours = (total_seconds % 86400) // 3600
+            if hours > 0:
+                return f"{days}d{hours}h"
+            else:
+                return f"{days}d"
 
     def _create_stats_panel(self) -> Panel:
         """Create statistics panel."""
@@ -246,9 +343,16 @@ class BluetoothScanner:
         return Panel(stats_text, title="📈 Statistics", style="yellow")
 
     def _create_footer(self) -> Panel:
-        """Create footer with recent activity."""
-        # Show recent log messages or activity
-        footer_text = "[dim]Press Ctrl+C to stop scanning...[/dim]"
+        """Create footer with keyboard shortcuts."""
+        footer_text = (
+            "[dim]Controls: [/dim]"
+            "[bright_blue]R[/bright_blue]=[dim]RSSI[/dim] | "
+            "[bright_blue]F[/bright_blue]=[dim]First Seen[/dim] | "
+            "[bright_blue]L[/bright_blue]=[dim]Last Seen[/dim] | "
+            "[bright_blue]T[/bright_blue]=[dim]Total Time[/dim] | "
+            "[bright_blue]P[/bright_blue]=[dim]Packets[/dim] | "
+            "[red]Ctrl+C[/red]=[dim]Quit[/dim]"
+        )
         return Panel(footer_text, style="dim")
 
     def _packet_callback(self, packet, known_writer: PcapWriter, unknown_writer: PcapWriter):
@@ -273,6 +377,7 @@ class BluetoothScanner:
         self, report, original_packet, known_writer: PcapWriter, unknown_writer: PcapWriter
     ):
         """Process a single advertising report."""
+        packet_info = None
         try:
             # Extract packet information
             packet_info = self.device_detector.extract_packet_info(report)
@@ -402,14 +507,14 @@ class BluetoothScanner:
 
         self.logger.startup_info(self.scan_config.interface, config.output_dir_path, startup_config)
 
-        if not self.quiet and self.enable_rich:
+        if not self.quiet and self.enable_rich and self.console:
             self.console.print(
                 Panel.fit(
-                    f"🛰️  [bold blue]Starting baconfreak[/bold blue]\n\n"
+                    f"🛰️  [bold bright_blue]Starting baconfreak[/bold bright_blue]\n\n"
                     f"Interface: [cyan]HCI{self.scan_config.interface}[/cyan]\n"
                     f"Output: [cyan]{config.output_dir_path}[/cyan]\n"
                     f"Min RSSI: [cyan]{self.scan_config.min_rssi} dBm[/cyan]",
-                    style="blue",
+                    style="bright_blue",
                 )
             )
 
@@ -449,9 +554,78 @@ class BluetoothScanner:
                         capture_thread.daemon = True
                         capture_thread.start()
 
+                        # Set up keyboard input using a separate thread that doesn't interfere with Rich
+                        import queue
+                        import sys
+                        import termios
+                        import tty
+                        
+                        # Create a queue to communicate between keyboard thread and main thread
+                        key_queue = queue.Queue()
+                        
+                        def keyboard_listener():
+                            """Listen for keyboard input in a separate thread."""
+                            stdin_fd = sys.stdin.fileno()
+                            old_settings = None
+                            try:
+                                # Save original terminal settings
+                                old_settings = termios.tcgetattr(stdin_fd)
+                                
+                                # Set terminal to raw mode for single char input without echo
+                                new_settings = termios.tcgetattr(stdin_fd)
+                                new_settings[3] = new_settings[3] & ~(termios.ECHO | termios.ICANON)  # Disable echo and canonical mode
+                                new_settings[6][termios.VMIN] = 1  # Read at least 1 character
+                                new_settings[6][termios.VTIME] = 0  # No timeout
+                                termios.tcsetattr(stdin_fd, termios.TCSADRAIN, new_settings)
+                                
+                                while self._running:
+                                    try:
+                                        # Use select to check if input is available (non-blocking check)
+                                        import select
+                                        ready, _, _ = select.select([sys.stdin], [], [], 0.1)  # 100ms timeout
+                                        
+                                        if ready and self._running:
+                                            key = sys.stdin.read(1)
+                                            if key:
+                                                # Handle Ctrl+C (ASCII 3)
+                                                if ord(key) == 3:  # Ctrl+C
+                                                    self.stop()
+                                                    break
+                                                else:
+                                                    key_queue.put(key)
+                                                    
+                                    except (KeyboardInterrupt, EOFError):
+                                        self.stop()
+                                        break
+                                    except Exception:
+                                        continue  # Continue on other errors
+                                        
+                            except Exception:
+                                pass
+                            finally:
+                                # Always restore terminal settings
+                                if old_settings is not None:
+                                    try:
+                                        termios.tcsetattr(stdin_fd, termios.TCSADRAIN, old_settings)
+                                    except Exception:
+                                        pass
+                        
+                        # Start keyboard listener thread
+                        keyboard_thread = threading.Thread(target=keyboard_listener, daemon=True)
+                        keyboard_thread.start()
+                        
                         # Update display while scanning
                         while self._running and capture_thread.is_alive():
                             self._update_display(layout)
+                            
+                            # Process any keyboard input from the queue (non-blocking)
+                            try:
+                                while True:
+                                    key = key_queue.get_nowait()
+                                    self._handle_keyboard_input(key)
+                            except queue.Empty:
+                                pass  # No keys in queue
+                            
                             time.sleep(0.5)
                 else:
                     # Simple mode without Rich UI
@@ -504,8 +678,11 @@ class BluetoothScanner:
 
     def _print_rich_summary(self, duration: float):
         """Print Rich-formatted summary."""
+        if not self.console:
+            return
+            
         # Main summary panel
-        summary_table = Table(show_header=True, header_style="bold blue")
+        summary_table = Table(show_header=True, header_style="bold bright_blue")
         summary_table.add_column("Metric", style="cyan")
         summary_table.add_column("Value", style="green")
 
@@ -536,7 +713,7 @@ class BluetoothScanner:
 ❓ Unknown devices: [cyan]{config.unknown_pcap_path}[/cyan]
 📋 Log file: [cyan]{config.logs_dir_path / 'baconfreak.log'}[/cyan]"""
 
-        self.console.print(Panel(files_text, title="💾 Files", style="blue"))
+        self.console.print(Panel(files_text, title="💾 Files", style="bright_blue"))
 
     def _print_simple_summary(self, duration: float):
         """Print simple text summary."""
@@ -578,23 +755,23 @@ def main():
             scanner.run()
 
         except BaconFreakPermissionError as e:
-            logger.error(f"Permission error: {e}")
+            logger.error_with_context(e, "Permission error")
             if hasattr(sys.stderr, "isatty") and sys.stderr.isatty():
                 print("Error: Root privileges required. Try: sudo python baconfreak.py")
             sys.exit(1)
 
         except BaconFreakInterfaceError as e:
-            logger.error(f"Interface error: {e}")
+            logger.error_with_context(e, "Interface error")
             if hasattr(sys.stderr, "isatty") and sys.stderr.isatty():
                 print("Error: Bluetooth interface not available. Try: sudo hciconfig hci1 up")
             sys.exit(1)
 
         except BaconFreakError as e:
-            logger.error(f"Application error: {e}")
+            logger.error_with_context(e, "Application error")
             sys.exit(1)
 
         except Exception as e:
-            logger.error(f"Unexpected error: {e}")
+            logger.error_with_context(e, "Unexpected error")
             sys.exit(1)
 
 

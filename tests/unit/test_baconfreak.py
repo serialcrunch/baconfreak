@@ -225,21 +225,26 @@ class TestBluetoothScannerMethods(unittest.TestCase):
         """Test device table creation."""
         # Add some mock devices
         from src.models import BluetoothDevice
-        from datetime import datetime
+        from datetime import datetime, timedelta
         
+        now = datetime.now()
         device1 = BluetoothDevice(
             addr="aa:bb:cc:dd:ee:ff",
             device_type=DeviceType.AIRTAG_UNREGISTERED,
             rssi=-45,
             company_name="Apple, Inc.",
-            packet_count=5
+            packet_count=5,
+            first_seen=now - timedelta(minutes=5),
+            last_seen=now - timedelta(seconds=10)
         )
         
         device2 = BluetoothDevice(
             addr="11:22:33:44:55:66", 
             device_type=DeviceType.UNKNOWN,
             rssi=-80,
-            packet_count=2
+            packet_count=2,
+            first_seen=now - timedelta(hours=2),
+            last_seen=now - timedelta(minutes=1)
         )
         
         self.scanner.devices = {
@@ -247,6 +252,128 @@ class TestBluetoothScannerMethods(unittest.TestCase):
             "11:22:33:44:55:66": device2
         }
         
+        table = self.scanner._create_device_table()
+        self.assertIsNotNone(table)
+
+    def test_format_time_delta(self):
+        """Test time delta formatting."""
+        from datetime import timedelta
+        
+        # Test seconds
+        delta = timedelta(seconds=30)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "30s")
+        
+        # Test minutes (compact format)
+        delta = timedelta(minutes=5, seconds=30)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "5m")
+        
+        # Test hours and minutes
+        delta = timedelta(hours=2, minutes=30)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "2h30m")
+        
+        # Test hours only
+        delta = timedelta(hours=3)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "3h")
+        
+        # Test days and hours
+        delta = timedelta(days=1, hours=5)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "1d5h")
+        
+        # Test days only
+        delta = timedelta(days=2)
+        result = self.scanner._format_time_delta(delta)
+        self.assertEqual(result, "2d")
+
+    def test_handle_keyboard_input(self):
+        """Test keyboard input handling for sorting."""
+        # Test RSSI sorting toggle
+        self.scanner._handle_keyboard_input('r')
+        self.assertEqual(self.scanner.sort_mode, "rssi")
+        self.assertFalse(self.scanner.sort_ascending)
+        
+        # Toggle again should flip direction
+        self.scanner._handle_keyboard_input('r')
+        self.assertEqual(self.scanner.sort_mode, "rssi")
+        self.assertTrue(self.scanner.sort_ascending)
+        
+        # Test First Seen sorting
+        self.scanner._handle_keyboard_input('f')
+        self.assertEqual(self.scanner.sort_mode, "first_seen")
+        self.assertFalse(self.scanner.sort_ascending)
+        
+        # Test Last Seen sorting
+        self.scanner._handle_keyboard_input('l')
+        self.assertEqual(self.scanner.sort_mode, "last_seen")
+        self.assertFalse(self.scanner.sort_ascending)
+        
+        # Test Total Time sorting
+        self.scanner._handle_keyboard_input('t')
+        self.assertEqual(self.scanner.sort_mode, "total_time")
+        self.assertFalse(self.scanner.sort_ascending)
+        
+        # Test Packets sorting
+        self.scanner._handle_keyboard_input('p')
+        self.assertEqual(self.scanner.sort_mode, "packets")
+        self.assertFalse(self.scanner.sort_ascending)
+        
+        # Toggle again should flip direction
+        self.scanner._handle_keyboard_input('p')
+        self.assertEqual(self.scanner.sort_mode, "packets")
+        self.assertTrue(self.scanner.sort_ascending)
+        
+        # Test case insensitive
+        self.scanner._handle_keyboard_input('R')
+        self.assertEqual(self.scanner.sort_mode, "rssi")
+
+    def test_device_sorting(self):
+        """Test device sorting with different modes."""
+        from src.models import BluetoothDevice
+        from datetime import datetime, timedelta
+        
+        now = datetime.now()
+        
+        # Create devices with different characteristics
+        device1 = BluetoothDevice(
+            addr="aa:bb:cc:dd:ee:ff",
+            device_type=DeviceType.AIRTAG_UNREGISTERED,
+            rssi=-30,  # Strong signal
+            first_seen=now - timedelta(minutes=10),
+            last_seen=now - timedelta(seconds=5)
+        )
+        
+        device2 = BluetoothDevice(
+            addr="11:22:33:44:55:66", 
+            device_type=DeviceType.UNKNOWN,
+            rssi=-90,  # Weak signal
+            first_seen=now - timedelta(minutes=5),  # More recent first seen
+            last_seen=now - timedelta(seconds=30)
+        )
+        
+        self.scanner.devices = {
+            "aa:bb:cc:dd:ee:ff": device1,
+            "11:22:33:44:55:66": device2
+        }
+        
+        # Test RSSI sorting (descending = strongest first)
+        self.scanner.sort_mode = "rssi"
+        self.scanner.sort_ascending = False
+        table = self.scanner._create_device_table()
+        self.assertIsNotNone(table)
+        
+        # Test first seen sorting
+        self.scanner.sort_mode = "first_seen"
+        self.scanner.sort_ascending = False
+        table = self.scanner._create_device_table()
+        self.assertIsNotNone(table)
+        
+        # Test total time sorting
+        self.scanner.sort_mode = "total_time"
+        self.scanner.sort_ascending = False
         table = self.scanner._create_device_table()
         self.assertIsNotNone(table)
 
