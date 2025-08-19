@@ -1,4 +1,4 @@
-# 🥓 baconfreak: Modern Bluetooth Low Energy Analysis Tool
+# 🥓 baconfreak: Bluetooth Low Energy Analysis Tool
 
 A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BLE) advertising packets. Built with industry-standard packages like **Pydantic**, **Loguru**, **Rich**, and **Typer** for professional-grade Bluetooth security research and monitoring.
 
@@ -65,7 +65,7 @@ A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BL
 
 ## 🚀 Usage
 
-### 🎯 **Modern CLI (Recommended)**
+### 🎯 **CLI Interface (Recommended)**
 
 ```bash
 # 🩺 Run system diagnostics
@@ -99,7 +99,7 @@ sudo python main.py scan --min-rssi -80 --timeout 300 --output ./captures
 
 ### 🎨 **Rich Output Examples**
 
-The modern CLI provides beautiful, colorized output:
+The CLI provides beautiful, colorized output:
 
 ```
 🩺 baconfreak System Diagnostics
@@ -114,7 +114,7 @@ The modern CLI provides beautiful, colorized output:
 
 ### ⚙️ **Configuration**
 
-Modern configuration using TOML format:
+Configuration using TOML format:
 
 ```bash
 # Use default settings.toml
@@ -159,10 +159,10 @@ logging.file = "baconfreak.log"
 
 ## Architecture
 
-The modern codebase follows clean architecture principles:
+The codebase follows clean architecture principles:
 
 ### **Entry Points**
-- **`main.py`** - Modern CLI interface using Typer and Rich
+- **`main.py`** - CLI interface using Typer and Rich
 - **`baconfreak.sh`** - Shell wrapper with auto-sudo and environment setup
 
 ### **Business Logic (`src/`)**
