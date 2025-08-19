@@ -21,7 +21,7 @@ from src.models import DeviceType
 
 app = typer.Typer(
     name="baconfreak",
-    help="🛰️  Modern Bluetooth Low Energy packet analysis tool",
+    help="🥓  Modern Bluetooth Low Energy packet analysis tool",
     add_completion=False,
     rich_markup_mode="rich",
 )
@@ -32,7 +32,7 @@ console = Console()
 def version_callback(value: bool):
     """Show version information."""
     if value:
-        console.print("🛰️  [bold blue]baconfreak[/bold blue] - Modern Bluetooth Analysis Tool")
+        console.print("🥓  [bold blue]baconfreak[/bold blue] - Modern Bluetooth Analysis Tool")
         console.print("Version: [green]1.0.0[/green]")
         console.print("Built with: [cyan]Scapy, Pydantic, Loguru, Rich, Typer[/cyan]")
         raise typer.Exit()
@@ -258,10 +258,58 @@ def doctor():
         console.print(f"\n⚠️  [yellow]{passed}/{total} checks passed[/yellow]")
 
 
+@app.command()
+def update_db(
+    force: bool = typer.Option(False, "--force", "-f", help="🔄 Force update even if files haven't changed")
+):
+    """🗃️  Update company identifiers database from YAML sources."""
+    try:
+        from src.company_identifiers import ModernCompanyIdentifiers
+        
+        console.print("🗃️  [bold blue]Updating Company Identifiers Database[/bold blue]")
+        console.print("Loading company identifiers...")
+        
+        ci = ModernCompanyIdentifiers()
+        
+        with console.status("[bold blue]Updating database...", spinner="dots"):
+            result = ci.update(force=force)
+        
+        if result["errors"]:
+            console.print(f"❌ [red]Update failed with {len(result['errors'])} errors[/red]")
+            for error in result["errors"]:
+                console.print(f"   • {error}", style="red")
+            raise typer.Exit(1)
+        
+        # Show results
+        table = Table(title="Update Results")
+        table.add_column("Metric", style="cyan")
+        table.add_column("Value", style="green")
+        
+        table.add_row("Files Processed", str(result["files_processed"]))
+        table.add_row("Records Loaded", str(result["records_loaded"]))
+        table.add_row("Records Saved", str(result["records_saved"]))
+        table.add_row("Duration", f"{result['duration']:.2f}s")
+        
+        console.print(table)
+        
+        if result["warnings"]:
+            console.print(f"\n⚠️  [yellow]{len(result['warnings'])} warnings:[/yellow]")
+            for warning in result["warnings"]:
+                console.print(f"   • {warning}", style="yellow")
+        
+        console.print(f"\n✅ [green]Database updated successfully![/green]")
+        console.print(f"Database location: [cyan]{config.company_identifiers_db_path}[/cyan]")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Failed to update database: {e}[/red]")
+        logger.error(f"Database update failed: {e}")
+        raise typer.Exit(1)
+
+
 def show_startup_banner(interface: int, output_dir: Path, log_level: str):
     """Show startup banner with configuration."""
     banner = Panel.fit(
-        f"🛰️  [bold blue]baconfreak v2.0[/bold blue] - Modern Bluetooth Analysis\n\n"
+        f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Modern Bluetooth Analysis\n\n"
         f"🔗 Interface: [cyan]HCI{interface}[/cyan]\n"
         f"📁 Output: [cyan]{output_dir}[/cyan]\n"
         f"📝 Log Level: [cyan]{log_level}[/cyan]\n\n"

@@ -1,4 +1,4 @@
-# 🛰️ baconfreak: Modern Bluetooth Low Energy Analysis Tool
+# 🥓 baconfreak: Modern Bluetooth Low Energy Analysis Tool
 
 A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BLE) advertising packets. Built with industry-standard packages like **Pydantic**, **Loguru**, **Rich**, and **Typer** for professional-grade Bluetooth security research and monitoring.
 

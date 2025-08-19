@@ -123,6 +123,14 @@ class ModernCompanyIdentifiers:
 
             # Load initial statistics
             self._load_stats()
+            
+            # Auto-populate database on first run if empty
+            if CompanyIdentifier.select().count() == 0:
+                self.logger.info("Database is empty, auto-populating from YAML sources...")
+                try:
+                    self.update()
+                except Exception as e:
+                    self.logger.warning(f"Failed to auto-populate database: {e}")
 
         except Exception as e:
             self.logger.error(f"Failed to connect to database: {e}")

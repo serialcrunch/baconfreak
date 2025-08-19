@@ -469,9 +469,10 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
         
         mock_known_writer = Mock()
         mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
         
         # Should not raise exception
-        self.scanner._packet_callback(mock_packet, mock_known_writer, mock_unknown_writer)
+        self.scanner._packet_callback(mock_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
 
     def test_packet_callback_with_exception(self):
         """Test packet callback with exception handling."""
@@ -480,10 +481,11 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
         
         mock_known_writer = Mock()
         mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
         
         # Should not raise exception and should increment total packets
         initial_count = self.scanner.stats.total_packets
-        self.scanner._packet_callback(mock_packet, mock_known_writer, mock_unknown_writer)
+        self.scanner._packet_callback(mock_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
         
         self.assertEqual(self.scanner.stats.total_packets, initial_count + 1)
 
@@ -496,12 +498,14 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
         
         mock_known_writer = Mock()
         mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
         
-        self.scanner._process_advertising_report(mock_report, Mock(), mock_known_writer, mock_unknown_writer)
+        self.scanner._process_advertising_report(mock_report, Mock(), mock_known_writer, mock_unknown_writer, mock_devices_writer)
         
         # Should not write to PCAP files
         mock_known_writer.write.assert_not_called()
         mock_unknown_writer.write.assert_not_called()
+        mock_devices_writer.write.assert_not_called()
 
     def test_process_advertising_report_known_company(self):
         """Test processing report from known company."""
@@ -518,12 +522,18 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
         mock_original_packet = Mock()
         mock_known_writer = Mock()
         mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
         
-        self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer)
+        # Mock the config to return empty device types list so it goes to known PCAP
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = []
+            
+            self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
         
         # Should write to known writer
         mock_known_writer.write.assert_called_once_with(mock_original_packet)
         mock_unknown_writer.write.assert_not_called()
+        mock_devices_writer.write.assert_not_called()
         
         # Should add to known companies
         self.assertIn("Apple, Inc.", self.scanner.stats.known_companies)
@@ -543,15 +553,166 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
         mock_original_packet = Mock()
         mock_known_writer = Mock()
         mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
         
-        self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer)
+        # Mock the config to return empty device types list
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = []
+            
+            self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
         
         # Should write to unknown writer
         mock_unknown_writer.write.assert_called_once_with(mock_original_packet)
         mock_known_writer.write.assert_not_called()
+        mock_devices_writer.write.assert_not_called()
         
         # Should add to unknown company IDs
         self.assertIn(999, self.scanner.stats.unknown_company_ids)
+
+    def test_process_advertising_report_recognized_tracker(self):
+        """Test processing report from recognized tracker (should go to known PCAP)."""
+        from src.models import DeviceType
+        
+        mock_report = Mock()
+        
+        # Create packet for a tracker device with unknown company ID
+        packet_info = PacketInfo(addr="aa:bb:cc:dd:ee:ff", rssi=-50, company_id=999)
+        self.scanner.device_detector.extract_packet_info.return_value = packet_info
+        self.scanner.device_detector.is_known_company.return_value = False  # Unknown company
+        
+        # Create a tracker device (AirTag)
+        mock_device = Mock()
+        mock_device.device_type = DeviceType.AIRTAG_UNREGISTERED
+        mock_device.company_name = None
+        self.scanner.device_detector.create_device.return_value = mock_device
+        
+        mock_original_packet = Mock()
+        mock_known_writer = Mock()
+        mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
+        
+        # Mock the config to include AirTag in device types list
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = ["airtag_unregistered", "tile"]
+            
+            self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
+        
+        # Should write to DEVICES writer (because it's a configured device type)
+        mock_devices_writer.write.assert_called_once_with(mock_original_packet)
+        mock_known_writer.write.assert_not_called()
+        mock_unknown_writer.write.assert_not_called()
+
+    def test_process_advertising_report_tile_tracker(self):
+        """Test processing report from Tile tracker (should go to known PCAP)."""
+        from src.models import DeviceType
+        
+        mock_report = Mock()
+        
+        # Create packet for a Tile tracker
+        packet_info = PacketInfo(addr="bb:cc:dd:ee:ff:aa", rssi=-60, company_id=None)
+        self.scanner.device_detector.extract_packet_info.return_value = packet_info
+        self.scanner.device_detector.is_known_company.return_value = False
+        
+        # Create a Tile device
+        mock_device = Mock()
+        mock_device.device_type = DeviceType.TILE
+        mock_device.company_name = "Tile, Inc."
+        self.scanner.device_detector.create_device.return_value = mock_device
+        
+        mock_original_packet = Mock()
+        mock_known_writer = Mock()
+        mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
+        
+        # Mock the config to include Tile in device types list
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = ["airtag_unregistered", "tile"]
+            
+            self.scanner._process_advertising_report(mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer)
+        
+        # Should write to DEVICES writer (because it's a configured device type)
+        mock_devices_writer.write.assert_called_once_with(mock_original_packet)
+        mock_known_writer.write.assert_not_called()
+        mock_unknown_writer.write.assert_not_called()
+        
+        # Should add to known companies
+        self.assertIn("Tile, Inc.", self.scanner.stats.known_companies)
+
+    def test_process_advertising_report_devices_pcap_classification(self):
+        """Test three-way PCAP classification with configurable device types."""
+        from src.models import DeviceType
+        
+        mock_report = Mock()
+        
+        # Create packet for an AirTag (should go to devices PCAP by default config)
+        packet_info = PacketInfo(addr="cc:dd:ee:ff:aa:bb", rssi=-50, company_id=76)
+        self.scanner.device_detector.extract_packet_info.return_value = packet_info
+        self.scanner.device_detector.is_known_company.return_value = True  # Apple is known
+        
+        # Create an AirTag device
+        mock_device = Mock()
+        mock_device.device_type = DeviceType.AIRTAG_UNREGISTERED
+        mock_device.company_name = "Apple, Inc."
+        self.scanner.device_detector.create_device.return_value = mock_device
+        
+        mock_original_packet = Mock()
+        mock_known_writer = Mock()
+        mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
+        
+        # Mock the config to return our test device types
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = ["airtag_unregistered", "tile"]
+            
+            self.scanner._process_advertising_report(
+                mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer
+            )
+        
+        # Should write to DEVICES writer (because it's in the configured list)
+        mock_devices_writer.write.assert_called_once_with(mock_original_packet)
+        mock_known_writer.write.assert_not_called()
+        mock_unknown_writer.write.assert_not_called()
+        
+        # Should add to known companies
+        self.assertIn("Apple, Inc.", self.scanner.stats.known_companies)
+
+    def test_process_advertising_report_non_configured_device_type(self):
+        """Test device type not in configured list goes to appropriate PCAP."""
+        from src.models import DeviceType
+        
+        mock_report = Mock()
+        
+        # Create packet for AirPods (not in default device_types_for_devices_pcap)
+        packet_info = PacketInfo(addr="dd:ee:ff:aa:bb:cc", rssi=-50, company_id=76)
+        self.scanner.device_detector.extract_packet_info.return_value = packet_info
+        self.scanner.device_detector.is_known_company.return_value = True  # Apple is known
+        
+        # Create an AirPods device
+        mock_device = Mock()
+        mock_device.device_type = DeviceType.AIRPODS
+        mock_device.company_name = "Apple, Inc."
+        self.scanner.device_detector.create_device.return_value = mock_device
+        
+        mock_original_packet = Mock()
+        mock_known_writer = Mock()
+        mock_unknown_writer = Mock()
+        mock_devices_writer = Mock()
+        
+        # Mock the config to return our test device types (AirPods not included)
+        with patch('src.baconfreak.config') as mock_config:
+            mock_config.device_types_for_devices_pcap = ["airtag_unregistered", "tile"]
+            
+            self.scanner._process_advertising_report(
+                mock_report, mock_original_packet, mock_known_writer, mock_unknown_writer, mock_devices_writer
+            )
+        
+        # Should write to KNOWN writer (because company is known, but device type not in special list)
+        mock_known_writer.write.assert_called_once_with(mock_original_packet)
+        mock_devices_writer.write.assert_not_called()
+        mock_unknown_writer.write.assert_not_called()
+        
+        # Should add to known companies
+        self.assertIn("Apple, Inc.", self.scanner.stats.known_companies)
 
 
 class TestBluetoothScannerInterface(unittest.TestCase):

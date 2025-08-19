@@ -19,6 +19,8 @@ filter_duplicates = false
 [default.output]
 known_pcap = "bfreak-known.pcap"
 unknown_pcap = "bfreak-unknown.pcap"
+devices_pcap = "bfreak-devices.pcap"
+device_types_for_devices_pcap = ["tile", "airtag_unregistered", "airtag_registered"]
 
 [default.database]
 company_identifiers_db = "company_identifiers.db"

@@ -218,6 +218,9 @@ class ScanConfiguration(BaseModel):
     unknown_pcap_filename: str = Field(
         default="bt-unknown.pcap", description="PCAP file for unknown devices"
     )
+    devices_pcap_filename: str = Field(
+        default="bfreak-devices.pcap", description="PCAP file for specific device types"
+    )
 
     # Detection settings
     device_timeout: int = Field(

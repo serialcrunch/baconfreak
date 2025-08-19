@@ -85,6 +85,17 @@ class BaconFreakConfig:
         return self.output_dir_path / filename
 
     @property
+    def devices_pcap_path(self) -> Path:
+        """Get path for specific device types PCAP file."""
+        filename = self.settings.get("output.devices_pcap", "bfreak-devices.pcap")
+        return self.output_dir_path / filename
+
+    @property
+    def device_types_for_devices_pcap(self) -> List[str]:
+        """Get list of device types to save to devices PCAP file."""
+        return self.settings.get("output.device_types_for_devices_pcap", ["tile", "airtag_unregistered", "airtag_registered"])
+
+    @property
     def company_identifiers_db_path(self) -> Path:
         """Get path for company identifiers database."""
         filename = self.settings.get("database.company_identifiers_db", "company_identifiers.db")
@@ -109,6 +120,7 @@ class BaconFreakConfig:
             output_dir=str(self.output_dir_path),
             known_pcap_filename=self.settings.get("output.known_pcap", "bfreak-known.pcap"),
             unknown_pcap_filename=self.settings.get("output.unknown_pcap", "bfreak-unknown.pcap"),
+            devices_pcap_filename=self.settings.get("output.devices_pcap", "bfreak-devices.pcap"),
             device_timeout=self.settings.get("detection.device_timeout", 300),
             min_rssi=self.settings.get("detection.min_rssi", -100),
             max_devices=self.settings.get("detection.max_devices", 10000),

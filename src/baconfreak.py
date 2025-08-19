@@ -58,19 +58,21 @@ class BaconFreakInterfaceError(BaconFreakError):
 
 
 @contextmanager
-def pcap_writers(known_path: Path, unknown_path: Path):
+def pcap_writers(known_path: Path, unknown_path: Path, devices_path: Path):
     """
     Context manager for PCAP writers with proper resource cleanup.
 
     Args:
         known_path: Path for known devices PCAP file
         unknown_path: Path for unknown devices PCAP file
+        devices_path: Path for specific device types PCAP file
 
     Yields:
-        Tuple of (known_writer, unknown_writer)
+        Tuple of (known_writer, unknown_writer, devices_writer)
     """
     known_writer = None
     unknown_writer = None
+    devices_writer = None
 
     try:
         # Ensure output directory exists
@@ -78,14 +80,17 @@ def pcap_writers(known_path: Path, unknown_path: Path):
 
         known_writer = PcapWriter(str(known_path))
         unknown_writer = PcapWriter(str(unknown_path))
+        devices_writer = PcapWriter(str(devices_path))
 
-        yield known_writer, unknown_writer
+        yield known_writer, unknown_writer, devices_writer
 
     finally:
         if known_writer:
             known_writer.close()
         if unknown_writer:
             unknown_writer.close()
+        if devices_writer:
+            devices_writer.close()
 
 
 class BluetoothScanner:
@@ -217,7 +222,7 @@ class BluetoothScanner:
         sort_dir = "↑" if self.sort_ascending else "↓"
         
         header = Panel(
-            f"🛰️  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
+            f"🥓  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
             f"Interface: HCI{self.scan_config.interface} | "
             f"Devices: {len(self.devices)} | "
             f"Packets: {self.stats.total_packets:,} | "
@@ -355,7 +360,7 @@ class BluetoothScanner:
         )
         return Panel(footer_text, style="dim")
 
-    def _packet_callback(self, packet, known_writer: PcapWriter, unknown_writer: PcapWriter):
+    def _packet_callback(self, packet, known_writer: PcapWriter, unknown_writer: PcapWriter, devices_writer: PcapWriter):
         """Process captured Bluetooth packets."""
         try:
             if not packet.haslayer(HCI_LE_Meta_Advertising_Reports):
@@ -367,14 +372,14 @@ class BluetoothScanner:
             )
 
             for report in reports:
-                self._process_advertising_report(report, packet, known_writer, unknown_writer)
+                self._process_advertising_report(report, packet, known_writer, unknown_writer, devices_writer)
 
         except Exception as e:
             self.logger.error_with_context(e, "Error processing packet")
             self.stats.total_packets += 1  # Count failed packets
 
     def _process_advertising_report(
-        self, report, original_packet, known_writer: PcapWriter, unknown_writer: PcapWriter
+        self, report, original_packet, known_writer: PcapWriter, unknown_writer: PcapWriter, devices_writer: PcapWriter
     ):
         """Process a single advertising report."""
         packet_info = None
@@ -395,13 +400,25 @@ class BluetoothScanner:
             device = self._get_or_create_device(packet_info)
 
             # Determine which PCAP file to write to
-            if packet_info.company_id and self.device_detector.is_known_company(
+            # Three-way classification: devices PCAP, known PCAP, or unknown PCAP
+            device_type_str = device.device_type.value
+            is_special_device = device_type_str in config.device_types_for_devices_pcap
+            is_known_company = packet_info.company_id and self.device_detector.is_known_company(
                 packet_info.company_id
-            ):
+            )
+            
+            if is_special_device:
+                # Write to devices PCAP for configured device types
+                devices_writer.write(original_packet)
+                if device.company_name:
+                    self.stats.known_companies.add(device.company_name)
+            elif is_known_company:
+                # Write to known PCAP for known companies
                 known_writer.write(original_packet)
                 if device.company_name:
                     self.stats.known_companies.add(device.company_name)
             else:
+                # Write to unknown PCAP for everything else
                 unknown_writer.write(original_packet)
                 if packet_info.company_id:
                     self.stats.unknown_company_ids.add(packet_info.company_id)
@@ -510,7 +527,7 @@ class BluetoothScanner:
         if not self.quiet and self.enable_rich and self.console:
             self.console.print(
                 Panel.fit(
-                    f"🛰️  [bold bright_blue]Starting baconfreak[/bold bright_blue]\n\n"
+                    f"🥓  [bold bright_blue]Starting baconfreak[/bold bright_blue]\n\n"
                     f"Interface: [cyan]HCI{self.scan_config.interface}[/cyan]\n"
                     f"Output: [cyan]{config.output_dir_path}[/cyan]\n"
                     f"Min RSSI: [cyan]{self.scan_config.min_rssi} dBm[/cyan]",
@@ -524,13 +541,14 @@ class BluetoothScanner:
             self._running = True
 
             # Set up PCAP writers
-            with pcap_writers(config.known_pcap_path, config.unknown_pcap_path) as (
+            with pcap_writers(config.known_pcap_path, config.unknown_pcap_path, config.devices_pcap_path) as (
                 known_writer,
                 unknown_writer,
+                devices_writer,
             ):
 
                 def packet_handler(packet):
-                    self._packet_callback(packet, known_writer, unknown_writer)
+                    self._packet_callback(packet, known_writer, unknown_writer, devices_writer)
 
                 if not self.quiet and self.enable_rich:
                     # Run with Rich live display
@@ -711,6 +729,7 @@ class BluetoothScanner:
         
 📤 Known devices: [cyan]{config.known_pcap_path}[/cyan]
 ❓ Unknown devices: [cyan]{config.unknown_pcap_path}[/cyan]
+🎯 Special devices: [cyan]{config.devices_pcap_path}[/cyan]
 📋 Log file: [cyan]{config.logs_dir_path / 'baconfreak.log'}[/cyan]"""
 
         self.console.print(Panel(files_text, title="💾 Files", style="bright_blue"))
@@ -737,6 +756,7 @@ class BluetoothScanner:
             print(f"\nOutput Files:")
             print(f"  Known devices: {config.known_pcap_path}")
             print(f"  Unknown devices: {config.unknown_pcap_path}")
+            print(f"  Special devices: {config.devices_pcap_path}")
 
 
 def main():
