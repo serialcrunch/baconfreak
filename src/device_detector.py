@@ -1,5 +1,5 @@
 """
-Modern device detection logic using Pydantic models and structured logging.
+Device detection logic using Pydantic models and structured logging.
 """
 
 from typing import Dict, List, Optional, Set
@@ -15,14 +15,14 @@ from scapy.layers.bluetooth import (
 )
 from scapy.packet import Raw
 
-from .company_identifiers import ModernCompanyIdentifiers
+from .company_identifiers import CompanyIdentifiers
 from .models import BluetoothDevice, DeviceConstants, DeviceType, PacketInfo
 
 
-class ModernDeviceDetector:
-    """Modern device detection with enhanced capabilities and Pydantic models."""
+class DeviceDetector:
+    """Device detection with enhanced capabilities and Pydantic models."""
 
-    def __init__(self, company_resolver: ModernCompanyIdentifiers):
+    def __init__(self, company_resolver: CompanyIdentifiers):
         self.logger = logger.bind(component="device_detector")
         self.company_resolver = company_resolver
 

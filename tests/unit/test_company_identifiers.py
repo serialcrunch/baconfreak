@@ -16,7 +16,7 @@ from src.company_identifiers import (
     CompanyIdentifier,
     CompanyDatabase,
     LastUpdate,
-    ModernCompanyIdentifiers,
+    CompanyIdentifiers,
 )
 
 
@@ -55,8 +55,8 @@ class TestCompanyDatabase(unittest.TestCase):
             self.assertTrue(True)
 
 
-class TestModernCompanyIdentifiers(unittest.TestCase):
-    """Test ModernCompanyIdentifiers class."""
+class TestCompanyIdentifiers(unittest.TestCase):
+    """Test CompanyIdentifiers class."""
 
     def setUp(self):
         """Set up test fixtures."""
@@ -83,8 +83,8 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
             shutil.rmtree(self.temp_dir)
 
     def test_initialization(self):
-        """Test ModernCompanyIdentifiers initialization."""
-        company_ids = ModernCompanyIdentifiers()
+        """Test CompanyIdentifiers initialization."""
+        company_ids = CompanyIdentifiers()
         
         # Test that the object is created successfully
         self.assertIsNotNone(company_ids)
@@ -95,7 +95,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_initialization_and_update(self):
         """Test basic initialization and update."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test update method exists and is callable
         self.assertTrue(hasattr(company_ids, 'update'))
@@ -103,7 +103,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_lookup_basic(self):
         """Test basic lookup functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that lookup method exists and is callable
         self.assertTrue(hasattr(company_ids, 'lookup'))
@@ -111,7 +111,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_bulk_lookup(self):
         """Test bulk lookup functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that bulk_lookup method exists
         self.assertTrue(hasattr(company_ids, 'bulk_lookup'))
@@ -119,7 +119,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_statistics(self):
         """Test statistics functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that get_statistics method exists
         self.assertTrue(hasattr(company_ids, 'get_statistics'))
@@ -127,7 +127,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_cache_management(self):
         """Test cache management functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that enable_cache method exists
         self.assertTrue(hasattr(company_ids, 'enable_cache'))
@@ -135,7 +135,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_connection_management(self):
         """Test database connection management."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that close method exists
         self.assertTrue(hasattr(company_ids, 'close'))
@@ -143,7 +143,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_method_availability(self):
         """Test that all expected methods are available."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         expected_methods = ['lookup', 'bulk_lookup', 'get_statistics', 'enable_cache', 'close', 'update']
         
@@ -153,7 +153,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_basic_functionality(self):
         """Test basic functionality without specific path requirements."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that we can call basic methods without errors
         try:
@@ -166,7 +166,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_update_method_with_valid_data(self):
         """Test the update method with valid YAML data."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test that update method works
         try:
@@ -179,7 +179,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_lookup_with_known_ids(self):
         """Test lookup functionality with known company IDs."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test some well-known company IDs
         known_ids = [76, 6, 15]  # Apple, Microsoft, Broadcom
@@ -195,7 +195,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_bulk_lookup_functionality(self):
         """Test bulk lookup functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test bulk lookup with multiple IDs
         test_ids = [76, 6, 15, 999]
@@ -211,7 +211,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_statistics_tracking(self):
         """Test statistics tracking functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Get initial statistics
         stats = company_ids.get_statistics()
@@ -224,7 +224,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_cache_management(self):
         """Test cache enable/disable functionality."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test cache operations
         company_ids.enable_cache(True)
@@ -235,7 +235,7 @@ class TestModernCompanyIdentifiers(unittest.TestCase):
 
     def test_error_handling_invalid_lookup(self):
         """Test error handling for invalid lookups."""
-        company_ids = ModernCompanyIdentifiers()
+        company_ids = CompanyIdentifiers()
         
         # Test with invalid inputs
         invalid_inputs = [-1, 70000, None]

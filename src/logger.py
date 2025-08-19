@@ -1,5 +1,5 @@
 """
-Modern logging configuration using Loguru.
+Logging configuration using Loguru.
 """
 
 import sys
@@ -14,7 +14,7 @@ from .config import config
 
 
 class LoguruConfig:
-    """Modern logging configuration using Loguru and Rich."""
+    """Logging configuration using Loguru and Rich."""
 
     def __init__(self):
         self.console = Console(

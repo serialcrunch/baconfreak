@@ -16,8 +16,8 @@ from scapy.layers.bluetooth import (
 )
 from scapy.packet import Raw
 
-from src.company_identifiers import ModernCompanyIdentifiers
-from src.device_detector import ModernDeviceDetector
+from src.company_identifiers import CompanyIdentifiers
+from src.device_detector import DeviceDetector
 from src.models import BluetoothDevice, DeviceType, PacketInfo
 
 
@@ -26,8 +26,8 @@ class TestDeviceDetector(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        self.mock_company_resolver = Mock(spec=ModernCompanyIdentifiers)
-        self.detector = ModernDeviceDetector(self.mock_company_resolver)
+        self.mock_company_resolver = Mock(spec=CompanyIdentifiers)
+        self.detector = DeviceDetector(self.mock_company_resolver)
 
     def test_detect_tile_device(self):
         """Test Tile device detection."""

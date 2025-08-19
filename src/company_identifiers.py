@@ -1,5 +1,5 @@
 """
-Modern company identifiers management using Pydantic and enhanced error handling.
+Company identifiers management using Pydantic and enhanced error handling.
 """
 
 from datetime import datetime
@@ -85,8 +85,8 @@ class CompanyDatabase(BaseModel):
         return v
 
 
-class ModernCompanyIdentifiers:
-    """Modern company identifiers manager with enhanced validation and error handling."""
+class CompanyIdentifiers:
+    """Company identifiers manager with enhanced validation and error handling."""
 
     def __init__(self):
         self.logger = logger.bind(component="company_identifiers")

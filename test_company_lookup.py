@@ -4,14 +4,14 @@ Test script for company identifier lookups.
 Run with: python test_company_lookup.py
 """
 
-from src.company_identifiers import ModernCompanyIdentifiers
+from src.company_identifiers import CompanyIdentifiers
 
 def test_lookups():
     """Test various company ID lookups."""
     print("🧪 Testing Company Identifier Lookups")
     print("=" * 50)
     
-    ci = ModernCompanyIdentifiers()
+    ci = CompanyIdentifiers()
     
     # Test cases: (company_id, expected_company_name_part)
     test_cases = [

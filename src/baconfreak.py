@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Modern Bluetooth Low Energy packet analysis tool.
+Bluetooth Low Energy packet analysis tool.
 
-This module provides a modernized version using Pydantic, Loguru, Rich, and other
+This module provides enhanced capabilities using Pydantic, Loguru, Rich, and other
 industry-standard packages for better performance, maintainability, and user experience.
 """
 
@@ -32,9 +32,9 @@ from scapy.layers.bluetooth import (
 )
 from scapy.utils import PcapWriter
 
-from .company_identifiers import ModernCompanyIdentifiers
+from .company_identifiers import CompanyIdentifiers
 from .config import config
-from .device_detector import ModernDeviceDetector
+from .device_detector import DeviceDetector
 from .logger import BaconFreakLogger, setup_logging
 from .models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo, ScanConfiguration
 
@@ -94,7 +94,7 @@ def pcap_writers(known_path: Path, unknown_path: Path, devices_path: Path):
 
 
 class BluetoothScanner:
-    """Modern Bluetooth Low Energy scanner with Rich UI and structured logging."""
+    """Bluetooth Low Energy scanner with Rich UI and structured logging."""
 
     def __init__(
         self,
@@ -150,8 +150,8 @@ class BluetoothScanner:
 
         # Initialize components
         try:
-            self.company_resolver = ModernCompanyIdentifiers()
-            self.device_detector = ModernDeviceDetector(self.company_resolver)
+            self.company_resolver = CompanyIdentifiers()
+            self.device_detector = DeviceDetector(self.company_resolver)
         except Exception as e:
             logger.error(f"Failed to initialize components: {e}")
             raise BaconFreakError(f"Initialization failed: {e}")

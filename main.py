@@ -1,5 +1,5 @@
 """
-Modern CLI interface using Typer and Rich.
+CLI interface using Typer and Rich.
 """
 
 import sys
@@ -21,7 +21,7 @@ from src.models import DeviceType
 
 app = typer.Typer(
     name="baconfreak",
-    help="🥓  Modern Bluetooth Low Energy packet analysis tool",
+    help="🥓  Bluetooth Low Energy packet analysis tool",
     add_completion=False,
     rich_markup_mode="rich",
 )
@@ -32,7 +32,7 @@ console = Console()
 def version_callback(value: bool):
     """Show version information."""
     if value:
-        console.print("🥓  [bold blue]baconfreak[/bold blue] - Modern Bluetooth Analysis Tool")
+        console.print("🥓  [bold blue]baconfreak[/bold blue] - Bluetooth Analysis Tool")
         console.print("Version: [green]1.0.0[/green]")
         console.print("Built with: [cyan]Scapy, Pydantic, Loguru, Rich, Typer[/cyan]")
         raise typer.Exit()
@@ -264,12 +264,12 @@ def update_db(
 ):
     """🗃️  Update company identifiers database from YAML sources."""
     try:
-        from src.company_identifiers import ModernCompanyIdentifiers
+        from src.company_identifiers import CompanyIdentifiers
         
         console.print("🗃️  [bold blue]Updating Company Identifiers Database[/bold blue]")
         console.print("Loading company identifiers...")
         
-        ci = ModernCompanyIdentifiers()
+        ci = CompanyIdentifiers()
         
         with console.status("[bold blue]Updating database...", spinner="dots"):
             result = ci.update(force=force)
@@ -309,7 +309,7 @@ def update_db(
 def show_startup_banner(interface: int, output_dir: Path, log_level: str):
     """Show startup banner with configuration."""
     banner = Panel.fit(
-        f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Modern Bluetooth Analysis\n\n"
+        f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Bluetooth Analysis\n\n"
         f"🔗 Interface: [cyan]HCI{interface}[/cyan]\n"
         f"📁 Output: [cyan]{output_dir}[/cyan]\n"
         f"📝 Log Level: [cyan]{log_level}[/cyan]\n\n"

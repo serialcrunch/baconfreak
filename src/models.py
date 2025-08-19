@@ -1,5 +1,5 @@
 """
-Modern data models using Pydantic for Bluetooth device tracking.
+Data models using Pydantic for Bluetooth device tracking.
 """
 
 from datetime import datetime

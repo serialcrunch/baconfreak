@@ -1,5 +1,5 @@
 """
-Modern configuration management using Dynaconf.
+Configuration management using Dynaconf.
 """
 
 from pathlib import Path
@@ -12,7 +12,7 @@ from .models import ScanConfiguration
 
 
 class BaconFreakConfig:
-    """Modern configuration management for baconfreak using Dynaconf."""
+    """Configuration management for baconfreak using Dynaconf."""
 
     def __init__(self, settings_files: Optional[List[str]] = None):
         """

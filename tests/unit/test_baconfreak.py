@@ -107,8 +107,8 @@ class TestPcapWriters(unittest.TestCase):
 class TestBluetoothScannerInitialization(unittest.TestCase):
     """Test BluetoothScanner initialization."""
 
-    @patch('src.baconfreak.ModernCompanyIdentifiers')
-    @patch('src.baconfreak.ModernDeviceDetector')
+    @patch('src.baconfreak.CompanyIdentifiers')
+    @patch('src.baconfreak.DeviceDetector')
     @patch('src.baconfreak.BaconFreakLogger')
     @patch('src.baconfreak.config')
     def test_scanner_initialization_default(self, mock_config, mock_logger, mock_detector, mock_company):
@@ -124,8 +124,8 @@ class TestBluetoothScannerInitialization(unittest.TestCase):
         self.assertIsInstance(scanner.devices, dict)
         self.assertFalse(scanner._running)
 
-    @patch('src.baconfreak.ModernCompanyIdentifiers')
-    @patch('src.baconfreak.ModernDeviceDetector')
+    @patch('src.baconfreak.CompanyIdentifiers')
+    @patch('src.baconfreak.DeviceDetector')
     @patch('src.baconfreak.BaconFreakLogger')
     @patch('src.baconfreak.config')
     def test_scanner_initialization_custom_interface(self, mock_config, mock_logger, mock_detector, mock_company):
@@ -137,8 +137,8 @@ class TestBluetoothScannerInitialization(unittest.TestCase):
         
         self.assertEqual(scanner.scan_config.interface, 2)
 
-    @patch('src.baconfreak.ModernCompanyIdentifiers')
-    @patch('src.baconfreak.ModernDeviceDetector')
+    @patch('src.baconfreak.CompanyIdentifiers')
+    @patch('src.baconfreak.DeviceDetector')
     @patch('src.baconfreak.BaconFreakLogger')
     @patch('src.baconfreak.config')
     def test_scanner_initialization_quiet_mode(self, mock_config, mock_logger, mock_detector, mock_company):
@@ -152,8 +152,8 @@ class TestBluetoothScannerInitialization(unittest.TestCase):
         self.assertTrue(scanner.quiet)
         self.assertIsNone(scanner.console)
 
-    @patch('src.baconfreak.ModernCompanyIdentifiers')
-    @patch('src.baconfreak.ModernDeviceDetector')
+    @patch('src.baconfreak.CompanyIdentifiers')
+    @patch('src.baconfreak.DeviceDetector')
     @patch('src.baconfreak.BaconFreakLogger')
     @patch('src.baconfreak.config')
     def test_scanner_initialization_with_scan_config(self, mock_config, mock_logger, mock_detector, mock_company):
@@ -164,8 +164,8 @@ class TestBluetoothScannerInitialization(unittest.TestCase):
         
         self.assertEqual(scanner.scan_config, custom_config)
 
-    @patch('src.baconfreak.ModernCompanyIdentifiers')
-    @patch('src.baconfreak.ModernDeviceDetector')
+    @patch('src.baconfreak.CompanyIdentifiers')
+    @patch('src.baconfreak.DeviceDetector')
     @patch('src.baconfreak.BaconFreakLogger')
     @patch('src.baconfreak.config')
     def test_scanner_initialization_component_failure(self, mock_config, mock_logger, mock_detector, mock_company):
@@ -182,8 +182,8 @@ class TestBluetoothScannerMethods(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        with patch('src.baconfreak.ModernCompanyIdentifiers'), \
-             patch('src.baconfreak.ModernDeviceDetector'), \
+        with patch('src.baconfreak.CompanyIdentifiers'), \
+             patch('src.baconfreak.DeviceDetector'), \
              patch('src.baconfreak.BaconFreakLogger'), \
              patch('src.baconfreak.config') as mock_config:
             mock_config.scan_config = Mock()
@@ -418,8 +418,8 @@ class TestBluetoothScannerPacketProcessing(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        with patch('src.baconfreak.ModernCompanyIdentifiers'), \
-             patch('src.baconfreak.ModernDeviceDetector'), \
+        with patch('src.baconfreak.CompanyIdentifiers'), \
+             patch('src.baconfreak.DeviceDetector'), \
              patch('src.baconfreak.BaconFreakLogger'), \
              patch('src.baconfreak.config') as mock_config:
             mock_config.scan_config = Mock(min_rssi=-100)
@@ -720,8 +720,8 @@ class TestBluetoothScannerInterface(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        with patch('src.baconfreak.ModernCompanyIdentifiers'), \
-             patch('src.baconfreak.ModernDeviceDetector'), \
+        with patch('src.baconfreak.CompanyIdentifiers'), \
+             patch('src.baconfreak.DeviceDetector'), \
              patch('src.baconfreak.BaconFreakLogger'), \
              patch('src.baconfreak.config') as mock_config:
             mock_scan_config = Mock()
@@ -785,8 +785,8 @@ class TestBluetoothScannerSummary(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        with patch('src.baconfreak.ModernCompanyIdentifiers'), \
-             patch('src.baconfreak.ModernDeviceDetector'), \
+        with patch('src.baconfreak.CompanyIdentifiers'), \
+             patch('src.baconfreak.DeviceDetector'), \
              patch('src.baconfreak.BaconFreakLogger'), \
              patch('src.baconfreak.config') as mock_config:
             mock_config.scan_config = Mock()
@@ -839,8 +839,8 @@ class TestBluetoothScannerRun(unittest.TestCase):
 
     def setUp(self):
         """Set up test fixtures."""
-        with patch('src.baconfreak.ModernCompanyIdentifiers'), \
-             patch('src.baconfreak.ModernDeviceDetector'), \
+        with patch('src.baconfreak.CompanyIdentifiers'), \
+             patch('src.baconfreak.DeviceDetector'), \
              patch('src.baconfreak.BaconFreakLogger'), \
              patch('src.baconfreak.config') as mock_config:
             mock_config.scan_config = Mock()
