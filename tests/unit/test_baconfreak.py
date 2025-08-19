@@ -49,6 +49,7 @@ class TestPcapWriters(unittest.TestCase):
         self.temp_dir = Path(tempfile.mkdtemp())
         self.known_path = self.temp_dir / "known.pcap"
         self.unknown_path = self.temp_dir / "unknown.pcap"
+        self.devices_path = self.temp_dir / "devices.pcap"
 
     def tearDown(self):
         """Clean up test fixtures."""
@@ -61,32 +62,37 @@ class TestPcapWriters(unittest.TestCase):
         """Test successful pcap writers context manager."""
         mock_known = Mock()
         mock_unknown = Mock()
-        mock_pcap_writer.side_effect = [mock_known, mock_unknown]
+        mock_devices = Mock()
+        mock_pcap_writer.side_effect = [mock_known, mock_unknown, mock_devices]
 
-        with pcap_writers(self.known_path, self.unknown_path) as (known, unknown):
+        with pcap_writers(self.known_path, self.unknown_path, self.devices_path) as (known, unknown, devices):
             self.assertEqual(known, mock_known)
             self.assertEqual(unknown, mock_unknown)
+            self.assertEqual(devices, mock_devices)
 
-        # Verify both writers were closed
+        # Verify all writers were closed
         mock_known.close.assert_called_once()
         mock_unknown.close.assert_called_once()
+        mock_devices.close.assert_called_once()
 
     @patch('src.baconfreak.PcapWriter')
     def test_pcap_writers_cleanup_on_exception(self, mock_pcap_writer):
         """Test pcap writers cleanup on exception."""
         mock_known = Mock()
         mock_unknown = Mock()
-        mock_pcap_writer.side_effect = [mock_known, mock_unknown]
+        mock_devices = Mock()
+        mock_pcap_writer.side_effect = [mock_known, mock_unknown, mock_devices]
 
         try:
-            with pcap_writers(self.known_path, self.unknown_path) as (known, unknown):
+            with pcap_writers(self.known_path, self.unknown_path, self.devices_path) as (known, unknown, devices):
                 raise Exception("test exception")
         except Exception:
             pass
 
-        # Verify both writers were closed even after exception
+        # Verify all writers were closed even after exception
         mock_known.close.assert_called_once()
         mock_unknown.close.assert_called_once()
+        mock_devices.close.assert_called_once()
 
     @patch('src.baconfreak.PcapWriter')
     def test_pcap_writers_partial_failure(self, mock_pcap_writer):
@@ -95,7 +101,7 @@ class TestPcapWriters(unittest.TestCase):
         mock_pcap_writer.side_effect = [mock_known, Exception("writer failed")]
 
         try:
-            with pcap_writers(self.known_path, self.unknown_path):
+            with pcap_writers(self.known_path, self.unknown_path, self.devices_path):
                 pass
         except Exception:
             pass
@@ -868,7 +874,7 @@ class TestBluetoothScannerRun(unittest.TestCase):
         self.scanner.scan_config.scan_timeout = 1  # Set specific timeout
         
         mock_bt_socket = Mock()
-        mock_pcap_writers.return_value.__enter__.return_value = (Mock(), Mock())
+        mock_pcap_writers.return_value.__enter__.return_value = (Mock(), Mock(), Mock())
         
         with patch.object(self.scanner, '_initialize_bluetooth_interface') as mock_init:
             mock_init.return_value = mock_bt_socket
@@ -884,7 +890,7 @@ class TestBluetoothScannerRun(unittest.TestCase):
         self.scanner.scan_config.scan_timeout = 1  # Set specific timeout
         
         mock_bt_socket = Mock()
-        mock_pcap_writers.return_value.__enter__.return_value = (Mock(), Mock())
+        mock_pcap_writers.return_value.__enter__.return_value = (Mock(), Mock(), Mock())
         
         with patch.object(self.scanner, '_initialize_bluetooth_interface') as mock_init:
             mock_init.return_value = mock_bt_socket

@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 """
 Test script for company identifier lookups.
-Run with: python test_company_lookup.py
+Run with: python tests/unit/test_company_lookup.py
 """
+
+import sys
+from pathlib import Path
+
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from src.company_identifiers import CompanyIdentifiers
 
