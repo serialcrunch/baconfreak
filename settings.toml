@@ -17,9 +17,9 @@ scan_timeout = 0  # 0 = infinite
 filter_duplicates = false
 
 [default.output]
-known_pcap = "bfreak-known.pcap"
-unknown_pcap = "bfreak-unknown.pcap"
-devices_pcap = "bfreak-devices.pcap"
+known_pcap = "known.pcap"
+unknown_pcap = "unknown.pcap"
+devices_pcap = "devices.pcap"
 device_types_for_devices_pcap = ["tile", "airtag_unregistered", "airtag_registered"]
 
 [default.database]

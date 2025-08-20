@@ -132,6 +132,14 @@ class BluetoothScanner:
         # Device tracking
         self.devices: Dict[str, BluetoothDevice] = {}
         self.stats = DeviceStats()
+        
+        # Generate session timestamp for PCAP file naming
+        self.session_timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+        
+        # Store actual PCAP paths used (will be set in run method)
+        self.actual_known_pcap_path: Optional[Path] = None
+        self.actual_unknown_pcap_path: Optional[Path] = None
+        self.actual_devices_pcap_path: Optional[Path] = None
 
         # Performance tracking
         self._last_stats_update = datetime.now()
@@ -164,6 +172,14 @@ class BluetoothScanner:
         """Handle shutdown signals gracefully."""
         logger.info(f"Received signal {signum}, shutting down...")
         self.stop()
+    
+    def _get_timestamped_pcap_path(self, base_filename: str) -> Path:
+        """Generate a timestamped PCAP filename with Bacon prefix."""
+        path = Path(base_filename)
+        stem = path.stem
+        suffix = path.suffix
+        timestamped_filename = f"Bacon-{self.session_timestamp}-{stem}{suffix}"
+        return path.parent / timestamped_filename
 
     def stop(self):
         """Stop the scanning process."""
@@ -540,8 +556,17 @@ class BluetoothScanner:
             bt_socket = self._initialize_bluetooth_interface()
             self._running = True
 
-            # Set up PCAP writers
-            with pcap_writers(config.known_pcap_path, config.unknown_pcap_path, config.devices_pcap_path) as (
+            # Set up PCAP writers with timestamped filenames
+            known_pcap_path = self._get_timestamped_pcap_path(config.known_pcap_path)
+            unknown_pcap_path = self._get_timestamped_pcap_path(config.unknown_pcap_path)
+            devices_pcap_path = self._get_timestamped_pcap_path(config.devices_pcap_path)
+            
+            # Store actual paths for summary display
+            self.actual_known_pcap_path = known_pcap_path
+            self.actual_unknown_pcap_path = unknown_pcap_path
+            self.actual_devices_pcap_path = devices_pcap_path
+            
+            with pcap_writers(known_pcap_path, unknown_pcap_path, devices_pcap_path) as (
                 known_writer,
                 unknown_writer,
                 devices_writer,
@@ -727,9 +752,9 @@ class BluetoothScanner:
         # Output files
         files_text = f"""📁 [bold]Output Files:[/bold]
         
-📤 Known devices: [cyan]{config.known_pcap_path}[/cyan]
-❓ Unknown devices: [cyan]{config.unknown_pcap_path}[/cyan]
-🎯 Special devices: [cyan]{config.devices_pcap_path}[/cyan]
+📤 Known devices: [cyan]{self.actual_known_pcap_path or config.known_pcap_path}[/cyan]
+❓ Unknown devices: [cyan]{self.actual_unknown_pcap_path or config.unknown_pcap_path}[/cyan]
+🎯 Special devices: [cyan]{self.actual_devices_pcap_path or config.devices_pcap_path}[/cyan]
 📋 Log file: [cyan]{config.logs_dir_path / 'baconfreak.log'}[/cyan]"""
 
         self.console.print(Panel(files_text, title="💾 Files", style="bright_blue"))
@@ -754,9 +779,9 @@ class BluetoothScanner:
                     print(f"  {device_type.value}: {count}")
 
             print(f"\nOutput Files:")
-            print(f"  Known devices: {config.known_pcap_path}")
-            print(f"  Unknown devices: {config.unknown_pcap_path}")
-            print(f"  Special devices: {config.devices_pcap_path}")
+            print(f"  Known devices: {self.actual_known_pcap_path or config.known_pcap_path}")
+            print(f"  Unknown devices: {self.actual_unknown_pcap_path or config.unknown_pcap_path}")
+            print(f"  Special devices: {self.actual_devices_pcap_path or config.devices_pcap_path}")
 
 
 def main():
