@@ -504,7 +504,7 @@ class BluetoothScanner:
                 )
             )
 
-            ans, unans = bt_socket.sr(scan_command)
+            ans, unans = bt_socket.sr(scan_command, verbose=False)
             if not ans:
                 raise BaconFreakInterfaceError(
                     f"Failed to enable scanning on hci{self.scan_config.interface}"

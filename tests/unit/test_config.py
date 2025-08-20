@@ -22,7 +22,7 @@ class TestConfig(unittest.TestCase):
 
         # Test path properties
         self.assertTrue(config.base_dir_path.exists())
-        self.assertEqual(config.bluetooth_interface, 1)
+        self.assertEqual(config.bluetooth_interface, "hci1")
         self.assertEqual(config.scan_timeout, 0)
         self.assertFalse(config.filter_duplicates)
         self.assertIn(config.log_level, ["INFO", "DEBUG"])  # Can be INFO or DEBUG depending on environment
@@ -91,7 +91,7 @@ scan_timeout = 60
         
         config = BaconFreakConfig(settings_files=[str(custom_settings)])
         
-        self.assertEqual(config.bluetooth_interface, 2)
+        self.assertEqual(config.bluetooth_interface, "hci2")
         self.assertEqual(config.scan_timeout, 60)
 
     def test_environment_variable_override(self):
@@ -104,8 +104,11 @@ scan_timeout = 60
         try:
             config = BaconFreakConfig()
             # Note: This test might not work as expected due to how Dynaconf handles env vars
-            # But it tests the code path
-            self.assertIsInstance(config.bluetooth_interface, int)
+            # But it tests the code path and type conversion
+            self.assertIsInstance(config.bluetooth_interface, str)
+            # Environment variable might not override due to test environment, 
+            # but we test that interface is always a string
+            self.assertTrue(config.bluetooth_interface.startswith("hci"))
         finally:
             # Clean up
             if "BFREAK_BLUETOOTH_INTERFACE" in os.environ:
@@ -120,7 +123,7 @@ scan_timeout = 60
         self.assertIsNotNone(scan_config)
         
         # Test basic properties
-        self.assertIsInstance(config.bluetooth_interface, int)
+        self.assertIsInstance(config.bluetooth_interface, str)
         self.assertIsInstance(config.scan_timeout, int)
 
     def test_path_properties_with_custom_base_dir(self):
@@ -147,7 +150,8 @@ scan_timeout = 60
         config = BaconFreakConfig(settings_files=[nonexistent_file])
         
         # Should fall back to defaults
-        self.assertIsInstance(config.bluetooth_interface, int)
+        self.assertIsInstance(config.bluetooth_interface, str)
+        self.assertEqual(config.bluetooth_interface, "hci1")
 
     def test_invalid_toml_settings_file(self):
         """Test handling of invalid TOML files."""
@@ -170,8 +174,8 @@ scan_timeout = 60
         # Test boolean values
         self.assertIsInstance(config.filter_duplicates, bool)
         
-        # Test integer values
-        self.assertIsInstance(config.bluetooth_interface, int)
+        # Test interface value (now string)
+        self.assertIsInstance(config.bluetooth_interface, str)
         self.assertIsInstance(config.scan_timeout, int)
         self.assertIsInstance(config.db_batch_size, int)
         
@@ -182,9 +186,12 @@ scan_timeout = 60
         """Test the get method with default values."""
         config = BaconFreakConfig()
         
-        # Test existing key
-        interface = config.get("bluetooth.interface", 99)
-        self.assertEqual(interface, config.bluetooth_interface)
+        # Test existing key - get returns raw value, property returns processed string
+        interface_raw = config.get("bluetooth.interface", 99)
+        # The raw value from settings might be integer (from TOML), but property processes it
+        self.assertIn(type(interface_raw), [int, str])
+        # The property should always return a string
+        self.assertIsInstance(config.bluetooth_interface, str)
         
         # Test non-existing key with default
         nonexistent = config.get("nonexistent.key", "default_value")

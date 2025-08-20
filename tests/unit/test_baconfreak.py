@@ -164,7 +164,7 @@ class TestBluetoothScannerInitialization(unittest.TestCase):
     @patch('src.baconfreak.config')
     def test_scanner_initialization_with_scan_config(self, mock_config, mock_logger, mock_detector, mock_company):
         """Test scanner initialization with custom scan config."""
-        custom_config = ScanConfiguration(interface=3, scan_timeout=60)
+        custom_config = ScanConfiguration(interface="hci3", scan_timeout=60)
         
         scanner = BluetoothScanner(scan_config=custom_config)
         

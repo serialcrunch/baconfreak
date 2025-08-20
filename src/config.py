@@ -113,8 +113,15 @@ class BaconFreakConfig:
     @property
     def scan_config(self) -> ScanConfiguration:
         """Get scan configuration as Pydantic model."""
+        # Handle backward compatibility for integer interfaces
+        interface_raw = self.settings.get("bluetooth.interface", "hci1")
+        if isinstance(interface_raw, int):
+            interface = f"hci{interface_raw}"
+        else:
+            interface = interface_raw
+            
         return ScanConfiguration(
-            interface=self.settings.get("bluetooth.interface", 1),
+            interface=interface,
             scan_timeout=self.settings.get("bluetooth.scan_timeout", 0),
             filter_duplicates=self.settings.get("bluetooth.filter_duplicates", False),
             output_dir=str(self.output_dir_path),
@@ -130,9 +137,14 @@ class BaconFreakConfig:
 
     # Legacy property compatibility
     @property
-    def bluetooth_interface(self) -> int:
-        """Get Bluetooth interface number."""
-        return self.settings.get("bluetooth.interface", 1)
+    def bluetooth_interface(self) -> str:
+        """Get Bluetooth interface name."""
+        # Handle backward compatibility for integer interfaces
+        interface_raw = self.settings.get("bluetooth.interface", "hci1")
+        if isinstance(interface_raw, int):
+            return f"hci{interface_raw}"
+        else:
+            return interface_raw
 
     @property
     def scan_timeout(self) -> int:
@@ -176,6 +188,10 @@ class BaconFreakConfig:
     def dump(self) -> dict:
         """Dump all configuration as dictionary."""
         return dict(self.settings)
+    
+    def get_plugin_config(self, protocol: str) -> dict:
+        """Get plugin-specific configuration."""
+        return self.settings.get(f"plugins.{protocol}", {})
 
 
 # Global configuration instance

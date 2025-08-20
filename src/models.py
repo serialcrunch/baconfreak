@@ -206,7 +206,7 @@ class ScanConfiguration(BaseModel):
     model_config = ConfigDict(validate_assignment=True, str_strip_whitespace=True)
 
     # Interface settings
-    interface: int = Field(default=1, description="Bluetooth HCI interface number", ge=0)
+    interface: str = Field(default="hci1", description="Bluetooth HCI interface (e.g., hci0, hci1)")
     scan_timeout: int = Field(default=0, description="Scan timeout in seconds (0 = infinite)", ge=0)
     filter_duplicates: bool = Field(default=False, description="Filter duplicate advertisements")
 

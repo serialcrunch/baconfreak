@@ -50,8 +50,14 @@ def config_callback(value: Optional[str]):
 
 @app.command()
 def scan(
-    interface: int = typer.Option(
-        1, "--interface", "-i", help="🔗 Bluetooth HCI interface number", min=0
+    protocols: List[str] = typer.Option(
+        ["ble", "wifi"], "--protocol", "-p", help="📡 Capture protocols (ble, wifi, etc.) - can specify multiple"
+    ),
+    ble_interface: Optional[str] = typer.Option(
+        None, "--ble-interface", help="🔗 BLE HCI interface (e.g., hci0, hci1) - overrides config file"
+    ),
+    wifi_interface: Optional[str] = typer.Option(
+        None, "--wifi-interface", help="📶 WiFi interface name - overrides config file"
     ),
     timeout: int = typer.Option(
         0, "--timeout", "-t", help="⏱️  Scan timeout in seconds (0 = infinite)", min=0
@@ -71,6 +77,15 @@ def scan(
         "--filter-duplicates/--no-filter-duplicates",
         help="🔄 Filter duplicate advertisements",
     ),
+    wifi_channels: Optional[str] = typer.Option(
+        "1,6,11", "--wifi-channels", help="📡 WiFi channels to scan (comma-separated)"
+    ),
+    channel_hop: bool = typer.Option(
+        True, "--channel-hop/--no-channel-hop", help="🔄 Enable WiFi channel hopping"
+    ),
+    tabbed: bool = typer.Option(
+        None, "--tabbed/--no-tabbed", help="📊 Use tabbed interface (auto-enabled for multiple protocols)"
+    ),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="🤫 Quiet mode (minimal output)"),
     no_rich: bool = typer.Option(False, "--no-rich", help="🎨 Disable Rich formatting"),
     config_file: Optional[str] = typer.Option(
@@ -86,10 +101,11 @@ def scan(
     ),
 ):
     """
-    🛰️  Start Bluetooth Low Energy packet scanning.
+    🛰️  Start network packet scanning with pluggable protocols.
 
-    This command begins monitoring BLE advertisements and categorizes devices
-    by type (AirTags, AirPods, Tile trackers, etc.) and company identifiers.
+    This command begins monitoring network packets using the specified protocols
+    (BLE, WiFi, etc.) and categorizes devices by type and company identifiers.
+    Supports multiple protocols simultaneously with a tabbed interface.
     """
 
     # Setup logging
@@ -104,26 +120,108 @@ def scan(
     # Update configuration with CLI parameters
     if output_dir:
         config.set("paths.output_dir", str(output_dir))
-    if timeout:
-        config.set("bluetooth.scan_timeout", timeout)
 
-    config.set("bluetooth.interface", interface)
-    config.set("bluetooth.filter_duplicates", filter_duplicates)
-    config.set("detection.min_rssi", min_rssi)
-
-    # Show startup banner
-    if not quiet:
-        show_startup_banner(interface, config.output_dir_path, log_level)
+    # Auto-enable tabbed interface for multiple protocols
+    if tabbed is None:
+        use_tabbed = len(protocols) > 1
+    else:
+        use_tabbed = tabbed
 
     try:
-        # Import and run scanner (avoid circular imports)
-        from src.baconfreak import BluetoothScanner
+        # Import plugin framework
+        from src.plugins import plugin_registry
+        
+        if use_tabbed:
+            from src.plugins.tabbed_manager import TabbedPluginManager
+            manager = TabbedPluginManager(console)
+        else:
+            from src.plugins import PluginManager
+            manager = PluginManager(console)
 
-        scanner = BluetoothScanner(
-            interface=interface, enable_rich=not no_rich and not quiet, quiet=quiet
-        )
+        # Check if all protocols are available
+        available_protocols = plugin_registry.list_protocols()
+        for protocol in protocols:
+            if protocol not in available_protocols:
+                available = ", ".join(available_protocols)
+                console.print(f"❌ [red]Unknown protocol: {protocol}[/red]")
+                console.print(f"💡 [blue]Available protocols: {available}[/blue]")
+                raise typer.Exit(1)
 
-        scanner.run()
+        # Parse WiFi channels
+        wifi_channel_list = []
+        if wifi_channels:
+            try:
+                wifi_channel_list = [int(ch.strip()) for ch in wifi_channels.split(",")]
+            except ValueError:
+                console.print("❌ [red]Invalid WiFi channels format. Use comma-separated numbers like '1,6,11'[/red]")
+                raise typer.Exit(1)
+
+        # Configure and add plugins
+        plugins_added = []
+        
+        for protocol in protocols:
+            # Build protocol-specific configuration
+            plugin_config = config.get_plugin_config(protocol)
+            
+            if protocol == "ble":
+                # Only override config values when CLI params are explicitly provided
+                ble_overrides = {
+                    "scan_timeout": timeout,
+                    "filter_duplicates": filter_duplicates,
+                    "min_rssi": min_rssi
+                }
+                if ble_interface is not None:
+                    ble_overrides["interface"] = ble_interface
+                plugin_config.update(ble_overrides)
+            elif protocol == "wifi":
+                # Only override config values when CLI params are explicitly provided
+                wifi_overrides = {
+                    "scan_timeout": timeout,
+                    "channel_hop": channel_hop,
+                    "min_rssi": min_rssi
+                }
+                if wifi_interface is not None:
+                    wifi_overrides["interface"] = wifi_interface
+                if wifi_channel_list:  # Only override if channels were specified
+                    wifi_overrides["channels"] = wifi_channel_list
+                plugin_config.update(wifi_overrides)
+            else:
+                # Generic configuration for other protocols
+                plugin_config.update({
+                    "scan_timeout": timeout,
+                    "min_rssi": min_rssi
+                })
+
+            # Add plugin to manager
+            if use_tabbed:
+                plugin = manager.add_plugin(protocol, plugin_config)
+            else:
+                plugin = manager.create_plugin(protocol, plugin_config)
+            
+            plugins_added.append((protocol, plugin))
+
+        # Show startup banner
+        if not quiet:
+            if use_tabbed:
+                show_tabbed_startup_banner(plugins_added, config.output_dir_path, log_level)
+            else:
+                protocol, plugin = plugins_added[0]
+                show_startup_banner(protocol, plugin, config.output_dir_path, log_level)
+
+        # Start capture
+        if use_tabbed:
+            manager.start_capture(enable_ui=not no_rich, quiet=quiet)
+        else:
+            # For single plugin, pass the plugin to start_capture
+            _, plugin = plugins_added[0]
+            manager.start_capture(plugin, enable_ui=not no_rich, quiet=quiet)
+
+        # Show summary
+        if not quiet:
+            if use_tabbed:
+                show_tabbed_session_summary(manager)
+            else:
+                show_session_summary(manager)
 
     except KeyboardInterrupt:
         console.print("\n🛑 [yellow]Scan interrupted by user[/yellow]")
@@ -259,6 +357,53 @@ def doctor():
 
 
 @app.command()
+def plugins():
+    """
+    🔌 List available capture plugins.
+    """
+    try:
+        from src.plugins import plugin_registry
+        
+        console.print(Panel.fit("🔌 [bold]Available Capture Plugins[/bold]", style="blue"))
+        
+        plugins_info = plugin_registry.list_all_plugins()
+        
+        if not plugins_info:
+            console.print("❌ [red]No plugins available[/red]")
+            return
+        
+        # Create plugins table
+        table = Table(show_header=True, header_style="bold blue")
+        table.add_column("Protocol", style="cyan", width=10)
+        table.add_column("Name", style="green", width=15)
+        table.add_column("Version", style="yellow", width=8)
+        table.add_column("Description", style="white")
+        table.add_column("Requires Root", style="red", width=12)
+        table.add_column("Platforms", style="dim", width=12)
+        
+        for protocol, info in plugins_info.items():
+            table.add_row(
+                protocol.upper(),
+                info.name,
+                info.version,
+                info.description,
+                "Yes" if info.requires_root else "No",
+                ", ".join(info.supported_platforms)
+            )
+        
+        console.print(table)
+        
+        # Show usage example
+        example_protocol = list(plugins_info.keys())[0]
+        console.print(f"\n💡 [blue]Example usage:[/blue]")
+        console.print(f"   baconfreak scan --protocol {example_protocol}")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Failed to list plugins: {e}[/red]")
+        raise typer.Exit(1)
+
+
+@app.command()
 def update_db(
     force: bool = typer.Option(False, "--force", "-f", help="🔄 Force update even if files haven't changed")
 ):
@@ -306,18 +451,140 @@ def update_db(
         raise typer.Exit(1)
 
 
-def show_startup_banner(interface: int, output_dir: Path, log_level: str):
-    """Show startup banner with configuration."""
+def show_startup_banner(protocol: str, plugin, output_dir: Path, log_level: str):
+    """Show startup banner with plugin configuration."""
+    info = plugin.info
+    stats = plugin.get_statistics()
+    
     banner = Panel.fit(
-        f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Bluetooth Analysis\n\n"
-        f"🔗 Interface: [cyan]HCI{interface}[/cyan]\n"
+        f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Network Analysis\n\n"
+        f"📡 Protocol: [cyan]{protocol.upper()}[/cyan]\n"
+        f"🔗 Interface: [cyan]{stats.get('interface', 'N/A')}[/cyan]\n"
         f"📁 Output: [cyan]{output_dir}[/cyan]\n"
         f"📝 Log Level: [cyan]{log_level}[/cyan]\n\n"
+        f"[dim]{info.description}[/dim]\n"
         f"[dim]Press Ctrl+C to stop scanning[/dim]",
         style="blue",
         title="🚀 Starting Scan",
     )
     console.print(banner)
+
+
+def show_session_summary(manager):
+    """Show session summary after capture."""
+    summary = manager.get_session_summary()
+    if not summary:
+        return
+    
+    stats = summary["statistics"]
+    plugin_info = summary["plugin_info"]
+    
+    # Create summary table
+    table = Table(show_header=True, header_style="bold green")
+    table.add_column("Metric", style="cyan")
+    table.add_column("Value", style="green")
+    
+    table.add_row("Protocol", plugin_info["protocol"].upper())
+    table.add_row("Devices Found", str(stats.get("devices", 0)))
+    table.add_row("Packets Captured", f"{stats.get('packets', 0):,}")
+    table.add_row("Valid Packets", f"{stats.get('valid_packets', 0):,}")
+    table.add_row("Packets/Second", f"{stats.get('packets_per_second', 0):.1f}")
+    table.add_row("Error Rate", f"{stats.get('error_rate', 0):.2%}")
+    
+    console.print(Panel(table, title="📊 Session Summary", style="green"))
+    
+    # Show output files
+    output_files = stats.get("output_files", {})
+    if output_files:
+        files_text = "📁 [bold]Output Files:[/bold]\n\n"
+        for file_type, path in output_files.items():
+            files_text += f"📤 {file_type.replace('_', ' ').title()}: [cyan]{path}[/cyan]\n"
+        
+        console.print(Panel(files_text, title="💾 Files", style="bright_blue"))
+
+
+def show_tabbed_startup_banner(plugins_added, output_dir: Path, log_level: str):
+    """Show startup banner for tabbed multi-protocol session."""
+    banner_text = f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Multi-Protocol Analysis\n\n"
+    
+    for protocol, plugin in plugins_added:
+        info = plugin.info
+        stats = plugin.get_statistics()
+        banner_text += f"📡 {protocol.upper()}: [cyan]{info.name}[/cyan] on [cyan]{stats.get('interface', 'N/A')}[/cyan]\n"
+    
+    banner_text += f"\n📁 Output: [cyan]{output_dir}[/cyan]\n"
+    banner_text += f"📝 Log Level: [cyan]{log_level}[/cyan]\n\n"
+    banner_text += f"[dim]Use Tab/Shift+Tab to switch between protocols[/dim]\n"
+    banner_text += f"[dim]Press 1-{len(plugins_added)} to jump to specific protocols[/dim]\n"
+    banner_text += f"[dim]Press Ctrl+C to stop all scanning[/dim]"
+    
+    banner = Panel.fit(banner_text, style="blue", title="🚀 Starting Multi-Protocol Scan")
+    console.print(banner)
+
+
+def show_tabbed_session_summary(manager):
+    """Show session summary for tabbed multi-protocol session."""
+    summaries = manager.get_session_summary()
+    if not summaries:
+        return
+    
+    # Create overall summary table
+    table = Table(show_header=True, header_style="bold green")
+    table.add_column("Protocol", style="cyan")
+    table.add_column("Devices", style="green", justify="right")
+    table.add_column("Packets", style="green", justify="right")
+    table.add_column("Valid Packets", style="green", justify="right")
+    table.add_column("Rate (pkt/s)", style="green", justify="right")
+    table.add_column("Error Rate", style="yellow", justify="right")
+    
+    total_devices = 0
+    total_packets = 0
+    total_valid = 0
+    
+    for protocol, summary in summaries.items():
+        stats = summary["statistics"]
+        devices = stats.get("devices", 0)
+        packets = stats.get("packets", 0)
+        valid_packets = stats.get("valid_packets", 0)
+        rate = stats.get("packets_per_second", 0)
+        error_rate = stats.get("error_rate", 0)
+        
+        table.add_row(
+            protocol.upper(),
+            str(devices),
+            f"{packets:,}",
+            f"{valid_packets:,}",
+            f"{rate:.1f}",
+            f"{error_rate:.2%}"
+        )
+        
+        total_devices += devices
+        total_packets += packets
+        total_valid += valid_packets
+    
+    # Add totals row
+    table.add_row(
+        "[bold]TOTAL[/bold]",
+        f"[bold]{total_devices}[/bold]",
+        f"[bold]{total_packets:,}[/bold]",
+        f"[bold]{total_valid:,}[/bold]",
+        "[bold]-[/bold]",
+        "[bold]-[/bold]"
+    )
+    
+    console.print(Panel(table, title="📊 Multi-Protocol Session Summary", style="green"))
+    
+    # Show output files for each protocol
+    for protocol, summary in summaries.items():
+        stats = summary["statistics"]
+        output_files = stats.get("output_files", {})
+        
+        if output_files:
+            files_text = f"📁 [bold]{protocol.upper()} Output Files:[/bold]\n\n"
+            for file_type, path in output_files.items():
+                files_text += f"📤 {file_type.replace('_', ' ').title()}: [cyan]{path}[/cyan]\n"
+            
+            console.print(Panel(files_text, title=f"💾 {protocol.upper()} Files", style="bright_blue"))
 
 
 def analyze_pcap_file(

@@ -1,5 +1,14 @@
 # Baconfreak Configuration
-# Modern configuration using TOML format
+# Modern configuration using TOML format with plugin architecture
+#
+# This configuration supports:
+# - Plugin-based architecture (BLE and WiFi plugins)
+# - Environment-specific overrides (development, production)
+# - String-based interface names (e.g., "hci1", "wlan0")
+# - No fallback interfaces (graceful error handling on interface failure)
+#
+# Environment prefix: BFREAK_
+# Example: BFREAK_LOGGING_LEVEL=DEBUG
 
 [default]
 # Base configuration for all environments
@@ -11,15 +20,11 @@ assets_dir = "assets"
 external_dir = "external"
 logs_dir = "logs"
 
-[default.bluetooth]
-interface = 1
-scan_timeout = 0  # 0 = infinite
-filter_duplicates = false
-
 [default.output]
-known_pcap = "known.pcap"
-unknown_pcap = "unknown.pcap"
-devices_pcap = "devices.pcap"
+# PCAP file naming (updated to match current defaults)
+known_pcap = "bfreak-known.pcap"      # Known company devices
+unknown_pcap = "bfreak-unknown.pcap"  # Unknown company devices  
+devices_pcap = "bfreak-devices.pcap"  # Specific device types
 device_types_for_devices_pcap = ["tile", "airtag_unregistered", "airtag_registered"]
 
 [default.database]
@@ -52,11 +57,41 @@ console_no_color = false
 packet_buffer_size = 1000
 statistics_interval = 10  # seconds
 
+[default.plugins]
+# Modern plugin architecture - each plugin has its own configuration
+
+[default.plugins.ble]
+# Bluetooth Low Energy plugin configuration
+interface = "hci1"                  # HCI interface (e.g., hci0, hci1)
+adapter_name = "Built-in Bluetooth" # Bluetooth adapter name for display
+scan_timeout = 0                    # Scan timeout in seconds (0=infinite)
+filter_duplicates = false           # Filter duplicate advertisements
+min_rssi = -100                     # Minimum RSSI threshold (-127 to 20)
+
+[default.plugins.wifi]
+# WiFi packet capture plugin configuration  
+interface = "wlan1"           # WiFi interface name (override with --wifi-interface)
+monitor_mode = true           # Enable monitor mode for packet capture
+scan_timeout = 0              # Scan timeout in seconds (0=infinite)
+channel_hop = true            # Enable channel hopping
+channels = [1, 6, 11]         # Channels to scan (2.4GHz default)
+min_rssi = -100               # Minimum RSSI threshold (-127 to 20)
+channel_hop_interval = 2.0   # Channel hop interval in seconds
+
 # Development environment overrides
 [development]
 logging.level = "DEBUG"
 detection.min_rssi = -120
 performance.statistics_interval = 5
+
+# Override plugin settings for development
+[development.plugins.ble]
+min_rssi = -120
+scan_timeout = 30  # Shorter timeout for development
+
+[development.plugins.wifi]
+min_rssi = -120
+channels = [1, 6, 11, 36, 149]  # Include 5GHz channels
 
 # Production environment overrides  
 [production]
@@ -64,3 +99,28 @@ logging.level = "WARNING"
 logging.file = "baconfreak.log"
 detection.min_rssi = -80
 performance.packet_buffer_size = 5000
+
+# Optimized plugin settings for production
+[production.plugins.ble]
+min_rssi = -80
+filter_duplicates = true  # Reduce noise in production
+
+[production.plugins.wifi]
+min_rssi = -80
+channel_hop_interval = 1.0  # Faster channel hopping
+
+# Testing environment (for development and CI)
+[testing]
+logging.level = "DEBUG"
+logging.file = "test.log"
+
+[testing.plugins.ble]
+interface = "hci0"        # Use different interface for testing
+scan_timeout = 10         # Short timeout for tests
+min_rssi = -127           # Capture everything for testing
+
+[testing.plugins.wifi]
+interface = "wlan0"       # Use different interface for testing  
+scan_timeout = 10         # Short timeout for tests
+channel_hop = false       # Disable hopping for consistent tests
+channels = [1]            # Single channel for testing
