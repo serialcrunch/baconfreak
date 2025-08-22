@@ -77,6 +77,9 @@ interface = "wlan1"           # WiFi interface name (override with --wifi-interf
 monitor_mode = true           # Enable monitor mode for packet capture
 scan_timeout = 0              # Scan timeout in seconds (0=infinite)
 channel_hop = true            # Enable channel hopping
-channels = [1, 6, 11]         # Channels to scan (2.4GHz default)
+channels = [1, 6, 11]         # Manual channel list (overrides band settings)
+enable_2_4ghz = true          # Enable 2.4GHz band channels (1-14)
+enable_5ghz = false           # Enable 5GHz band channels (36-165)
+enable_6e = false             # Enable 6E band channels (1-233)
 min_rssi = -100               # Minimum RSSI threshold (-127 to 20)
 channel_hop_interval = 2.0   # Channel hop interval in seconds

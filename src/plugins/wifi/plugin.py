@@ -64,16 +64,22 @@ class WiFiPlugin(CapturePlugin):
     def __init__(self, config: Dict[str, Any], console: Optional[Console] = None):
         super().__init__(config, console)
         
+        # Initialize band support cache
+        self._supported_bands = None
+        
+        # WiFi-specific components (initialize early for use in config methods)
+        self.logger = BaconFreakLogger("wifi_plugin")
+        
         # WiFi-specific configuration
         self.interface = config.get("interface", "wlan0")
         self.monitor_mode = config.get("monitor_mode", True)
         self.scan_timeout = config.get("scan_timeout", 0)
         self.channel_hop = config.get("channel_hop", True)
-        self.channels = config.get("channels", list(range(1, 14)))  # 2.4GHz channels
+        self.enable_2_4ghz = config.get("enable_2_4ghz", True)
+        self.enable_5ghz = config.get("enable_5ghz", False)
+        self.enable_6e = config.get("enable_6e", False)
+        self.channels = self._build_channel_list(config)
         self.min_rssi = config.get("min_rssi", -100)
-        
-        # WiFi-specific components
-        self.logger = BaconFreakLogger("wifi_plugin")
         self.wifi_devices: Dict[str, WiFiDevice] = {}
         self.current_channel = 1
         self.channel_hop_interval = config.get("channel_hop_interval", 2.0)
@@ -96,6 +102,151 @@ class WiFiPlugin(CapturePlugin):
         self._channel_hop_thread = None
         self._output_files: Dict[str, Path] = {}
     
+    def _get_supported_bands(self) -> Dict[str, bool]:
+        """Detect which WiFi bands the adapter supports."""
+        if self._supported_bands is not None:
+            return self._supported_bands
+        
+        import subprocess
+        import shutil
+        
+        bands = {"2.4ghz": True, "5ghz": False, "6e": False}  # 2.4GHz always assumed supported
+        
+        try:
+            # Try to get interface capabilities using iw
+            if shutil.which("iw"):
+                # First try to get the PHY for this interface
+                phy_result = subprocess.run(
+                    ["iw", "dev", self.interface, "info"], 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=5
+                )
+                
+                phy_name = None
+                if phy_result.returncode == 0:
+                    # Extract PHY name from output
+                    for line in phy_result.stdout.split('\n'):
+                        if 'wiphy' in line.lower():
+                            parts = line.split()
+                            for i, part in enumerate(parts):
+                                if part == 'wiphy' and i + 1 < len(parts):
+                                    phy_name = f"phy{parts[i + 1]}"
+                                    break
+                            break
+                
+                # Get detailed frequency information from PHY
+                phy_cmd = ["iw", "phy"]
+                if phy_name:
+                    phy_cmd.append(phy_name)
+                phy_cmd.append("info")
+                
+                result = subprocess.run(
+                    phy_cmd,
+                    capture_output=True, 
+                    text=True, 
+                    timeout=5
+                )
+                
+                if result.returncode == 0:
+                    output = result.stdout
+                    
+                    # Look for specific 5GHz frequency ranges
+                    # 5GHz band: 5170-5825 MHz (channels 34-165)
+                    fiveghz_frequencies = [
+                        "5170", "5180", "5190", "5200", "5210", "5220", "5230", "5240",  # UNII-1
+                        "5250", "5260", "5270", "5280", "5290", "5300", "5310", "5320",  # UNII-2A
+                        "5500", "5510", "5520", "5530", "5540", "5550", "5560", "5570",  # UNII-2B
+                        "5580", "5590", "5600", "5610", "5620", "5630", "5640", "5660",  # UNII-2C
+                        "5670", "5680", "5690", "5700", "5710", "5720", "5745", "5755",  # UNII-3
+                        "5765", "5775", "5785", "5795", "5805", "5815", "5825"          # UNII-3
+                    ]
+                    
+                    # 6E band: 5925-7125 MHz (6GHz)
+                    sixe_frequencies = [
+                        "5925", "5935", "5945", "5955", "5965", "5975", "5985", "5995",
+                        "6005", "6015", "6025", "6035", "6045", "6055", "6065", "6075",
+                        "6085", "6095", "6105", "6115", "6125", "6135", "6145", "6155",
+                        "6165", "6175", "6185", "6195", "6205", "6215", "6225", "6235",
+                        "6245", "6255", "6265", "6275", "6285", "6295", "6305", "6315",
+                        "6325", "6335", "6345", "6355", "6365", "6375", "6385", "6395",
+                        "6405", "6415", "6425", "6435", "6445", "6455", "6465", "6475",
+                        "6485", "6495", "6505", "6515", "6525", "6535", "6545", "6555",
+                        "6565", "6575", "6585", "6595", "6605", "6615", "6625", "6635",
+                        "6645", "6655", "6665", "6675", "6685", "6695", "6705", "6715",
+                        "6725", "6735", "6745", "6755", "6765", "6775", "6785", "6795",
+                        "6805", "6815", "6825", "6835", "6845", "6855", "6865", "6875",
+                        "6885", "6895", "6905", "6915", "6925", "6935", "6945", "6955",
+                        "6965", "6975", "6985", "6995", "7005", "7015", "7025", "7035",
+                        "7045", "7055", "7065", "7075", "7085", "7095", "7105", "7115"
+                    ]
+                    
+                    # Check for 5GHz support (need at least 3 frequencies for reliable detection)
+                    fiveghz_matches = sum(1 for freq in fiveghz_frequencies if freq in output)
+                    if fiveghz_matches >= 3:
+                        bands["5ghz"] = True
+                    
+                    # Check for 6E support (need at least 5 frequencies for reliable detection)
+                    sixe_matches = sum(1 for freq in sixe_frequencies if freq in output)
+                    if sixe_matches >= 5:
+                        bands["6e"] = True
+                        
+        except (subprocess.TimeoutExpired, subprocess.SubprocessError, FileNotFoundError) as e:
+            self.logger.logger.debug(f"Could not detect band support via iw: {e}")
+        
+        self._supported_bands = bands
+        return bands
+    
+    def _build_channel_list(self, config: dict) -> List[int]:
+        """Build channel list based on configuration and adapter capabilities."""
+        # If manual channels are specified, use them directly
+        manual_channels = config.get("channels")
+        if manual_channels and isinstance(manual_channels, list) and len(manual_channels) > 0:
+            # Filter out the default [1, 6, 11] if user wants band-based selection
+            if not (len(manual_channels) == 3 and manual_channels == [1, 6, 11]):
+                return manual_channels
+        
+        # Build channels based on enabled bands
+        channels = []
+        supported_bands = self._get_supported_bands()
+        
+        # 2.4GHz channels (1-14, commonly 1-11 in US)
+        if self.enable_2_4ghz:
+            if supported_bands["2.4ghz"]:
+                channels.extend([1, 6, 11])  # Most common 2.4GHz channels
+                self.logger.logger.info("Added 2.4GHz channels to scan list")
+            else:
+                self.logger.logger.warning("2.4GHz band requested but not supported by adapter, skipping 2.4GHz channels")
+        
+        # 5GHz channels
+        if self.enable_5ghz:
+            if supported_bands["5ghz"]:
+                # Common 5GHz channels (UNII-1, UNII-2, UNII-3)
+                fiveghz_channels = [36, 40, 44, 48, 52, 56, 60, 64, 100, 104, 108, 112, 
+                                   116, 120, 124, 128, 132, 136, 140, 144, 149, 153, 157, 161, 165]
+                channels.extend(fiveghz_channels)
+                self.logger.logger.info("Added 5GHz channels to scan list")
+            else:
+                self.logger.logger.warning("5GHz band requested but not supported by adapter, skipping 5GHz channels")
+        
+        # 6E channels  
+        if self.enable_6e:
+            if supported_bands["6e"]:
+                # Common 6GHz channels (actual channel numbers, not offset)
+                # 6GHz channels: 1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61, 65, 69, 73, 77, 81, 85, 89, 93
+                sixe_channels = [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 49, 53, 57, 61, 65, 69, 73, 77, 81, 85, 89, 93]
+                channels.extend(sixe_channels)
+                self.logger.logger.info("Added 6E channels to scan list")
+            else:
+                self.logger.logger.warning("6E band requested but not supported by adapter, skipping 6E channels")
+        
+        # Fallback: if no channels are enabled, enable 2.4GHz as default
+        if not channels:
+            self.logger.logger.warning("No channels enabled, falling back to 2.4GHz channels")
+            channels.extend([1, 6, 11])
+        
+        return sorted(list(set(channels)))  # Remove duplicates and sort
+    
     @property
     def info(self) -> PluginInfo:
         """Return WiFi plugin information."""
@@ -112,7 +263,10 @@ class WiFiPlugin(CapturePlugin):
                 "monitor_mode": {"type": "boolean", "default": True, "description": "Enable monitor mode for packet capture"},
                 "scan_timeout": {"type": "integer", "default": 0, "description": "Scan timeout (0=infinite)"},
                 "channel_hop": {"type": "boolean", "default": True, "description": "Enable channel hopping"},
-                "channels": {"type": "array", "default": [1, 6, 11], "description": "Channels to scan"},
+                "channels": {"type": "array", "default": [1, 6, 11], "description": "Manual channel list (overrides band settings)"},
+                "enable_2_4ghz": {"type": "boolean", "default": True, "description": "Enable 2.4GHz band channels"},
+                "enable_5ghz": {"type": "boolean", "default": False, "description": "Enable 5GHz band channels"},
+                "enable_6e": {"type": "boolean", "default": False, "description": "Enable 6E band channels"},
                 "min_rssi": {"type": "integer", "default": -100, "description": "Minimum RSSI threshold"},
                 "channel_hop_interval": {"type": "number", "default": 2.0, "description": "Channel hop interval (seconds)"}
             }
@@ -136,8 +290,17 @@ class WiFiPlugin(CapturePlugin):
         if not isinstance(self.min_rssi, int) or self.min_rssi < -127 or self.min_rssi > 20:
             errors.append("min_rssi must be between -127 and 20")
         
-        if not isinstance(self.channels, list) or not all(isinstance(c, int) and 1 <= c <= 165 for c in self.channels):
-            errors.append("channels must be a list of integers between 1 and 165")
+        if not isinstance(self.channels, list) or not all(isinstance(c, int) and 1 <= c <= 300 for c in self.channels):
+            errors.append("channels must be a list of integers between 1 and 300 (includes 6E band)")
+        
+        if not isinstance(self.enable_2_4ghz, bool):
+            errors.append("enable_2_4ghz must be a boolean")
+            
+        if not isinstance(self.enable_5ghz, bool):
+            errors.append("enable_5ghz must be a boolean")
+            
+        if not isinstance(self.enable_6e, bool):
+            errors.append("enable_6e must be a boolean")
         
         return len(errors) == 0, errors
     
@@ -413,7 +576,12 @@ class WiFiPlugin(CapturePlugin):
                     self._set_channel(self.current_channel)
                     channel_index = (channel_index + 1) % len(self.channels)
                 
-                time.sleep(self.channel_hop_interval)
+                # Sleep in smaller increments to be more responsive to stop events
+                sleep_time = self.channel_hop_interval
+                sleep_increment = 0.1  # Check stop event every 100ms
+                while sleep_time > 0 and self._running and not stop_event.is_set():
+                    time.sleep(min(sleep_increment, sleep_time))
+                    sleep_time -= sleep_increment
         
         self._channel_hop_thread = threading.Thread(target=channel_hop_worker, daemon=True)
         self._channel_hop_thread.start()
@@ -421,6 +589,8 @@ class WiFiPlugin(CapturePlugin):
     def _stop_channel_hopping(self):
         """Stop channel hopping thread."""
         if self._channel_hop_thread and self._channel_hop_thread.is_alive():
+            # Wait for thread to finish (it should exit quickly due to responsive sleep)
+            self._channel_hop_thread.join(timeout=0.5)
             self._channel_hop_thread = None
     
     def _write_packet_to_pcap(self, packet, writers: Dict[str, PcapWriter]):
@@ -488,10 +658,9 @@ class WiFiPlugin(CapturePlugin):
             if hasattr(beacon, 'info') and beacon.info:
                 ssid = beacon.info.decode('utf-8', errors='ignore')
             
-            # Extract channel from DS Parameter Set
-            channel = None
-            if hasattr(beacon, 'network_stats') and hasattr(beacon.network_stats, 'channel'):
-                channel = beacon.network_stats.channel
+            # Extract channel information
+            channel = self._extract_channel_from_packet(packet)
+            
             
             # Update or create access point
             device = self._get_or_create_wifi_device(bssid, ssid, "access_point")
@@ -521,7 +690,7 @@ class WiFiPlugin(CapturePlugin):
                 ssid = packet[Dot11ProbeReq].info.decode('utf-8', errors='ignore')
             
             # Update or create client device
-            device = self._get_or_create_wifi_device(client_mac, f"Client-{ssid}", "client")
+            device = self._get_or_create_wifi_device(client_mac, f"[yellow]Client ({ssid})[yellow]", "client")
             device.update_seen(rssi)
             device.probe_packets += 1
             
@@ -546,15 +715,19 @@ class WiFiPlugin(CapturePlugin):
             if hasattr(packet[Dot11ProbeResp], 'info') and packet[Dot11ProbeResp].info:
                 ssid = packet[Dot11ProbeResp].info.decode('utf-8', errors='ignore')
             
+            # Extract channel information
+            channel = self._extract_channel_from_packet(packet)
+            
             # Update or create access point
             device = self._get_or_create_wifi_device(bssid, ssid, "access_point")
-            device.update_seen(rssi)
+            device.update_seen(rssi, channel)
             device.probe_packets += 1
             
             return {
                 "type": "probe_response",
                 "bssid": bssid,
                 "ssid": ssid,
+                "channel": channel,
                 "rssi": rssi
             }
             
@@ -571,7 +744,7 @@ class WiFiPlugin(CapturePlugin):
             
             # Update client if we see data from it
             if client_mac and client_mac != ap_mac:
-                device = self._get_or_create_wifi_device(client_mac, "Data-Client", "client")
+                device = self._get_or_create_wifi_device(client_mac, "[dim]Client (Data Frame)[dim]", "client")
                 device.update_seen(rssi)
                 device.data_packets += 1
             
@@ -591,7 +764,7 @@ class WiFiPlugin(CapturePlugin):
         if mac in self.wifi_devices:
             device = self.wifi_devices[mac]
             # Update SSID if we got a better one
-            if ssid and ssid != "Hidden" and device.ssid in ["Hidden", "", f"Client-", f"Data-Client"]:
+            if ssid and ssid != "Hidden" and device.ssid in ["Hidden", "", f"Client-", f"Client ("]:
                 device.ssid = ssid
         else:
             device = WiFiDevice(mac, ssid, device_type)
@@ -624,7 +797,7 @@ class WiFiPlugin(CapturePlugin):
         sort_dir = "↑" if self.sort_ascending else "↓"
         
         header = Panel(
-            f"📶 [bold bright_green]WiFi Scanner[/bold bright_green] - "
+            f"[bold bright_green]WiFi Scanner[/bold bright_green] - "
             f"Interface: {self.interface} | "
             f"Channel: {self.current_channel} | "
             f"Devices: {len(self.wifi_devices)} | "
@@ -662,7 +835,7 @@ class WiFiPlugin(CapturePlugin):
         table.add_column("Type", style="cyan", width=8)
         table.add_column("MAC Address", style="white", width=17)
         table.add_column("SSID", style="yellow", width=20)
-        table.add_column("Ch", style="magenta", width=3, justify="right")
+        table.add_column("Ch", style="magenta", width=4, justify="right")
         table.add_column("RSSI", style="yellow", width=5, justify="right")
         table.add_column("Pkts", style="magenta", width=4, justify="right")
         table.add_column("First", style="dim", width=8)
@@ -745,9 +918,215 @@ class WiFiPlugin(CapturePlugin):
 🔍 Probes: {probe_count}
 📊 Data: {data_count}
 
-📶 [bold]Current Channel: {self.current_channel}[/bold]"""
+📶 [bold]Current Channel: {self.current_channel}[/bold]
+🌐 [bold]Enabled Bands:[/bold] {self._get_enabled_bands_display()}"""
         
         return Panel(stats_text, title="📈 WiFi Stats", style="yellow")
+    
+    def _get_enabled_bands_display(self) -> str:
+        """Get a display string for enabled bands with support status."""
+        supported_bands = self._get_supported_bands()
+        bands = []
+        
+        # Show 2.4GHz status
+        if self.enable_2_4ghz:
+            if supported_bands["2.4ghz"]:
+                bands.append("[green]2.4GHz[/green]")
+            else:
+                bands.append("[red]2.4GHz (unsupported)[/red]")
+        else:
+            bands.append("[dim]2.4GHz (disabled)[/dim]")
+        
+        # Show 5GHz status
+        if self.enable_5ghz:
+            if supported_bands["5ghz"]:
+                bands.append("[green]5GHz[/green]")
+            else:
+                bands.append("[red]5GHz (unsupported)[/red]")
+        else:
+            bands.append("[dim]5GHz (disabled)[/dim]")
+        
+        # Show 6E status
+        if self.enable_6e:
+            if supported_bands["6e"]:
+                bands.append("[green]6E[/green]")
+            else:
+                bands.append("[red]6E (unsupported)[/red]")
+        else:
+            bands.append("[dim]6E (disabled)[/dim]")
+        
+        return ", ".join(bands)
+    
+    def debug_band_detection(self) -> str:
+        """Debug method to show band detection details."""
+        import subprocess
+        import shutil
+        
+        debug_info = []
+        debug_info.append(f"Interface: {self.interface}")
+        
+        try:
+            if shutil.which("iw"):
+                # Get interface info
+                result = subprocess.run(
+                    ["iw", "dev", self.interface, "info"], 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=5
+                )
+                if result.returncode == 0:
+                    debug_info.append("Interface info:")
+                    debug_info.append(result.stdout)
+                else:
+                    debug_info.append(f"Interface info failed: {result.stderr}")
+                
+                # Get PHY info  
+                result = subprocess.run(
+                    ["iw", "phy", "info"], 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=5
+                )
+                if result.returncode == 0:
+                    debug_info.append("PHY info (first 50 lines):")
+                    lines = result.stdout.split('\n')[:50]
+                    debug_info.append('\n'.join(lines))
+                else:
+                    debug_info.append(f"PHY info failed: {result.stderr}")
+            else:
+                debug_info.append("iw command not available")
+                
+        except Exception as e:
+            debug_info.append(f"Debug error: {e}")
+        
+        detected_bands = self._get_supported_bands()
+        debug_info.append(f"Detected bands: {detected_bands}")
+        
+        return '\n'.join(debug_info)
+    
+    def _extract_channel_from_packet(self, packet) -> Optional[int]:
+        """Extract channel number from WiFi packet supporting all bands."""
+        channel = None
+        
+        # Method 1: Try RadioTap header frequency (most reliable for all bands)
+        if hasattr(packet, 'RadioTap') and hasattr(packet.RadioTap, 'ChannelFrequency'):
+            frequency = packet.RadioTap.ChannelFrequency
+            channel = self._frequency_to_channel(frequency)
+            if channel:
+                return channel
+        
+        # Method 2: Try to extract from packet metadata
+        if hasattr(packet, 'dBm_AntSignal'):
+            # Some drivers include frequency in the metadata
+            if hasattr(packet, 'Channel'):
+                return packet.Channel
+            if hasattr(packet, 'ChannelFrequency'):
+                frequency = packet.ChannelFrequency
+                channel = self._frequency_to_channel(frequency)
+                if channel:
+                    return channel
+        
+        # Method 3: Parse Information Elements for channel info
+        if packet.haslayer("Dot11Elt"):
+            current_layer = packet["Dot11Elt"]
+            while current_layer:
+                if hasattr(current_layer, 'ID'):
+                    # DS Parameter Set IE (ID 3) - 2.4GHz only
+                    if current_layer.ID == 3:
+                        if hasattr(current_layer, 'info') and len(current_layer.info) >= 1:
+                            channel = current_layer.info[0]
+                            if 1 <= channel <= 14:  # Valid 2.4GHz channel
+                                return channel
+                    
+                    # HT Operation IE (ID 61) - Contains primary channel for 5GHz
+                    elif current_layer.ID == 61:
+                        if hasattr(current_layer, 'info') and len(current_layer.info) >= 1:
+                            primary_channel = current_layer.info[0]
+                            if primary_channel > 14:  # 5GHz channel
+                                return primary_channel
+                    
+                    # HE Operation IE (ID 255) - 6E band information
+                    elif current_layer.ID == 255:
+                        if hasattr(current_layer, 'info') and len(current_layer.info) >= 3:
+                            # HE Operation contains 6GHz channel information
+                            # This is more complex but we can extract basic channel info
+                            try:
+                                # Simplified extraction - actual parsing is complex
+                                if len(current_layer.info) >= 6:
+                                    # Check if this is 6GHz operation
+                                    he_oper_params = current_layer.info[0]
+                                    if he_oper_params & 0x02:  # 6GHz operation present
+                                        # Extract 6GHz primary channel (simplified)
+                                        channel_info = current_layer.info[3:6]
+                                        if len(channel_info) >= 1:
+                                            channel = channel_info[0]
+                                            # Return actual 6GHz channel number (1-233)
+                                            if 1 <= channel <= 233:
+                                                return channel
+                            except:
+                                pass
+                
+                # Move to next IE
+                if hasattr(current_layer, 'payload') and current_layer.payload:
+                    next_layer = current_layer.payload
+                    if hasattr(next_layer, 'ID'):
+                        current_layer = next_layer
+                    else:
+                        break
+                else:
+                    break
+        
+        # Fallback: Use current scanning channel if packet parsing failed
+        if channel is None:
+            return self.current_channel
+        
+        return channel
+    
+    def _frequency_to_channel(self, frequency: int) -> Optional[int]:
+        """Convert frequency (MHz) to WiFi channel number."""
+        if not frequency:
+            return None
+            
+        # 2.4GHz band (2412-2484 MHz) → Channels 1-14
+        if 2412 <= frequency <= 2484:
+            if frequency == 2484:
+                return 14
+            else:
+                return (frequency - 2412) // 5 + 1
+        
+        # 5GHz band → Standard WiFi channel numbers
+        elif 5000 <= frequency <= 5895:
+            # Use proper 5GHz channel mapping
+            freq_to_channel_5ghz = {
+                5170: 34, 5180: 36, 5190: 38, 5200: 40, 5210: 42, 5220: 44, 5230: 46, 5240: 48,
+                5250: 50, 5260: 52, 5270: 54, 5280: 56, 5290: 58, 5300: 60, 5310: 62, 5320: 64,
+                5500: 100, 5510: 102, 5520: 104, 5530: 106, 5540: 108, 5550: 110, 5560: 112, 5570: 114,
+                5580: 116, 5590: 118, 5600: 120, 5610: 122, 5620: 124, 5630: 126, 5640: 128, 5660: 132,
+                5670: 134, 5680: 136, 5690: 138, 5700: 140, 5710: 142, 5720: 144,
+                5745: 149, 5755: 151, 5765: 153, 5775: 155, 5785: 157, 5795: 159, 5805: 161, 5815: 163, 5825: 165
+            }
+            
+            # Find exact match first
+            if frequency in freq_to_channel_5ghz:
+                return freq_to_channel_5ghz[frequency]
+            
+            # Find closest frequency match (within 5 MHz)
+            for freq, channel in freq_to_channel_5ghz.items():
+                if abs(frequency - freq) <= 5:
+                    return channel
+        
+        # 6E band (5925-7125 MHz) → Channels 1-233
+        elif 5925 <= frequency <= 7125:
+            # 6GHz band formula: frequency = 5950 + (channel * 5)
+            # So: channel = (frequency - 5950) / 5
+            if frequency >= 5955:  # First 6GHz channel is at 5955 MHz (channel 1)
+                channel = (frequency - 5950) // 5
+                # 6GHz channels are: 1, 5, 9, 13, 17, 21, ... (4n-3 pattern)
+                # But for simplicity, we'll return the calculated channel if it's valid
+                if 1 <= channel <= 233:
+                    return channel
+        
+        return None
     
     
     def handle_keyboard_input(self, key: str) -> None:
