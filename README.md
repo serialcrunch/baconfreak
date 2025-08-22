@@ -10,6 +10,7 @@ A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BL
 
 ### 🎯 **Core Capabilities**
 - **📡 Real-time BLE packet capture** using Scapy and HCI sockets
+- **📶 WiFi monitoring** with multi-band support (2.4GHz, 5GHz, 6E) and intelligent channel hopping
 - **🏷️ Smart device detection** for Apple devices (AirTags, AirPods), Tile trackers, and more
 - **🏢 Company identifier resolution** using Bluetooth SIG database
 - **📊 PCAP output** for analysis with Wireshark and other tools
@@ -30,10 +31,18 @@ A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BL
 
 ## Requirements
 
+### Core Requirements
 - Python 3.8+
-- Root privileges (for Bluetooth HCI access)
-- Bluetooth adapter with BLE support
+- Root privileges (for Bluetooth HCI and WiFi monitor mode access)
 - Linux system with BlueZ stack
+
+### Device Support
+- **Bluetooth**: Bluetooth adapter with BLE support
+- **WiFi**: WiFi adapter with monitor mode support (for WiFi plugin)
+
+### System Dependencies
+- **Bluetooth tools**: hciconfig, hcitool (usually pre-installed)
+- **WiFi tools**: iw, iwconfig (install with `sudo apt install iw wireless-tools`)
 
 ## Installation
 
@@ -58,9 +67,16 @@ A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BL
    pip install -e ".[dev]"
    ```
 
-4. **Set up Bluetooth interface:**
+4. **Install system dependencies and set up interfaces:**
    ```bash
+   # Install WiFi tools (for WiFi plugin)
+   sudo apt install iw wireless-tools
+   
+   # Set up Bluetooth interface
    sudo hciconfig hci1 up
+   
+   # Check WiFi interface (for WiFi plugin)
+   ip link show  # Find your WiFi interface (wlan0, wlp*, etc.)
    ```
 
 ## 🚀 Usage
@@ -79,6 +95,9 @@ sudo python main.py scan --interface 1 --log-level INFO
 
 # 📊 Advanced scanning with custom settings
 sudo python main.py scan --min-rssi -80 --timeout 300 --output ./captures
+
+# 📶 WiFi monitoring (with plugin enabled in settings)
+sudo python main.py scan --plugins wifi --interface wlan0
 ```
 
 ### 🚀 **Shell Script Wrapper (Easiest)**
@@ -143,7 +162,18 @@ min_rssi = -100       # Minimum signal strength
 enabled = false       # Enable/disable WiFi plugin  
 interface = "wlan0"   # WiFi interface name
 monitor_mode = true   # Enable monitor mode
-channels = [1, 6, 11] # Channels to scan
+scan_timeout = 0      # Scan duration (0 = infinite)
+channel_hop = true    # Enable automatic channel hopping
+min_rssi = -100       # Minimum signal strength
+channel_hop_interval = 2.0  # Seconds between channel changes
+
+# Multi-band support
+enable_2_4ghz = true  # Enable 2.4GHz band scanning
+enable_5ghz = false   # Enable 5GHz band scanning (requires adapter support)
+enable_6e = false     # Enable 6E band scanning (requires WiFi 6E adapter)
+
+# Manual channel override (disables band-based selection)
+channels = [1, 6, 11] # Specific channels to scan
 
 [detection]  
 device_timeout = 300  # Device staleness threshold
@@ -188,8 +218,17 @@ The tool can identify:
 
 ## Output Files
 
+### Bluetooth Files
 - **`output/bfreak-known.pcap`** - Packets from known company IDs
 - **`output/bfreak-unknown.pcap`** - Packets from unknown company IDs
+
+### WiFi Files (when WiFi plugin enabled)
+- **`output/wifi-beacons.pcap`** - WiFi beacon frames
+- **`output/wifi-probes.pcap`** - WiFi probe request/response frames
+- **`output/wifi-data.pcap`** - WiFi data frames
+- **`output/wifi-all.pcap`** - All captured WiFi frames
+
+### System Files
 - **`logs/baconfreak.log`** - Application logs with rotation and retention
 - **`assets/company_identifiers.db`** - SQLite database of Bluetooth SIG identifiers
 - **`external/`** - YAML configuration files for company data sources
@@ -284,6 +323,28 @@ rm assets/company_identifiers.db
 
 # Run tool to recreate database automatically
 ./baconfreak.sh doctor
+```
+
+### WiFi Interface Issues
+```bash
+# Check available WiFi interfaces
+ip link show | grep wl
+
+# Install WiFi tools
+sudo apt install iw wireless-tools
+
+# Check interface capabilities
+iw dev wlan0 info
+
+# Check if monitor mode is supported
+sudo iw dev wlan0 set type monitor
+sudo iw dev wlan0 set type managed  # restore
+
+# Enable interface
+sudo ip link set wlan0 up
+
+# Check supported bands
+iw phy info | grep -E "Band|MHz"
 ```
 
 ## License

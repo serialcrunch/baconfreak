@@ -78,10 +78,10 @@ show_usage() {
     cat << EOF
 Usage: $0 [OPTIONS] [COMMAND] [ARGS...]
 
-Baconfreak - Modern Bluetooth Low Energy packet analysis tool
+Baconfreak - Modern Bluetooth Low Energy and WiFi packet analysis tool
 
 Commands:
-  scan [OPTIONS]           Start BLE packet scanning (default)
+  scan [OPTIONS]           Start BLE/WiFi packet scanning (default)
   doctor                   Run system diagnostics
   config-show             Show current configuration
   devices [OPTIONS]        Analyze captured devices
@@ -97,11 +97,16 @@ Options:
   --check                 Check system requirements without running
 
 Examples:
-  $0                                    # Start scanning with default settings
+  $0                                    # Start BLE scanning with default settings
   $0 scan -i 1 -l DEBUG               # Scan on HCI1 with debug logging
   $0 doctor                            # Run system diagnostics
   $0 --setup                           # Setup environment
   $0 --check                           # Check requirements
+
+WiFi Plugin Requirements:
+  - WiFi adapter with monitor mode support
+  - Install WiFi tools: sudo apt install iw wireless-tools
+  - Enable WiFi plugin in settings.toml: plugins.wifi.enabled = true
 
 Project Structure:
   main.py                              # Modern CLI interface (Typer + Rich)
@@ -186,6 +191,28 @@ check_requirements() {
         log_success "Running as root"
     else
         log_warning "Not running as root - Bluetooth access will require sudo"
+    fi
+    
+    # Check Bluetooth tools
+    if command -v hciconfig >/dev/null 2>&1; then
+        log_success "Bluetooth tools found (hciconfig)"
+    else
+        log_warning "Bluetooth tools not found (hciconfig) - may need to install bluez"
+    fi
+    
+    # Check WiFi tools (for WiFi plugin)
+    local wifi_tools_found=0
+    if command -v iw >/dev/null 2>&1; then
+        log_success "WiFi tools found (iw)"
+        wifi_tools_found=1
+    fi
+    if command -v iwconfig >/dev/null 2>&1; then
+        log_success "WiFi tools found (iwconfig)"
+        wifi_tools_found=1
+    fi
+    if [[ $wifi_tools_found -eq 0 ]]; then
+        log_warning "WiFi tools not found (iw, iwconfig) - install with: sudo apt install iw wireless-tools"
+        log_warning "WiFi plugin will not work without these tools"
     fi
     
     
