@@ -30,7 +30,7 @@ from ...company_identifiers import CompanyIdentifiers
 from ...device_detector import DeviceDetector
 from ...logger import BaconFreakLogger
 from ...models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo
-from ...utils import format_time_delta, format_rssi_with_quality
+from ...utils import format_time_delta, format_rssi_with_quality, is_random_ble_address
 from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementError
 
 
@@ -548,11 +548,17 @@ class BLEPlugin(CapturePlugin):
             # Color RSSI
             rssi_value, rssi_style = format_rssi_with_quality(device.rssi)
             
+            # Check if address is random and modify company display
+            if is_random_ble_address(device.addr):
+                company_display = "[dim]Random[/dim]"
+            else:
+                company_display = device.company_name or "[yellow]Unknown[/yellow]"
+            
             table.add_row(
                 device.device_type.value,
                 device.addr,
                 f"[{rssi_style}]{rssi_value}[/{rssi_style}]",
-                device.company_name or "Unknown",
+                company_display,
                 str(device.packet_count),
                 first_seen_str,
                 last_seen_str,

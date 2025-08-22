@@ -102,9 +102,37 @@ def truncate_string(text: str, max_length: int, suffix: str = "...") -> str:
     return text[:max_length - len(suffix)] + suffix
 
 
+def is_random_ble_address(mac: str) -> bool:
+    """
+    Check if BLE address is a random address.
+    
+    BLE random addresses have the two most significant bits of the first octet set to:
+    - 11: Static random address
+    - 10: Private non-resolvable address  
+    - 01: Private resolvable address
+    
+    Args:
+        mac: MAC address string (e.g., "aa:bb:cc:dd:ee:ff")
+        
+    Returns:
+        True if the address is a random BLE address
+    """
+    try:
+        # Normalize the MAC address and get the first octet
+        normalized = normalize_mac_address(mac)
+        first_octet = int(normalized.split(':')[0], 16)
+        
+        # Check the two most significant bits (bits 6 and 7)
+        # For random addresses, at least one of these bits should be set
+        return (first_octet & 0xC0) != 0x00
+    except (ValueError, IndexError):
+        return False
+
+
 __all__ = [
     "format_time_delta",
     "normalize_mac_address", 
     "format_rssi_with_quality",
     "truncate_string",
+    "is_random_ble_address",
 ]

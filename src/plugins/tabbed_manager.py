@@ -349,19 +349,6 @@ class TabbedPluginManager:
             if i < len(self.tab_names) - 1:
                 tab_text.append(" ")
         
-        # Add plugin counts
-        stats_text = ""
-        for i, tab_name in enumerate(self.tab_names):
-            protocol = tab_name.lower()
-            plugin = self.active_plugins.get(protocol)
-            if plugin:
-                stats = plugin.get_statistics()
-                device_count = stats.get("devices", 0)
-                packet_count = stats.get("packets", 0)
-                if i == self.current_tab:
-                    stats_text += f" [{tab_name}: {device_count} devices, {packet_count:,} pkts]"
-        
-        tab_text.append(stats_text, style="dim")
         
         return Panel(tab_text, style="bright_blue", height=3)
     
