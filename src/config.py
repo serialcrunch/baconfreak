@@ -32,9 +32,9 @@ class BaconFreakConfig:
                 ".secrets.toml",
             ]
 
-        # Initialize Dynaconf
+        # Initialize Dynaconf without environments support
         self.settings = Dynaconf(
-            environments=True,
+            environments=False,
             settings_files=settings_files,
             env_prefix="BFREAK",
             load_dotenv=True,

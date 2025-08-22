@@ -10,7 +10,13 @@ import typer
 from loguru import logger
 from rich.console import Console
 from rich.panel import Panel
-from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
+from rich.progress import (
+    BarColumn,
+    Progress, 
+    SpinnerColumn,
+    TaskProgressColumn,
+    TextColumn,
+)
 from rich.table import Table
 from rich.text import Text
 from rich.tree import Tree
@@ -85,6 +91,12 @@ def scan(
     ),
     tabbed: bool = typer.Option(
         None, "--tabbed/--no-tabbed", help="📊 Use tabbed interface (auto-enabled for multiple protocols)"
+    ),
+    enable_plugin: Optional[List[str]] = typer.Option(
+        None, "--enable-plugin", help="🔌 Force enable specific plugins (overrides config)"
+    ),
+    disable_plugin: Optional[List[str]] = typer.Option(
+        None, "--disable-plugin", help="🚫 Force disable specific plugins (overrides config)"
     ),
     quiet: bool = typer.Option(False, "--quiet", "-q", help="🤫 Quiet mode (minimal output)"),
     no_rich: bool = typer.Option(False, "--no-rich", help="🎨 Disable Rich formatting"),
@@ -163,6 +175,21 @@ def scan(
             # Build protocol-specific configuration
             plugin_config = config.get_plugin_config(protocol)
             
+            # Apply CLI enable/disable overrides
+            if disable_plugin and protocol in disable_plugin:
+                console.print(f"⚠️  [yellow]Protocol {protocol} force disabled via CLI - skipping[/yellow]")
+                continue
+            
+            if enable_plugin and protocol in enable_plugin:
+                # Force enable via CLI
+                plugin_config["enabled"] = True
+                console.print(f"🔌 [green]Protocol {protocol} force enabled via CLI[/green]")
+            
+            # Check if plugin is enabled in configuration
+            if not plugin_config.get("enabled", True):  # Default to enabled if not specified
+                console.print(f"⚠️  [yellow]Protocol {protocol} is disabled in configuration - skipping[/yellow]")
+                continue
+            
             if protocol == "ble":
                 # Only override config values when CLI params are explicitly provided
                 ble_overrides = {
@@ -200,6 +227,12 @@ def scan(
             
             plugins_added.append((protocol, plugin))
 
+        # Check if any plugins were actually added
+        if not plugins_added:
+            console.print("❌ [red]No enabled plugins found![/red]")
+            console.print("💡 [blue]Enable plugins in settings.toml or use different protocols[/blue]")
+            raise typer.Exit(1)
+
         # Show startup banner
         if not quiet:
             if use_tabbed:
@@ -224,7 +257,7 @@ def scan(
                 show_session_summary(manager)
 
     except KeyboardInterrupt:
-        console.print("\n🛑 [yellow]Scan interrupted by user[/yellow]")
+        # Signal handler already showed "Exiting..." message
         raise typer.Exit(0)
     except PermissionError:
         console.print("❌ [red]Permission denied - run with sudo[/red]")
@@ -397,6 +430,14 @@ def plugins():
         example_protocol = list(plugins_info.keys())[0]
         console.print(f"\n💡 [blue]Example usage:[/blue]")
         console.print(f"   baconfreak scan --protocol {example_protocol}")
+        
+        # Show plugin status
+        console.print(f"\n📊 [blue]Plugin Status:[/blue]")
+        for protocol in plugins_info.keys():
+            plugin_config = config.get_plugin_config(protocol)
+            enabled = plugin_config.get("enabled", True)
+            status = "[green]Enabled[/green]" if enabled else "[red]Disabled[/red]"
+            console.print(f"   {protocol.upper()}: {status}")
         
     except Exception as e:
         console.print(f"❌ [red]Failed to list plugins: {e}[/red]")

@@ -42,64 +42,6 @@ class TestVerboseOutputSuppression:
                     assert 'verbose' in call_args.kwargs
                     assert call_args.kwargs['verbose'] is False
     
-    def test_ble_plugin_stop_capture_verbose_suppressed(self):
-        """Test that BLE plugin stop_capture suppresses verbose output."""
-        config = {
-            "interface": "hci1",
-            "scan_timeout": 0,
-            "min_rssi": -100,
-            "filter_duplicates": False
-        }
-        
-        plugin = BLEPlugin(config, Console())
-        
-        # Mock the Bluetooth socket 
-        mock_socket = Mock()
-        mock_socket.sr.return_value = ([Mock()], [])
-        mock_socket.close = Mock()
-        
-        # Set the socket on the plugin
-        plugin.bt_socket = mock_socket
-        
-        # Call stop_capture
-        plugin.stop_capture()
-        
-        # Verify sr was called with verbose=False during shutdown
-        mock_socket.sr.assert_called_once()
-        call_args = mock_socket.sr.call_args
-        
-        # Check that verbose=False was passed
-        assert 'verbose' in call_args.kwargs
-        assert call_args.kwargs['verbose'] is False
-    
-    def test_ble_plugin_stop_capture_handles_sr_errors(self):
-        """Test that BLE plugin handles sr errors gracefully during stop."""
-        config = {
-            "interface": "hci1",
-            "scan_timeout": 0,
-            "min_rssi": -100,
-            "filter_duplicates": False
-        }
-        
-        plugin = BLEPlugin(config, Console())
-        
-        # Mock the Bluetooth socket to raise an exception on sr but succeed on close
-        mock_socket = Mock()
-        mock_socket.sr.side_effect = Exception("HCI error")
-        mock_socket.close = Mock()
-        
-        # Set the socket on the plugin
-        plugin.bt_socket = mock_socket
-        
-        # Call stop_capture - should not raise an exception
-        plugin.stop_capture()
-        
-        # Verify sr was called (but failed)
-        mock_socket.sr.assert_called_once()
-        
-        # Verify close was still called despite sr error (improved behavior)
-        mock_socket.close.assert_called_once()
-    
     @patch('src.baconfreak.BluetoothHCISocket')
     def test_legacy_baconfreak_verbose_suppressed(self, mock_socket_class):
         """Test that legacy baconfreak.py also suppresses verbose output."""

@@ -127,6 +127,8 @@ class LoguruConfig:
         # Suppress scapy logging
         logging.getLogger("scapy").setLevel(logging.WARNING)
         logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+        logging.getLogger("scapy.sendrecv").setLevel(logging.CRITICAL)  # Suppress socket errors
+        logging.getLogger("scapy.supersocket").setLevel(logging.CRITICAL)  # Suppress socket errors
 
         # Suppress other noisy loggers
         noisy_loggers = [
@@ -293,5 +295,5 @@ def setup_logging(
     return BaconFreakLogger()
 
 
-# Export logger instance
-logger = logger
+# Export logger instance for convenience
+__all__ = ["setup_logging", "BaconFreakLogger", "loguru_config", "logger"]

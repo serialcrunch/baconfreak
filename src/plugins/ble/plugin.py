@@ -30,6 +30,7 @@ from ...company_identifiers import CompanyIdentifiers
 from ...device_detector import DeviceDetector
 from ...logger import BaconFreakLogger
 from ...models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo
+from ...utils import format_time_delta, format_rssi_with_quality
 from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementError
 
 
@@ -83,6 +84,7 @@ class BLEPlugin(CapturePlugin):
             requires_root=True,
             supported_platforms=["linux"],
             config_schema={
+                "enabled": {"type": "boolean", "default": True, "description": "Enable/disable plugin"},
                 "interface": {"type": "string", "default": "hci1", "description": "HCI interface (e.g., hci0, hci1)"},
                 "adapter_name": {"type": "string", "default": "Built-in Bluetooth", "description": "Bluetooth adapter name"},
                 "scan_timeout": {"type": "integer", "default": 0, "description": "Scan timeout (0=infinite)"},
@@ -288,62 +290,91 @@ class BLEPlugin(CapturePlugin):
                             stop_filter=lambda x: stop_event.is_set() or not self._running,
                             timeout=sniff_timeout
                         )
+                    except (OSError, BrokenPipeError, ConnectionResetError) as e:
+                        # Socket closed during operation - expected during shutdown
+                        logger.debug(f"Socket closed during sniff: {e}")
+                        break
+                    except KeyboardInterrupt:
+                        # Let KeyboardInterrupt propagate to signal handlers
+                        raise
                     except Exception as e:
                         if "Interrupted system call" in str(e) or stop_event.is_set():
                             break
                         else:
                             raise
+        except KeyboardInterrupt:
+            # Let KeyboardInterrupt propagate to signal handlers
+            logger.debug("KeyboardInterrupt in BLE capture, propagating...")
+            raise
         except Exception as e:
             self.logger.error_with_context(e, "Error during packet capture")
             raise PluginError(f"Packet capture failed: {e}")
         finally:
             self._running = False
     
+    def _safe_socket_command(self, command) -> bool:
+        """Safely execute a socket command during shutdown."""
+        try:
+            # Check socket validity
+            if not self.bt_socket or not hasattr(self.bt_socket, 'ins'):
+                return False
+            
+            # Check if socket file descriptor is valid
+            if hasattr(self.bt_socket.ins, 'fileno'):
+                self.bt_socket.ins.fileno()
+            
+            # Execute the command
+            self.bt_socket.sr(command, verbose=False)
+            return True
+            
+        except (OSError, BrokenPipeError, ConnectionResetError, ValueError) as e:
+            # Expected errors during shutdown
+            logger.debug(f"Expected socket error during shutdown: {e}")
+            return False
+        except Exception as e:
+            # Unexpected errors
+            logger.debug(f"Unexpected error during socket command: {e}")
+            return False
+    
     def stop_capture(self) -> None:
         """Stop BLE capture."""
         self._running = False
+        
         if self.bt_socket:
-            try:
-                # Check if socket is still valid before sending disable command
-                if hasattr(self.bt_socket, 'ins') and hasattr(self.bt_socket.ins, 'fileno'):
-                    # Try to get file descriptor - will raise if socket is closed
-                    self.bt_socket.ins.fileno()
-                    
-                    # Disable scanning
-                    scan_command = (
-                        HCI_Hdr()
-                        / HCI_Command_Hdr()
-                        / HCI_Cmd_LE_Set_Scan_Enable(enable=False)
-                    )
-                    
-                    # Temporarily suppress scapy logging during shutdown
-                    import logging
-                    scapy_logger = logging.getLogger("scapy")
-                    original_level = scapy_logger.level
-                    scapy_logger.setLevel(logging.CRITICAL)
-                    
-                    try:
-                        self.bt_socket.sr(scan_command, verbose=False)
-                    finally:
-                        scapy_logger.setLevel(original_level)
-                else:
-                    logger.debug("Socket already invalid, skipping scan disable command")
-            except (OSError, ValueError, AttributeError) as e:
-                # Expected during rapid shutdown - socket may already be closed
-                logger.debug(f"Expected shutdown error when disabling scan: {e}")
-            except Exception as e:
-                # Unexpected errors - log but don't fail shutdown
-                logger.debug(f"Unexpected error during scan disable: {e}")
+            # During shutdown, skip the disable command and just close the socket
+            # This avoids "Bad file descriptor" errors from trying to send on a closed socket
             
-            # Always close the socket to force sniff to exit
+            # Suppress all scapy logging during shutdown
+            import logging
+            scapy_logger = logging.getLogger("scapy")
+            sendrecv_logger = logging.getLogger("scapy.sendrecv")
+            supersocket_logger = logging.getLogger("scapy.supersocket")
+            
+            original_levels = {
+                'scapy': scapy_logger.level,
+                'sendrecv': sendrecv_logger.level,
+                'supersocket': supersocket_logger.level
+            }
+            
+            # Set all to CRITICAL to suppress errors
+            scapy_logger.setLevel(logging.CRITICAL)
+            sendrecv_logger.setLevel(logging.CRITICAL)
+            supersocket_logger.setLevel(logging.CRITICAL)
+            
             try:
+                # Close socket immediately to interrupt sniff operations
                 if hasattr(self.bt_socket, 'close'):
                     self.bt_socket.close()
                 elif hasattr(self.bt_socket, 'ins'):
-                    # Close underlying socket
                     self.bt_socket.ins.close()
-            except:
-                pass  # Ignore errors during socket cleanup
+                logger.debug("BLE socket closed successfully")
+            except Exception as e:
+                logger.debug(f"Expected error closing socket: {e}")
+            finally:
+                # Restore original logging levels
+                scapy_logger.setLevel(original_levels['scapy'])
+                sendrecv_logger.setLevel(original_levels['sendrecv'])
+                supersocket_logger.setLevel(original_levels['supersocket'])
         
         if self.company_resolver:
             self.company_resolver.close()
@@ -468,13 +499,12 @@ class BLEPlugin(CapturePlugin):
         
         # Footer
         footer = Panel(
-            "[dim]Controls: [/dim]"
+            "[dim]Sort: [/dim]"
             "[bright_blue]R[/bright_blue]=[dim]RSSI[/dim] | "
             "[bright_blue]F[/bright_blue]=[dim]First Seen[/dim] | "
             "[bright_blue]L[/bright_blue]=[dim]Last Seen[/dim] | "
             "[bright_blue]T[/bright_blue]=[dim]Total Time[/dim] | "
-            "[bright_blue]P[/bright_blue]=[dim]Packets[/dim] | "
-            "[red]Ctrl+C[/red]=[dim]Quit[/dim]",
+            "[bright_blue]P[/bright_blue]=[dim]Packets[/dim]",
             style="dim"
         )
         layout["footer"].update(footer)
@@ -508,21 +538,20 @@ class BLEPlugin(CapturePlugin):
             total_time_delta = now - device.first_seen
             
             # Format times
-            last_seen_str = self._format_time_delta(last_seen_delta)
+            last_seen_str = format_time_delta(last_seen_delta)
             if total_time_delta.total_seconds() < 3600:
                 first_seen_str = device.first_seen.strftime("%H:%M:%S")
             else:
-                first_seen_str = self._format_time_delta(total_time_delta) + " ago"
-            total_time_str = self._format_time_delta(total_time_delta)
+                first_seen_str = format_time_delta(total_time_delta) + " ago"
+            total_time_str = format_time_delta(total_time_delta)
             
             # Color RSSI
-            rssi_style = ("green" if device.rssi > -50 else 
-                         "yellow" if device.rssi > -70 else "red")
+            rssi_value, rssi_style = format_rssi_with_quality(device.rssi)
             
             table.add_row(
                 device.device_type.value,
                 device.addr,
-                f"[{rssi_style}]{device.rssi}[/{rssi_style}]",
+                f"[{rssi_style}]{rssi_value}[/{rssi_style}]",
                 device.company_name or "Unknown",
                 str(device.packet_count),
                 first_seen_str,
@@ -556,23 +585,6 @@ class BLEPlugin(CapturePlugin):
         
         return Panel(stats_text, title="📈 BLE Stats", style="yellow")
     
-    def _format_time_delta(self, delta) -> str:
-        """Format timedelta to human readable string."""
-        total_seconds = int(delta.total_seconds())
-        
-        if total_seconds < 60:
-            return f"{total_seconds}s"
-        elif total_seconds < 3600:
-            minutes = total_seconds // 60
-            return f"{minutes}m"
-        elif total_seconds < 86400:
-            hours = total_seconds // 3600
-            minutes = (total_seconds % 3600) // 60
-            return f"{hours}h{minutes}m" if minutes > 0 else f"{hours}h"
-        else:
-            days = total_seconds // 86400
-            hours = (total_seconds % 86400) // 3600
-            return f"{days}d{hours}h" if hours > 0 else f"{days}d"
     
     def handle_keyboard_input(self, key: str) -> None:
         """Handle keyboard input for BLE plugin."""

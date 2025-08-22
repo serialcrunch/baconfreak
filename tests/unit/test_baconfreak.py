@@ -197,6 +197,8 @@ class TestBluetoothScannerMethods(unittest.TestCase):
 
     def test_signal_handler(self):
         """Test signal handler."""
+        # Set scanner to running state first
+        self.scanner._running = True
         self.scanner._signal_handler(2, None)
         self.assertTrue(self.scanner.exit_event.is_set())
         self.assertFalse(self.scanner._running)

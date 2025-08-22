@@ -84,7 +84,7 @@ class TestConfig(unittest.TestCase):
         """Test initialization with custom settings files."""
         custom_settings = self.temp_dir / "custom.toml"
         custom_settings.write_text("""
-[default.bluetooth]
+[bluetooth]
 interface = 2
 scan_timeout = 60
 """)

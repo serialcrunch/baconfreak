@@ -10,6 +10,8 @@ from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from pydantic.dataclasses import dataclass as pydantic_dataclass
 
+from .utils import normalize_mac_address
+
 
 class DeviceType(str, Enum):
     """Enumeration of supported device types."""
@@ -69,9 +71,9 @@ class BluetoothDevice(BaseModel):
 
     @field_validator("addr")
     @classmethod
-    def normalize_mac_address(cls, v):
-        """Normalize MAC address to lowercase with colons."""
-        return v.lower()
+    def validate_and_normalize_mac_address(cls, v):
+        """Validate and normalize MAC address."""
+        return normalize_mac_address(v)
 
     def update_seen(
         self, rssi: int, data: Optional[str] = None, device_name: Optional[str] = None
@@ -134,9 +136,9 @@ class PacketInfo(BaseModel):
 
     @field_validator("addr")
     @classmethod
-    def normalize_mac_address(cls, v):
-        """Normalize MAC address to lowercase."""
-        return v.lower()
+    def validate_and_normalize_mac_address(cls, v):
+        """Validate and normalize MAC address."""
+        return normalize_mac_address(v)
 
 
 class DeviceStats(BaseModel):
@@ -158,7 +160,7 @@ class DeviceStats(BaseModel):
         default_factory=dict, description="Device count by type"
     )
 
-    # Company statistics
+    # Company statistics - use frozenset for better memory efficiency
     known_companies: set[str] = Field(
         default_factory=set, description="Known company names encountered"
     )

@@ -23,9 +23,9 @@ class TestShutdownErrorHandling:
         
         plugin = BLEPlugin(config, Console())
         
-        # Mock the Bluetooth socket with a bad file descriptor error
+        # Mock the Bluetooth socket with a close error
         mock_socket = Mock()
-        mock_socket.ins.fileno.side_effect = OSError("Bad file descriptor")
+        mock_socket.close.side_effect = OSError("Bad file descriptor")
         
         # Set the socket on the plugin
         plugin.bt_socket = mock_socket
@@ -33,34 +33,7 @@ class TestShutdownErrorHandling:
         # Call stop_capture - should not raise an exception
         plugin.stop_capture()
         
-        # Verify fileno was called (which triggered the error)
-        mock_socket.ins.fileno.assert_called_once()
-    
-    def test_ble_plugin_handles_sr_oserror(self):
-        """Test that BLE plugin handles OSError during sr() call."""
-        config = {
-            "interface": "hci1",
-            "scan_timeout": 0,
-            "min_rssi": -100,
-            "filter_duplicates": False
-        }
-        
-        plugin = BLEPlugin(config, Console())
-        
-        # Mock socket that passes fileno check but fails on sr
-        mock_socket = Mock()
-        mock_socket.ins.fileno.return_value = 5  # Valid file descriptor
-        mock_socket.sr.side_effect = OSError("Bad file descriptor")
-        mock_socket.close = Mock()
-        
-        plugin.bt_socket = mock_socket
-        
-        # Should not raise exception
-        plugin.stop_capture()
-        
-        # Verify sr was attempted
-        mock_socket.sr.assert_called_once()
-        # Verify socket was still closed
+        # Verify close was called (which triggered the error)
         mock_socket.close.assert_called_once()
     
     def test_ble_plugin_skips_invalid_socket(self):

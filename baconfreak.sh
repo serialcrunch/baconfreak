@@ -39,10 +39,17 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Find virtual environment
+# Find virtual environment (cached)
+VENV_PATH_CACHE=""
 find_venv() {
+    if [[ -n "$VENV_PATH_CACHE" ]]; then
+        echo "$VENV_PATH_CACHE"
+        return 0
+    fi
+    
     for venv_path in "${VENV_PATHS[@]}"; do
         if [[ -d "$venv_path" && -f "$venv_path/bin/python" ]]; then
+            VENV_PATH_CACHE="$venv_path"
             echo "$venv_path"
             return 0
         fi
@@ -52,28 +59,19 @@ find_venv() {
 
 # Check if running as root
 check_root() {
-    if [[ $EUID -eq 0 ]]; then
-        return 0
-    else
-        return 1
-    fi
+    [[ $EUID -eq 0 ]]
 }
 
-# Check Bluetooth interface
-check_bluetooth() {
-    if ! command -v hciconfig >/dev/null 2>&1; then
-        log_warning "hciconfig not found - Bluetooth tools may not be installed"
-        return 1
-    fi
-    
-    # Check if any HCI interface is available
-    if ! hciconfig 2>/dev/null | grep -q "hci"; then
-        log_warning "No Bluetooth interfaces found"
-        return 1
-    fi
-    
-    return 0
+# Check if python3 is available
+check_python() {
+    command -v python3 >/dev/null 2>&1
 }
+
+# Get python version
+get_python_version() {
+    python3 --version | cut -d' ' -f2
+}
+
 
 # Show usage information
 show_usage() {
@@ -110,7 +108,7 @@ Project Structure:
   src/baconfreak.py                    # Core Bluetooth scanner
   src/                                 # Business logic modules
 
-Note: This tool requires root privileges for Bluetooth access.
+Note: This tool requires root privileges.
 EOF
 }
 
@@ -121,7 +119,7 @@ setup_environment() {
     cd "$PROJECT_ROOT"
     
     # Check if python3 is available
-    if ! command -v python3 >/dev/null 2>&1; then
+    if ! check_python; then
         log_error "python3 not found. Please install Python 3.8 or later."
         exit 1
     fi
@@ -166,8 +164,8 @@ check_requirements() {
     local errors=0
     
     # Check Python
-    if command -v python3 >/dev/null 2>&1; then
-        python_version=$(python3 --version | cut -d' ' -f2)
+    if check_python; then
+        python_version=$(get_python_version)
         log_success "Python 3 found: $python_version"
     else
         log_error "Python 3 not found"
@@ -175,8 +173,8 @@ check_requirements() {
     fi
     
     # Check virtual environment
-    if find_venv >/dev/null; then
-        venv_path=$(find_venv)
+    local venv_path
+    if venv_path=$(find_venv); then
         log_success "Virtual environment found: $venv_path"
     else
         log_warning "Virtual environment not found - run with --setup"
@@ -190,12 +188,6 @@ check_requirements() {
         log_warning "Not running as root - Bluetooth access will require sudo"
     fi
     
-    # Check Bluetooth
-    if check_bluetooth; then
-        log_success "Bluetooth interfaces available"
-    else
-        log_warning "Bluetooth interface issues detected"
-    fi
     
     # Check if baconfreak files exist
     if [[ -f "$PROJECT_ROOT/main.py" ]]; then
@@ -313,7 +305,7 @@ main() {
 }
 
 # Ensure we're in the right directory
-cd "$PROJECT_ROOT"
+cd "$PROJECT_ROOT" || exit 1
 
 # Run main function with all arguments
 main "$@"

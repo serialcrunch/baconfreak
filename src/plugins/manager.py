@@ -7,7 +7,7 @@ import signal
 import sys
 import threading
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from loguru import logger
 from rich.console import Console
@@ -28,6 +28,9 @@ class PluginManager:
         self.active_plugin: Optional[CapturePlugin] = None
         self._running = False
         self._stop_event = threading.Event()
+        self._capture_thread: Optional[threading.Thread] = None
+        self._keyboard_thread: Optional[threading.Thread] = None
+        self._exit_message = None  # Store exit message to display in TUI
         
         # Set up signal handlers
         signal.signal(signal.SIGINT, self._signal_handler)
@@ -35,6 +38,15 @@ class PluginManager:
     
     def _signal_handler(self, signum: int, frame: Any):
         """Handle shutdown signals gracefully."""
+        if not self._running:
+            # Already shutting down, force exit
+            self._exit_message = "🔥 [red]Force quitting...[/red]"
+            logger.warning("Second signal received, forcing exit...")
+            import sys
+            sys.exit(0)
+        
+        # Show immediate feedback that Ctrl+C was detected
+        self._exit_message = "🛑 [yellow]Exiting...[/yellow]"
         logger.info(f"Received signal {signum}, shutting down...")
         self.stop()
     
@@ -115,8 +127,32 @@ class PluginManager:
             except Exception as e:
                 logger.error(f"Error stopping plugin: {e}")
         
+        # Wait for threads to finish
+        self._join_threads()
+        
         # Force cleanup if needed
         self._force_cleanup()
+    
+    def _join_threads(self):
+        """Wait for background threads to finish."""
+        threads_to_join = []
+        
+        if self._capture_thread and self._capture_thread.is_alive():
+            threads_to_join.append(("capture", self._capture_thread))
+        
+        if self._keyboard_thread and self._keyboard_thread.is_alive():
+            threads_to_join.append(("keyboard", self._keyboard_thread))
+        
+        for thread_name, thread in threads_to_join:
+            try:
+                logger.debug(f"Waiting for {thread_name} thread to finish...")
+                thread.join(timeout=2.0)  # Wait up to 2 seconds
+                if thread.is_alive():
+                    logger.warning(f"{thread_name} thread didn't finish cleanly")
+                else:
+                    logger.debug(f"{thread_name} thread finished successfully")
+            except Exception as e:
+                logger.error(f"Error joining {thread_name} thread: {e}")
     
     def _show_startup_info(self, plugin: CapturePlugin):
         """Show startup information."""
@@ -140,24 +176,25 @@ class PluginManager:
         
         with Live(layout, refresh_per_second=2, console=self.console) as live:
             # Start capture in background thread
-            capture_thread = threading.Thread(
+            self._capture_thread = threading.Thread(
                 target=self._capture_worker,
                 args=(plugin,),
                 daemon=True
             )
-            capture_thread.start()
+            self._capture_thread.start()
             
             # Keyboard input handling
             key_queue = queue.Queue()
-            keyboard_thread = threading.Thread(
+            self._keyboard_thread = threading.Thread(
                 target=self._keyboard_worker,
                 args=(key_queue,),
                 daemon=True
             )
-            keyboard_thread.start()
+            self._keyboard_thread.start()
             
             # Update display loop
-            while self._running and capture_thread.is_alive():
+            while self._running and self._capture_thread.is_alive():
+                # Always do normal display update
                 plugin.update_display(layout)
                 
                 # Handle keyboard input
@@ -178,6 +215,7 @@ class PluginManager:
         
         self._capture_worker(plugin)
     
+    
     def _capture_worker(self, plugin: CapturePlugin):
         """Worker thread for packet capture."""
         try:
@@ -186,6 +224,10 @@ class PluginManager:
                 pass
             
             plugin.start_capture(packet_callback, self._stop_event)
+        except KeyboardInterrupt:
+            # Let KeyboardInterrupt propagate to signal handlers
+            logger.debug("KeyboardInterrupt in capture worker, propagating...")
+            raise
         except Exception as e:
             logger.error(f"Capture worker error: {e}")
             self.stop()
@@ -214,10 +256,9 @@ class PluginManager:
                     if ready and self._running:
                         key = sys.stdin.read(1)
                         if key:
-                            if ord(key) == 3:  # Ctrl+C
-                                self.stop()
-                                break
-                            else:
+                            # Let signal handlers handle Ctrl+C (ASCII 3)
+                            # Only process regular keys here
+                            if ord(key) != 3:
                                 key_queue.put(key)
                 except (KeyboardInterrupt, EOFError):
                     self.stop()

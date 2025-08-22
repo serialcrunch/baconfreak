@@ -24,7 +24,7 @@ A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BL
 ### 🛡️ **Professional Features**
 - **🔧 Type-safe models** with Pydantic v2 validation
 - **📝 Structured logging** with Loguru for better debugging
-- **⚙️ Environment-aware configuration** using Dynaconf
+- **⚙️ Flexible configuration** using Dynaconf
 - **🧪 Comprehensive testing** with pytest and coverage
 - **🏗️ Modular architecture** for easy extension and maintenance
 
@@ -124,37 +124,35 @@ python main.py scan
 cp settings.toml my_settings.toml
 python main.py scan --config my_settings.toml
 
-# Environment-specific configuration (auto-detects DEVELOPMENT by default)
-BFREAK_ENV=production python main.py scan   # Use production settings
-BFREAK_ENV=development python main.py scan  # Use development settings (default)
+# Use environment variables for overrides (note double underscores for nested values)
+BFREAK_LOGGING__LEVEL=DEBUG python main.py scan
+BFREAK_DETECTION__MIN_RSSI=-80 python main.py scan
 ```
 
 #### Configuration Options
 
 ```toml
-[default.bluetooth]
-interface = 1          # HCI interface number
-scan_timeout = 0       # Scan duration (0 = infinite)
+[plugins.ble]
+enabled = true        # Enable/disable BLE plugin
+interface = "hci1"    # HCI interface name
+scan_timeout = 0      # Scan duration (0 = infinite)
 filter_duplicates = false
-
-[default.detection]  
 min_rssi = -100       # Minimum signal strength
+
+[plugins.wifi]
+enabled = false       # Enable/disable WiFi plugin  
+interface = "wlan0"   # WiFi interface name
+monitor_mode = true   # Enable monitor mode
+channels = [1, 6, 11] # Channels to scan
+
+[detection]  
 device_timeout = 300  # Device staleness threshold
 max_devices = 10000   # Maximum devices to track
 
-[default.logging]
+[logging]
 level = "INFO"        # Log verbosity
 rotation = "10 MB"    # Log file rotation
 retention = "7 days"  # Log retention period
-
-# Environment-specific overrides
-[development]
-logging.level = "DEBUG"
-detection.min_rssi = -120
-
-[production] 
-logging.level = "WARNING"
-logging.file = "baconfreak.log"
 ```
 
 ## Architecture
@@ -207,11 +205,11 @@ python -m pytest tests/ --cov=src
 # Run specific test files
 python -m pytest tests/unit/test_device_detector.py -v
 
-# Run tests in production mode (to avoid dev environment settings)
-BFREAK_ENV=production python -m pytest tests/unit/test_config.py -v
+# Run specific test modules
+python -m pytest tests/unit/test_config.py -v
 ```
 
-**Note**: Tests may behave differently in development vs production environments due to configuration overrides in `settings.toml`.
+**Note**: Use environment variables like `BFREAK_LOGGING__LEVEL=DEBUG` to override configuration during testing.
 
 ## Quick Start
 

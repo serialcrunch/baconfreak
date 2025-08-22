@@ -22,6 +22,7 @@ from scapy.utils import PcapWriter
 
 from ...logger import BaconFreakLogger
 from ...models import DeviceStats
+from ...utils import format_time_delta, format_rssi_with_quality, truncate_string
 from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementError
 
 
@@ -86,7 +87,8 @@ class WiFiPlugin(CapturePlugin):
             "rssi": ("RSSI", lambda d: d.rssi),
             "ssid": ("SSID", lambda d: d.ssid.lower()),
             "packets": ("Packets", lambda d: d.packet_count),
-            "channel": ("Channel", lambda d: d.channel or 0)
+            "channel": ("Channel", lambda d: d.channel or 0),
+            "total_time": ("Total Time", lambda d: (datetime.now() - d.first_seen).total_seconds())
         }
         
         # Capture state
@@ -105,6 +107,7 @@ class WiFiPlugin(CapturePlugin):
             requires_root=True,
             supported_platforms=["linux"],
             config_schema={
+                "enabled": {"type": "boolean", "default": True, "description": "Enable/disable plugin"},
                 "interface": {"type": "string", "default": "wlan0", "description": "WiFi interface name"},
                 "monitor_mode": {"type": "boolean", "default": True, "description": "Enable monitor mode for packet capture"},
                 "scan_timeout": {"type": "integer", "default": 0, "description": "Scan timeout (0=infinite)"},
@@ -360,12 +363,19 @@ class WiFiPlugin(CapturePlugin):
                             stop_filter=lambda x: stop_event.is_set() or not self._running,
                             timeout=sniff_timeout
                         )
+                    except KeyboardInterrupt:
+                        # Let KeyboardInterrupt propagate to signal handlers
+                        raise
                     except Exception as e:
                         if "Interrupted system call" in str(e) or stop_event.is_set():
                             break
                         else:
                             raise
                 
+        except KeyboardInterrupt:
+            # Let KeyboardInterrupt propagate to signal handlers
+            logger.debug("KeyboardInterrupt in WiFi capture, propagating...")
+            raise
         except Exception as e:
             self.logger.error_with_context(e, "Error during WiFi packet capture")
             raise PluginError(f"WiFi packet capture failed: {e}")
@@ -634,14 +644,14 @@ class WiFiPlugin(CapturePlugin):
         
         # Footer
         footer = Panel(
-            "[dim]Controls: [/dim]"
+            "[dim]Sort: [/dim]"
             "[bright_green]S[/bright_green]=[dim]SSID[/dim] | "
             "[bright_green]R[/bright_green]=[dim]RSSI[/dim] | "
             "[bright_green]C[/bright_green]=[dim]Channel[/dim] | "
             "[bright_green]F[/bright_green]=[dim]First Seen[/dim] | "
             "[bright_green]L[/bright_green]=[dim]Last Seen[/dim] | "
-            "[bright_green]P[/bright_green]=[dim]Packets[/dim] | "
-            "[red]Ctrl+C[/red]=[dim]Quit[/dim]",
+            "[bright_green]T[/bright_green]=[dim]Total Time[/dim] | "
+            "[bright_green]P[/bright_green]=[dim]Packets[/dim]",
             style="dim"
         )
         layout["footer"].update(footer)
@@ -657,6 +667,7 @@ class WiFiPlugin(CapturePlugin):
         table.add_column("Pkts", style="magenta", width=4, justify="right")
         table.add_column("First", style="dim", width=8)
         table.add_column("Last", style="dim", width=8)
+        table.add_column("Total", style="dim", width=8)
         
         # Sort devices
         if self.wifi_devices:
@@ -673,32 +684,32 @@ class WiFiPlugin(CapturePlugin):
             now = datetime.now()
             last_seen_delta = now - device.last_seen
             first_seen_delta = now - device.first_seen
+            total_time_delta = now - device.first_seen
             
             # Format times
-            last_seen_str = self._format_time_delta(last_seen_delta)
+            last_seen_str = format_time_delta(last_seen_delta)
             if first_seen_delta.total_seconds() < 3600:
                 first_seen_str = device.first_seen.strftime("%H:%M:%S")
             else:
-                first_seen_str = self._format_time_delta(first_seen_delta) + " ago"
+                first_seen_str = format_time_delta(first_seen_delta) + " ago"
+            total_time_str = format_time_delta(total_time_delta)
             
             # Color RSSI
-            rssi_style = ("green" if device.rssi > -50 else 
-                         "yellow" if device.rssi > -70 else "red")
+            rssi_value, rssi_style = format_rssi_with_quality(device.rssi)
             
             # Truncate long SSIDs
-            ssid_display = device.ssid
-            if len(ssid_display) > 18:
-                ssid_display = ssid_display[:15] + "..."
+            ssid_display = truncate_string(device.ssid, 18)
             
             table.add_row(
                 "AP" if device.device_type == "access_point" else "Client",
                 device.bssid,
                 ssid_display,
                 str(device.channel) if device.channel else "-",
-                f"[{rssi_style}]{device.rssi}[/{rssi_style}]" if device.rssi > -100 else "-",
+                f"[{rssi_style}]{rssi_value}[/{rssi_style}]" if device.rssi > -100 else "-",
                 str(device.packet_count),
                 first_seen_str,
-                last_seen_str
+                last_seen_str,
+                total_time_str
             )
         
         return table
@@ -738,23 +749,6 @@ class WiFiPlugin(CapturePlugin):
         
         return Panel(stats_text, title="📈 WiFi Stats", style="yellow")
     
-    def _format_time_delta(self, delta) -> str:
-        """Format timedelta to human readable string."""
-        total_seconds = int(delta.total_seconds())
-        
-        if total_seconds < 60:
-            return f"{total_seconds}s"
-        elif total_seconds < 3600:
-            minutes = total_seconds // 60
-            return f"{minutes}m"
-        elif total_seconds < 86400:
-            hours = total_seconds // 3600
-            minutes = (total_seconds % 3600) // 60
-            return f"{hours}h{minutes}m" if minutes > 0 else f"{hours}h"
-        else:
-            days = total_seconds // 86400
-            hours = (total_seconds % 86400) // 3600
-            return f"{days}d{hours}h" if hours > 0 else f"{days}d"
     
     def handle_keyboard_input(self, key: str) -> None:
         """Handle keyboard input for WiFi plugin."""
@@ -793,6 +787,12 @@ class WiFiPlugin(CapturePlugin):
                 self.sort_ascending = not self.sort_ascending
             else:
                 self.sort_mode = "packets"
+                self.sort_ascending = False
+        elif key.lower() == 't':
+            if self.sort_mode == "total_time":
+                self.sort_ascending = not self.sort_ascending
+            else:
+                self.sort_mode = "total_time"
                 self.sort_ascending = False
     
     def get_statistics(self) -> Dict[str, Any]:

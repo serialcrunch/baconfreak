@@ -33,6 +33,7 @@ class TabbedPluginManager:
         self._running = False
         self._stop_event = threading.Event()
         self._capture_threads: Dict[str, threading.Thread] = {}
+        self._exit_message = None  # Store exit message to display in TUI
         
         # Set up signal handlers
         signal.signal(signal.SIGINT, self._signal_handler)
@@ -40,6 +41,15 @@ class TabbedPluginManager:
     
     def _signal_handler(self, signum: int, frame: Any):
         """Handle shutdown signals gracefully."""
+        if not self._running:
+            # Already shutting down, force exit
+            self._exit_message = "🔥 [red]Force quitting...[/red]"
+            logger.warning("Second signal received, forcing exit...")
+            import sys
+            sys.exit(0)
+        
+        # Show immediate feedback that Ctrl+C was detected
+        self._exit_message = "🛑 [yellow]Exiting...[/yellow]"
         logger.info(f"Received signal {signum}, shutting down...")
         self.stop()
     
@@ -215,6 +225,7 @@ class TabbedPluginManager:
             
             # Update display loop
             while self._running and any(t.is_alive() for t in self._capture_threads.values()):
+                # Always do normal display update
                 self._update_tabbed_display(layout)
                 
                 # Handle keyboard input
@@ -257,9 +268,14 @@ class TabbedPluginManager:
                 pass
             
             plugin.start_capture(packet_callback, self._stop_event)
+        except KeyboardInterrupt:
+            # Let KeyboardInterrupt propagate to signal handlers
+            logger.debug(f"KeyboardInterrupt in {protocol} capture worker, propagating...")
+            raise
         except Exception as e:
             logger.error(f"Capture worker error for {protocol}: {e}")
             # Don't stop all plugins if one fails
+    
     
     def _create_tabbed_layout(self) -> Layout:
         """Create tabbed layout structure."""
@@ -287,15 +303,32 @@ class TabbedPluginManager:
         else:
             layout["content"].update(Panel("No plugin selected", style="red"))
         
-        # Global footer
-        global_footer = Panel(
-            "[dim]Global Controls: [/dim]"
-            "[bright_blue]Tab[/bright_blue]=[dim]Next Plugin[/dim] | "
-            "[bright_blue]Shift+Tab[/bright_blue]=[dim]Prev Plugin[/dim] | "
-            "[bright_blue]1-9[/bright_blue]=[dim]Select Plugin[/dim] | "
-            "[red]Ctrl+C[/red]=[dim]Quit All[/dim]",
-            style="dim"
-        )
+        # Global footer - modify based on exit state
+        if self._exit_message:
+            # Show exit message instead of Ctrl+C
+            if "Force quitting" in self._exit_message:
+                exit_display = "[red]🔥 Force quitting...[/red]"
+            else:
+                exit_display = "[yellow]🛑 Exiting...[/yellow]"
+            
+            global_footer = Panel(
+                "[dim]Global Controls: [/dim]"
+                "[bright_blue]Tab[/bright_blue]=[dim]Next Plugin[/dim] | "
+                "[bright_blue]Shift+Tab[/bright_blue]=[dim]Prev Plugin[/dim] | "
+                "[bright_blue]1-9[/bright_blue]=[dim]Select Plugin[/dim] | "
+                f"{exit_display}",
+                style="dim"
+            )
+        else:
+            # Normal footer with Ctrl+C
+            global_footer = Panel(
+                "[dim]Global Controls: [/dim]"
+                "[bright_blue]Tab[/bright_blue]=[dim]Next Plugin[/dim] | "
+                "[bright_blue]Shift+Tab[/bright_blue]=[dim]Prev Plugin[/dim] | "
+                "[bright_blue]1-9[/bright_blue]=[dim]Select Plugin[/dim] | "
+                "[red]Ctrl+C[/red]=[dim]Quit All[/dim]",
+                style="dim"
+            )
         layout["global_footer"].update(global_footer)
     
     def _create_tab_bar(self) -> Panel:
@@ -373,10 +406,9 @@ class TabbedPluginManager:
                     if ready and self._running:
                         key = sys.stdin.read(1)
                         if key:
-                            if ord(key) == 3:  # Ctrl+C
-                                self.stop()
-                                break
-                            else:
+                            # Let signal handlers handle Ctrl+C (ASCII 3)
+                            # Only process regular keys here
+                            if ord(key) != 3:
                                 key_queue.put(key)
                 except (KeyboardInterrupt, EOFError):
                     self.stop()

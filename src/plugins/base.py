@@ -239,8 +239,15 @@ class PluginRegistry:
         if not plugin_class:
             return None
         
-        temp_instance = plugin_class({})
-        return temp_instance.info
+        # Cache plugin info to avoid creating temporary instances repeatedly
+        if not hasattr(self, '_plugin_info_cache'):
+            self._plugin_info_cache = {}
+        
+        if protocol not in self._plugin_info_cache:
+            temp_instance = plugin_class({})
+            self._plugin_info_cache[protocol] = temp_instance.info
+        
+        return self._plugin_info_cache[protocol]
     
     def list_all_plugins(self) -> Dict[str, PluginInfo]:
         """Get information for all registered plugins."""
@@ -252,7 +259,20 @@ class PluginRegistry:
 
 class PluginError(Exception):
     """Base exception for plugin errors."""
-    pass
+    
+    def __init__(self, message: str, plugin_name: Optional[str] = None, 
+                 details: Optional[Dict[str, Any]] = None):
+        """
+        Initialize plugin error.
+        
+        Args:
+            message: Error message
+            plugin_name: Name of the plugin that caused the error
+            details: Additional error details
+        """
+        super().__init__(message)
+        self.plugin_name = plugin_name
+        self.details = details or {}
 
 
 class PluginConfigError(PluginError):
@@ -262,4 +282,9 @@ class PluginConfigError(PluginError):
 
 class PluginRequirementError(PluginError):
     """Raised when plugin requirements are not met."""
+    pass
+
+
+class PluginInterfaceError(PluginError):
+    """Raised when plugin interface is not available or accessible."""
     pass

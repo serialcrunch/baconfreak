@@ -128,6 +128,7 @@ class BluetoothScanner:
         # Threading control
         self.exit_event = threading.Event()
         self._running = False
+        self._exit_message = None  # Store exit message to display in TUI
 
         # Device tracking
         self.devices: Dict[str, BluetoothDevice] = {}
@@ -170,6 +171,15 @@ class BluetoothScanner:
 
     def _signal_handler(self, signum: int, frame: Any):
         """Handle shutdown signals gracefully."""
+        if not self._running:
+            # Already shutting down, force exit
+            self._exit_message = "🔥 [red]Force quitting...[/red]"
+            logger.warning("Second signal received, forcing exit...")
+            import sys
+            sys.exit(0)
+        
+        # Show immediate feedback that Ctrl+C was detected
+        self._exit_message = "🛑 [yellow]Exiting...[/yellow]"
         logger.info(f"Received signal {signum}, shutting down...")
         self.stop()
     
@@ -371,8 +381,7 @@ class BluetoothScanner:
             "[bright_blue]F[/bright_blue]=[dim]First Seen[/dim] | "
             "[bright_blue]L[/bright_blue]=[dim]Last Seen[/dim] | "
             "[bright_blue]T[/bright_blue]=[dim]Total Time[/dim] | "
-            "[bright_blue]P[/bright_blue]=[dim]Packets[/dim] | "
-            "[red]Ctrl+C[/red]=[dim]Quit[/dim]"
+            "[bright_blue]P[/bright_blue]=[dim]Packets[/dim]"
         )
         return Panel(footer_text, style="dim")
 
@@ -630,11 +639,9 @@ class BluetoothScanner:
                                         if ready and self._running:
                                             key = sys.stdin.read(1)
                                             if key:
-                                                # Handle Ctrl+C (ASCII 3)
-                                                if ord(key) == 3:  # Ctrl+C
-                                                    self.stop()
-                                                    break
-                                                else:
+                                                # Let signal handlers handle Ctrl+C (ASCII 3)
+                                                # Only process regular keys here
+                                                if ord(key) != 3:
                                                     key_queue.put(key)
                                                     
                                     except (KeyboardInterrupt, EOFError):
@@ -659,7 +666,12 @@ class BluetoothScanner:
                         
                         # Update display while scanning
                         while self._running and capture_thread.is_alive():
-                            self._update_display(layout)
+                            if self._exit_message:
+                                # Replace device table with exit message
+                                self._update_display_with_exit_message(layout)
+                            else:
+                                # Normal display update
+                                self._update_display(layout)
                             
                             # Process any keyboard input from the queue (non-blocking)
                             try:
@@ -699,6 +711,47 @@ class BluetoothScanner:
             self._print_summary()
             if hasattr(self, "company_resolver"):
                 self.company_resolver.close()
+
+    def _update_display_with_exit_message(self, layout: Layout):
+        """Update display with exit message replacing the device table."""
+        # Update header and stats normally
+        sort_name = self.sort_modes[self.sort_mode][0]
+        sort_dir = "↑" if self.sort_ascending else "↓"
+        
+        header = Panel(
+            f"🥓  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
+            f"Interface: HCI{self.scan_config.interface} | "
+            f"Devices: {len(self.devices)} | "
+            f"Packets: {self.stats.total_packets:,} | "
+            f"Sort: [yellow]{sort_name} {sort_dir}[/yellow]",
+            style="bright_blue",
+        )
+        layout["header"].update(header)
+        
+        # Create exit message panel to replace device table
+        from rich.align import Align
+        from rich.text import Text
+        
+        exit_panel = Panel(
+            Align.center(
+                Text.from_markup(self._exit_message, style="bold"),
+                vertical="middle"
+            ),
+            title="⚠️  Exit Status",
+            border_style="yellow" if "Exiting" in self._exit_message else "red",
+            style="green"
+        )
+        
+        # Replace the devices section with the exit message
+        layout["devices"].update(exit_panel)
+        
+        # Update statistics normally
+        stats_content = self._create_stats_panel()
+        layout["stats"].update(stats_content)
+        
+        # Update footer normally
+        footer = self._create_footer()
+        layout["footer"].update(footer)
 
     def _print_summary(self):
         """Print scanning session summary."""
