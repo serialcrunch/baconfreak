@@ -2,8 +2,6 @@
 WiFi packet capture plugin.
 """
 
-import socket
-import struct
 import threading
 import time
 from contextlib import contextmanager
@@ -14,16 +12,20 @@ from typing import Any, Dict, List, Optional
 from loguru import logger
 from rich.console import Console
 from rich.layout import Layout
+from rich.markup import escape
 from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
 from scapy.all import *
 from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11ProbeReq, Dot11ProbeResp
 from scapy.utils import PcapWriter
 
 from ...logger import BaconFreakLogger
-from ...models import DeviceStats
-from ...utils import format_rssi_with_quality, format_time_delta, truncate_string
-from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementError
+from ...utils import truncate_string
+from ..base import CapturePlugin, PluginError, PluginInfo
+from ..common_ui import SortManager, DeviceTableFormatter, StatsFormatter, TableColumnConfig, FooterBuilder
+from ..interface_utils import InterfaceValidator, InterfaceErrorHandler, RequirementsChecker
+from ..pcap_utils import PcapManager
 
 
 class WiFiDevice:
@@ -89,17 +91,14 @@ class WiFiPlugin(CapturePlugin):
         self.channel_hop_interval = config.get("channel_hop_interval", 2.0)
 
         # UI state for sorting
-        self.sort_mode = "last_seen"
-        self.sort_ascending = False
-        self.sort_modes = {
-            "last_seen": ("Last Seen", lambda d: d.last_seen),
-            "first_seen": ("First Seen", lambda d: d.first_seen),
-            "rssi": ("RSSI", lambda d: d.rssi),
-            "ssid": ("SSID", lambda d: d.ssid.lower()),
-            "packets": ("Packets", lambda d: d.packet_count),
-            "channel": ("Channel", lambda d: d.channel or 0),
-            "total_time": ("Total Time", lambda d: (datetime.now() - d.first_seen).total_seconds()),
-        }
+        self.sort_manager = SortManager("last_seen", False)
+        self.sort_manager.register_sort_mode("last_seen", "Last Seen", lambda d: d.last_seen)
+        self.sort_manager.register_sort_mode("first_seen", "First Seen", lambda d: d.first_seen)
+        self.sort_manager.register_sort_mode("rssi", "RSSI", lambda d: d.rssi)
+        self.sort_manager.register_sort_mode("ssid", "SSID", lambda d: d.ssid.lower())
+        self.sort_manager.register_sort_mode("packets", "Packets", lambda d: d.packet_count)
+        self.sort_manager.register_sort_mode("channel", "Channel", lambda d: d.channel or 0)
+        self.sort_manager.register_sort_mode("total_time", "Total Time", lambda d: (datetime.now() - d.first_seen).total_seconds())
 
         # Capture state
         self._capture_socket = None
@@ -555,10 +554,9 @@ class WiFiPlugin(CapturePlugin):
         errors = []
 
         # Check root privileges
-        import os
-
-        if os.geteuid() != 0:
-            errors.append("Root privileges required for WiFi monitor mode operations")
+        root_ok, root_errors = RequirementsChecker.check_root_privileges()
+        if not root_ok:
+            errors.extend(["Root privileges required for WiFi monitor mode operations"])
 
         # Check WiFi interface availability
         if not self._test_interface(self.interface):
@@ -598,64 +596,15 @@ class WiFiPlugin(CapturePlugin):
 
     def _is_valid_wifi_interface(self, interface_name: str) -> bool:
         """Check if interface is a valid WiFi interface using ip command."""
-        import os
-
-        try:
-            # Check if interface exists using ip link
-            result = os.popen(f"ip link show {interface_name} 2>/dev/null").read()
-            if not result or "does not exist" in result or "LOOPBACK" in result:
-                return False
-
-            # Check if interface name follows WiFi naming conventions
-            # Common WiFi interface patterns: wlan*, wlp*, wlx*, ath*, ra*, etc.
-            wifi_patterns = ["wlan", "wlp", "wlx", "ath", "ra", "wmaster", "mon"]
-            return any(interface_name.startswith(pattern) for pattern in wifi_patterns)
-
-        except Exception:
-            return False
+        return InterfaceValidator.is_valid_wifi_interface(interface_name)
 
     def _test_interface(self, interface_name: str) -> bool:
         """Test if a WiFi interface is available and working."""
-        import os
-
-        try:
-            # First check if it's a valid WiFi interface
-            if not self._is_valid_wifi_interface(interface_name):
-                return False
-
-            # Check if interface is up or can be brought up
-            result = os.popen(f"ip link show {interface_name} 2>/dev/null").read()
-            return bool(result and "does not exist" not in result and "LOOPBACK" not in result)
-        except Exception:
-            return False
+        return InterfaceValidator.test_wifi_interface(interface_name)
 
     def _exit_with_interface_error(self) -> None:
         """Print error message and exit when interface is not available."""
-        import sys
-
-        from rich.console import Console
-        from rich.panel import Panel
-        from rich.text import Text
-
-        console = Console()
-
-        error_text = Text()
-        error_text.append("❌ WiFi Interface Error\n\n", style="bold red")
-        error_text.append(f"WiFi interface {self.interface} is not available.\n\n", style="white")
-        error_text.append("Solutions:\n", style="yellow")
-        error_text.append("1. Check all network interfaces: ", style="white")
-        error_text.append("ip link show\n", style="cyan")
-        error_text.append("2. Enable the interface: ", style="white")
-        error_text.append(f"sudo ip link set {self.interface} up\n", style="cyan")
-        error_text.append("3. Check for WiFi hardware: ", style="white")
-        error_text.append("lspci | grep -i wireless\n", style="cyan")
-        error_text.append("4. Check USB WiFi adapters: ", style="white")
-        error_text.append("lsusb | grep -i wireless\n", style="cyan")
-        error_text.append("5. Install WiFi tools: ", style="white")
-        error_text.append("sudo apt install iw wireless-tools\n", style="cyan")
-
-        console.print(Panel(error_text, title="📶 WiFi Plugin", border_style="red"))
-        sys.exit(1)
+        InterfaceErrorHandler.exit_with_wifi_error(self.interface)
 
     def get_default_output_files(self, output_dir: Path) -> Dict[str, Path]:
         """Get default WiFi output file paths."""
@@ -722,24 +671,14 @@ class WiFiPlugin(CapturePlugin):
     @contextmanager
     def _pcap_writers_context(self, output_files: Dict[str, Path]):
         """Context manager for WiFi PCAP writers."""
-        writers = {}
-        try:
-            # Ensure output directory exists
-            for file_path in output_files.values():
-                file_path.parent.mkdir(parents=True, exist_ok=True)
-
-            writers["beacon"] = PcapWriter(str(output_files["beacon_frames"]))
-            writers["probe"] = PcapWriter(str(output_files["probe_requests"]))
-            writers["data"] = PcapWriter(str(output_files["data_frames"]))
-            writers["all"] = PcapWriter(str(output_files["all_frames"]))
-
+        with PcapManager.pcap_writers_context({
+            "beacon": output_files["beacon_frames"],
+            "probe": output_files["probe_requests"],
+            "data": output_files["data_frames"],
+            "all": output_files["all_frames"]
+        }) as writers:
             self._output_files = output_files
             yield writers
-
-        finally:
-            for writer in writers.values():
-                if writer:
-                    writer.close()
 
     def start_capture(self, packet_callback, stop_event) -> None:
         """Start WiFi packet capture."""
@@ -1027,7 +966,7 @@ class WiFiPlugin(CapturePlugin):
             device = WiFiDevice(mac, ssid, device_type)
             self.wifi_devices[mac] = device
 
-            self.logger.device_detected(device_type, mac, device.rssi, {"ssid": ssid}, "WiFi")
+            self.logger.device_detected(device_type, mac, device.rssi, ssid, "WiFi")
 
         return device
 
@@ -1043,8 +982,7 @@ class WiFiPlugin(CapturePlugin):
     def update_display(self, layout: Layout) -> None:
         """Update WiFi live display."""
         # Header
-        sort_name = self.sort_modes[self.sort_mode][0]
-        sort_dir = "↑" if self.sort_ascending else "↓"
+        sort_display = self.sort_manager.get_sort_display()
 
         header = Panel(
             f"[bold bright_green]WiFi Scanner[/bold bright_green] - "
@@ -1052,7 +990,7 @@ class WiFiPlugin(CapturePlugin):
             f"Channel: {self.current_channel} | "
             f"Devices: {len(self.wifi_devices)} | "
             f"Packets: {self.stats.total_packets:,} | "
-            f"Sort: [yellow]{sort_name} {sort_dir}[/yellow]",
+            f"Sort: [yellow]{sort_display}[/yellow]",
             style="bright_green",
         )
         layout["header"].update(header)
@@ -1066,60 +1004,45 @@ class WiFiPlugin(CapturePlugin):
         layout["stats"].update(stats_panel)
 
         # Footer
-        footer = Panel(
-            "[dim]Sort: [/dim]"
-            "[bright_green]S[/bright_green]=[dim]SSID[/dim] | "
-            "[bright_green]R[/bright_green]=[dim]RSSI[/dim] | "
-            "[bright_green]C[/bright_green]=[dim]Channel[/dim] | "
-            "[bright_green]F[/bright_green]=[dim]First Seen[/dim] | "
-            "[bright_green]L[/bright_green]=[dim]Last Seen[/dim] | "
-            "[bright_green]T[/bright_green]=[dim]Total Time[/dim] | "
-            "[bright_green]P[/bright_green]=[dim]Packets[/dim]",
-            style="dim",
-        )
+        sort_keys = {
+            "S": "SSID",
+            "R": "RSSI",
+            "C": "Channel", 
+            "F": "First Seen",
+            "L": "Last Seen",
+            "T": "Total Time",
+            "P": "Packets"
+        }
+        footer = FooterBuilder.create_sort_footer(sort_keys)
         layout["footer"].update(footer)
 
     def _create_device_table(self) -> Table:
         """Create WiFi device table."""
         table = Table(show_header=True, header_style="bold bright_green")
+        
+        # Add standard columns with WiFi-specific customization
         table.add_column("Type", style="cyan", width=8)
-        table.add_column("MAC Address", style="white", width=17)
-        table.add_column("SSID", style="yellow", width=20)
+        TableColumnConfig.add_standard_column(table, "bssid", "MAC Address")
+        table.add_column("SSID", style="yellow", width=20) 
         table.add_column("Ch", style="magenta", width=4, justify="right")
-        table.add_column("RSSI", style="yellow", width=5, justify="right")
+        TableColumnConfig.add_standard_column(table, "rssi")
         table.add_column("Pkts", style="magenta", width=4, justify="right")
-        table.add_column("First", style="dim", width=8)
-        table.add_column("Last", style="dim", width=8)
-        table.add_column("Total", style="dim", width=8)
+        TableColumnConfig.add_standard_column(table, "first_seen", "First")
+        TableColumnConfig.add_standard_column(table, "last_seen", "Last")
+        TableColumnConfig.add_standard_column(table, "total_time", "Total")
 
-        # Sort devices
-        if self.wifi_devices:
-            sort_key = self.sort_modes[self.sort_mode][1]
-            recent_devices = sorted(
-                self.wifi_devices.values(), key=sort_key, reverse=not self.sort_ascending
-            )[:20]
-        else:
-            recent_devices = []
+        # Sort and limit devices
+        recent_devices = self.sort_manager.sort_items(list(self.wifi_devices.values()), limit=20)
 
         for device in recent_devices:
-            now = datetime.now()
-            last_seen_delta = now - device.last_seen
-            first_seen_delta = now - device.first_seen
-            total_time_delta = now - device.first_seen
-
-            # Format times
-            last_seen_str = format_time_delta(last_seen_delta)
-            if first_seen_delta.total_seconds() < 3600:
-                first_seen_str = device.first_seen.strftime("%H:%M:%S")
-            else:
-                first_seen_str = format_time_delta(first_seen_delta) + " ago"
-            total_time_str = format_time_delta(total_time_delta)
-
-            # Color RSSI
-            rssi_value, rssi_style = format_rssi_with_quality(device.rssi)
+            # Format time columns
+            first_seen_str, last_seen_str, total_time_str = DeviceTableFormatter.format_time_columns(device)
+            
+            # Format RSSI column
+            rssi_display = DeviceTableFormatter.format_rssi_column(device.rssi)
 
             # Truncate long SSIDs and apply gray styling to "Hidden"
-            ssid_truncated = truncate_string(device.ssid, 18)
+            ssid_truncated = truncate_string(device.ssid, 20)
             if ssid_truncated == "Hidden":
                 ssid_display = "[dim]Hidden[/dim]"
             else:
@@ -1127,10 +1050,10 @@ class WiFiPlugin(CapturePlugin):
 
             table.add_row(
                 "AP" if device.device_type == "access_point" else "Client",
-                device.bssid,
+                Text(device.bssid, style=None),
                 ssid_display,
                 str(device.channel) if device.channel else "-",
-                f"[{rssi_style}]{rssi_value}[/{rssi_style}]" if device.rssi > -100 else "-",
+                rssi_display,
                 str(device.packet_count),
                 first_seen_str,
                 last_seen_str,
@@ -1141,8 +1064,8 @@ class WiFiPlugin(CapturePlugin):
 
     def _create_stats_panel(self) -> Panel:
         """Create WiFi statistics panel."""
-        duration = self.stats.session_duration_seconds
-        rate = self.stats.packets_per_second
+        # Basic stats using common formatter
+        basic_stats = StatsFormatter.format_basic_stats(self.stats, len(self.wifi_devices), "WiFi")
 
         # Count device types
         ap_count = sum(1 for d in self.wifi_devices.values() if d.device_type == "access_point")
@@ -1153,14 +1076,8 @@ class WiFiPlugin(CapturePlugin):
         probe_count = sum(d.probe_packets for d in self.wifi_devices.values())
         data_count = sum(d.data_packets for d in self.wifi_devices.values())
 
-        stats_text = f"""📊 [bold]WiFi Statistics[/bold]
-        
-🕐 Duration: {duration:.1f}s
-📦 Packets: {self.stats.total_packets:,}
-📡 Devices: {len(self.wifi_devices)}
-⚡ Rate: {rate:.1f} pkt/s
-❌ Error Rate: {self.stats.error_rate:.2%}
-
+        # WiFi-specific stats
+        wifi_specific = f"""
 📱 [bold]Device Types[/bold]
 🏢 Access Points: {ap_count}
 👤 Clients: {client_count}
@@ -1173,7 +1090,8 @@ class WiFiPlugin(CapturePlugin):
 📶 [bold]Current Channel: {self.current_channel}[/bold]
 🌐 [bold]Enabled Bands:[/bold] {self._get_enabled_bands_display()}"""
 
-        return Panel(stats_text, title="📈 WiFi Stats", style="yellow")
+        full_stats = basic_stats + wifi_specific
+        return StatsFormatter.create_stats_panel(full_stats, "📈 WiFi Stats")
 
     def _get_enabled_bands_display(self) -> str:
         """Get a display string for enabled bands with support status."""
@@ -1426,48 +1344,18 @@ class WiFiPlugin(CapturePlugin):
 
     def handle_keyboard_input(self, key: str) -> None:
         """Handle keyboard input for WiFi plugin."""
-        if key.lower() == "s":
-            if self.sort_mode == "ssid":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "ssid"
-                self.sort_ascending = True
-        elif key.lower() == "r":
-            if self.sort_mode == "rssi":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "rssi"
-                self.sort_ascending = False
-        elif key.lower() == "c":
-            if self.sort_mode == "channel":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "channel"
-                self.sort_ascending = True
-        elif key.lower() == "f":
-            if self.sort_mode == "first_seen":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "first_seen"
-                self.sort_ascending = False
-        elif key.lower() == "l":
-            if self.sort_mode == "last_seen":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "last_seen"
-                self.sort_ascending = False
-        elif key.lower() == "p":
-            if self.sort_mode == "packets":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "packets"
-                self.sort_ascending = False
-        elif key.lower() == "t":
-            if self.sort_mode == "total_time":
-                self.sort_ascending = not self.sort_ascending
-            else:
-                self.sort_mode = "total_time"
-                self.sort_ascending = False
+        key_mappings = {
+            's': 'ssid',
+            'r': 'rssi',
+            'c': 'channel',
+            'f': 'first_seen',
+            'l': 'last_seen',
+            'p': 'packets',
+            't': 'total_time'
+        }
+        
+        if key.lower() in key_mappings:
+            self.sort_manager.handle_sort_key(key_mappings[key.lower()])
 
     def get_statistics(self) -> Dict[str, Any]:
         """Get WiFi plugin statistics."""
