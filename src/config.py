@@ -185,11 +185,37 @@ class BaconFreakConfig:
         return self.settings.get("database.batch_size", 500)
 
     def ensure_directories(self):
-        """Create necessary directories if they don't exist."""
+        """Create necessary directories if they don't exist with proper user permissions."""
+        import os
+        
         directories = [self.output_dir_path, self.assets_dir_path, self.logs_dir_path]
+
+        # Get the original user info if running under sudo
+        original_uid = None
+        original_gid = None
+        
+        if os.getuid() == 0:  # Running as root (likely via sudo)
+            # Try to get original user from SUDO_UID environment variable
+            sudo_uid = os.environ.get('SUDO_UID')
+            sudo_gid = os.environ.get('SUDO_GID')
+            
+            if sudo_uid and sudo_gid:
+                original_uid = int(sudo_uid)
+                original_gid = int(sudo_gid)
 
         for directory in directories:
             directory.mkdir(parents=True, exist_ok=True)
+            
+            # If running as root but we have original user info, fix ownership
+            if original_uid is not None and original_gid is not None:
+                try:
+                    os.chown(str(directory), original_uid, original_gid)
+                except (OSError, PermissionError) as e:
+                    # Log warning but don't fail - directory creation is more important
+                    import logging
+                    logging.getLogger(__name__).warning(
+                        f"Could not change ownership of {directory} to user {original_uid}:{original_gid}: {e}"
+                    )
 
     def get(self, key: str, default=None):
         """Get configuration value by key."""
