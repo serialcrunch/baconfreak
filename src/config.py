@@ -99,10 +99,15 @@ class BaconFreakConfig:
         )
 
     @property
-    def company_identifiers_db_path(self) -> Path:
-        """Get path for company identifiers database."""
-        filename = self.settings.get("database.company_identifiers_db", "company_identifiers.db")
+    def unified_identifiers_db_path(self) -> Path:
+        """Get path for unified identifiers database."""
+        filename = self.settings.get("database.unified_identifiers_db", "identifiers.db")
         return self.assets_dir_path / filename
+
+    @property
+    def company_identifiers_db_path(self) -> Path:
+        """Get path for company identifiers database (legacy compatibility)."""
+        return self.unified_identifiers_db_path
 
     @property
     def company_identifiers_sources(self) -> List[Path]:
@@ -115,9 +120,8 @@ class BaconFreakConfig:
 
     @property
     def oui_identifiers_db_path(self) -> Path:
-        """Get path for OUI identifiers database."""
-        filename = self.settings.get("database.oui_identifiers_db", "oui_identifiers.db")
-        return self.assets_dir_path / filename
+        """Get path for OUI identifiers database (legacy compatibility)."""
+        return self.unified_identifiers_db_path
 
     @property
     def oui_identifiers_sources(self) -> List[Path]:

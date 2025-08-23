@@ -29,13 +29,17 @@ devices_pcap = "bfreak-devices.pcap"  # Specific device types
 device_types_for_devices_pcap = ["tile", "airtag_unregistered", "airtag_registered"]
 
 [database]
-company_identifiers_db = "company_identifiers.db"
-oui_identifiers_db = "oui_identifiers.db"
+# Unified database for both company identifiers and OUI lookups (new architecture)
+unified_identifiers_db = "identifiers.db"
 batch_size = 500
+
+# Bluetooth SIG Company Identifier sources
 sources = [
     "bluetooth_sig_identifiers.yaml",  # Official Bluetooth SIG database (3,927+ companies)
     "custom_identifiers.yaml"         # Custom overrides and local definitions
 ]
+
+# IEEE OUI Identifier sources  
 oui_sources = [
     "ieee_oui_identifiers.yaml",    # Official IEEE OUI database (37,822+ entries)
     "custom_oui_identifiers.yaml"  # Custom overrides and local definitions

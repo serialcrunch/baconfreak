@@ -26,7 +26,7 @@ from ..base import CapturePlugin, PluginError, PluginInfo
 from ..common_ui import SortManager, DeviceTableFormatter, StatsFormatter, TableColumnConfig, FooterBuilder
 from ..interface_utils import InterfaceValidator, InterfaceErrorHandler, RequirementsChecker
 from ..pcap_utils import PcapManager
-from .oui_identifiers import OUIIdentifiers
+from .oui_identifiers_unified import OUIIdentifiers
 
 
 class WiFiDevice:
