@@ -30,7 +30,7 @@ from ...company_identifiers import CompanyIdentifiers
 from ...device_detector import DeviceDetector
 from ...logger import BaconFreakLogger
 from ...models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo
-from ...utils import format_time_delta, format_rssi_with_quality, is_random_ble_address
+from ...utils import format_time_delta, format_rssi_with_quality, is_random_ble_address, truncate_string
 from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementError
 
 
@@ -552,7 +552,12 @@ class BLEPlugin(CapturePlugin):
             if is_random_ble_address(device.addr):
                 company_display = "[dim]Random[/dim]"
             else:
-                company_display = device.company_name or "[yellow]Unknown[/yellow]"
+                company_name = device.company_name or "Unknown"
+                company_truncated = truncate_string(company_name, 15)
+                if device.company_name:
+                    company_display = company_truncated
+                else:
+                    company_display = f"[yellow]{company_truncated}[/yellow]"
             
             table.add_row(
                 device.device_type.value,
