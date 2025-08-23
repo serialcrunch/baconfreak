@@ -237,22 +237,23 @@ from .plugin import DemoPlugin
 __all__ = ["DemoPlugin"]
 '''
 
+
 def create_demo_plugin():
     """Create a demo plugin to show the plugin system."""
-    
+
     # Get the project root
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
     plugins_dir = project_root / "src" / "plugins"
-    
+
     # Create demo plugin directory
     demo_dir = plugins_dir / "demo"
     demo_dir.mkdir(exist_ok=True)
-    
+
     # Write plugin files
     (demo_dir / "__init__.py").write_text(DEMO_INIT_CODE)
     (demo_dir / "plugin.py").write_text(DEMO_PLUGIN_CODE)
-    
+
     print(f"✅ Created demo plugin at: {demo_dir}")
     print(f"📁 Plugin files:")
     print(f"   - {demo_dir / '__init__.py'}")
@@ -264,6 +265,7 @@ def create_demo_plugin():
     print()
     print(f"🗑️  To remove the demo plugin:")
     print(f"   rm -rf {demo_dir}")
+
 
 if __name__ == "__main__":
     create_demo_plugin()

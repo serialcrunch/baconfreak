@@ -93,7 +93,10 @@ class BaconFreakConfig:
     @property
     def device_types_for_devices_pcap(self) -> List[str]:
         """Get list of device types to save to devices PCAP file."""
-        return self.settings.get("output.device_types_for_devices_pcap", ["tile", "airtag_unregistered", "airtag_registered"])
+        return self.settings.get(
+            "output.device_types_for_devices_pcap",
+            ["tile", "airtag_unregistered", "airtag_registered"],
+        )
 
     @property
     def company_identifiers_db_path(self) -> Path:
@@ -119,7 +122,7 @@ class BaconFreakConfig:
             interface = f"hci{interface_raw}"
         else:
             interface = interface_raw
-            
+
         return ScanConfiguration(
             interface=interface,
             scan_timeout=self.settings.get("bluetooth.scan_timeout", 0),
@@ -188,7 +191,7 @@ class BaconFreakConfig:
     def dump(self) -> dict:
         """Dump all configuration as dictionary."""
         return dict(self.settings)
-    
+
     def get_plugin_config(self, protocol: str) -> dict:
         """Get plugin-specific configuration."""
         return self.settings.get(f"plugins.{protocol}", {})

@@ -12,10 +12,10 @@ from typing import Tuple, Union
 def format_time_delta(delta: Union[timedelta, float]) -> str:
     """
     Format timedelta to human readable string.
-    
+
     Args:
         delta: Either a timedelta object or total seconds as float
-        
+
     Returns:
         Formatted time string (e.g., "2m", "1h30m", "2d5h")
     """
@@ -23,7 +23,7 @@ def format_time_delta(delta: Union[timedelta, float]) -> str:
         total_seconds = int(delta.total_seconds())
     else:
         total_seconds = int(delta)
-    
+
     if total_seconds < 60:
         return f"{total_seconds}s"
     elif total_seconds < 3600:
@@ -42,37 +42,37 @@ def format_time_delta(delta: Union[timedelta, float]) -> str:
 def normalize_mac_address(mac: str) -> str:
     """
     Normalize MAC address to standard format.
-    
+
     Args:
         mac: MAC address string in various formats
-        
+
     Returns:
         Normalized MAC address in lowercase with colons
     """
     # Remove common separators and normalize
     cleaned = mac.replace("-", "").replace(":", "").replace(".", "").lower()
-    
+
     # Validate length
     if len(cleaned) != 12:
         raise ValueError(f"Invalid MAC address length: {mac}")
-    
+
     # Validate hex characters
     try:
         int(cleaned, 16)
     except ValueError:
         raise ValueError(f"Invalid MAC address format: {mac}")
-    
+
     # Format with colons
-    return ":".join(cleaned[i:i+2] for i in range(0, 12, 2))
+    return ":".join(cleaned[i : i + 2] for i in range(0, 12, 2))
 
 
 def format_rssi_with_quality(rssi: int) -> Tuple[str, str]:
     """
     Format RSSI value with quality indicator.
-    
+
     Args:
         rssi: RSSI value in dBm
-        
+
     Returns:
         Tuple of (formatted_value, quality_style)
     """
@@ -87,41 +87,41 @@ def format_rssi_with_quality(rssi: int) -> Tuple[str, str]:
 def truncate_string(text: str, max_length: int, suffix: str = "...") -> str:
     """
     Truncate string to maximum length with suffix.
-    
+
     Args:
         text: String to truncate
         max_length: Maximum allowed length including suffix
         suffix: Suffix to add when truncating
-        
+
     Returns:
         Truncated string
     """
     if len(text) <= max_length:
         return text
-    
-    return text[:max_length - len(suffix)] + suffix
+
+    return text[: max_length - len(suffix)] + suffix
 
 
 def is_random_ble_address(mac: str) -> bool:
     """
     Check if BLE address is a random address.
-    
+
     BLE random addresses have the two most significant bits of the first octet set to:
     - 11: Static random address
-    - 10: Private non-resolvable address  
+    - 10: Private non-resolvable address
     - 01: Private resolvable address
-    
+
     Args:
         mac: MAC address string (e.g., "aa:bb:cc:dd:ee:ff")
-        
+
     Returns:
         True if the address is a random BLE address
     """
     try:
         # Normalize the MAC address and get the first octet
         normalized = normalize_mac_address(mac)
-        first_octet = int(normalized.split(':')[0], 16)
-        
+        first_octet = int(normalized.split(":")[0], 16)
+
         # Check the two most significant bits (bits 6 and 7)
         # For random addresses, at least one of these bits should be set
         return (first_octet & 0xC0) != 0x00
@@ -131,7 +131,7 @@ def is_random_ble_address(mac: str) -> bool:
 
 __all__ = [
     "format_time_delta",
-    "normalize_mac_address", 
+    "normalize_mac_address",
     "format_rssi_with_quality",
     "truncate_string",
     "is_random_ble_address",

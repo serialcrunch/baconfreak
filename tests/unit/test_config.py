@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.config import config, BaconFreakConfig
+from src.config import BaconFreakConfig, config
 
 
 class TestConfig(unittest.TestCase):
@@ -25,7 +25,9 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.bluetooth_interface, "hci1")
         self.assertEqual(config.scan_timeout, 0)
         self.assertFalse(config.filter_duplicates)
-        self.assertIn(config.log_level, ["INFO", "DEBUG"])  # Can be INFO or DEBUG depending on environment
+        self.assertIn(
+            config.log_level, ["INFO", "DEBUG"]
+        )  # Can be INFO or DEBUG depending on environment
         self.assertEqual(config.db_batch_size, 500)
 
     def test_path_properties(self):
@@ -83,30 +85,32 @@ class TestConfig(unittest.TestCase):
     def test_custom_settings_files(self):
         """Test initialization with custom settings files."""
         custom_settings = self.temp_dir / "custom.toml"
-        custom_settings.write_text("""
+        custom_settings.write_text(
+            """
 [bluetooth]
 interface = 2
 scan_timeout = 60
-""")
-        
+"""
+        )
+
         config = BaconFreakConfig(settings_files=[str(custom_settings)])
-        
+
         self.assertEqual(config.bluetooth_interface, "hci2")
         self.assertEqual(config.scan_timeout, 60)
 
     def test_environment_variable_override(self):
         """Test environment variable overrides."""
         import os
-        
+
         # Set environment variable
         os.environ["BFREAK_BLUETOOTH_INTERFACE"] = "3"
-        
+
         try:
             config = BaconFreakConfig()
             # Note: This test might not work as expected due to how Dynaconf handles env vars
             # But it tests the code path and type conversion
             self.assertIsInstance(config.bluetooth_interface, str)
-            # Environment variable might not override due to test environment, 
+            # Environment variable might not override due to test environment,
             # but we test that interface is always a string
             self.assertTrue(config.bluetooth_interface.startswith("hci"))
         finally:
@@ -117,11 +121,11 @@ scan_timeout = 60
     def test_scan_configuration_creation(self):
         """Test accessing scan configuration from config."""
         config = BaconFreakConfig()
-        
+
         # Test that scan_config property exists and returns something
         scan_config = config.scan_config
         self.assertIsNotNone(scan_config)
-        
+
         # Test basic properties
         self.assertIsInstance(config.bluetooth_interface, str)
         self.assertIsInstance(config.scan_timeout, int)
@@ -130,11 +134,11 @@ scan_timeout = 60
         """Test path properties with custom base directory."""
         # Create a config with custom base directory
         config = BaconFreakConfig()
-        
+
         try:
             # Override base_dir in settings
             config.settings["paths"]["base_dir"] = str(self.temp_dir)
-            
+
             # Test that paths work
             output_path = config.output_dir_path
             self.assertIsInstance(output_path, Path)
@@ -145,10 +149,10 @@ scan_timeout = 60
     def test_nonexistent_settings_file(self):
         """Test handling of nonexistent settings files."""
         nonexistent_file = str(self.temp_dir / "nonexistent.toml")
-        
+
         # Should not raise exception for nonexistent file
         config = BaconFreakConfig(settings_files=[nonexistent_file])
-        
+
         # Should fall back to defaults
         self.assertIsInstance(config.bluetooth_interface, str)
         self.assertEqual(config.bluetooth_interface, "hci1")
@@ -157,7 +161,7 @@ scan_timeout = 60
         """Test handling of invalid TOML files."""
         invalid_toml = self.temp_dir / "invalid.toml"
         invalid_toml.write_text("invalid toml content [[[")
-        
+
         # Should handle invalid TOML gracefully or raise appropriate exception
         try:
             config = BaconFreakConfig(settings_files=[str(invalid_toml)])
@@ -170,29 +174,29 @@ scan_timeout = 60
     def test_configuration_validation(self):
         """Test configuration value validation."""
         config = BaconFreakConfig()
-        
+
         # Test boolean values
         self.assertIsInstance(config.filter_duplicates, bool)
-        
+
         # Test interface value (now string)
         self.assertIsInstance(config.bluetooth_interface, str)
         self.assertIsInstance(config.scan_timeout, int)
         self.assertIsInstance(config.db_batch_size, int)
-        
+
         # Test string values
         self.assertIsInstance(config.log_level, str)
 
     def test_get_method_with_defaults(self):
         """Test the get method with default values."""
         config = BaconFreakConfig()
-        
+
         # Test existing key - get returns raw value, property returns processed string
         interface_raw = config.get("bluetooth.interface", 99)
         # The raw value from settings might be integer (from TOML), but property processes it
         self.assertIn(type(interface_raw), [int, str])
         # The property should always return a string
         self.assertIsInstance(config.bluetooth_interface, str)
-        
+
         # Test non-existing key with default
         nonexistent = config.get("nonexistent.key", "default_value")
         self.assertEqual(nonexistent, "default_value")
@@ -200,10 +204,10 @@ scan_timeout = 60
     def test_directory_creation_failure_handling(self):
         """Test handling of directory creation failures."""
         config = BaconFreakConfig()
-        
+
         # Try to create directory in invalid location
         config.settings["paths"]["output_dir"] = "/root/invalid_path_that_should_fail"
-        
+
         # Should handle permission errors gracefully
         try:
             config.ensure_directories()
@@ -212,12 +216,14 @@ scan_timeout = 60
             pass
         except Exception as e:
             # Other exceptions should be related to path issues
-            self.assertTrue(any(keyword in str(e).lower() for keyword in ["path", "directory", "permission"]))
+            self.assertTrue(
+                any(keyword in str(e).lower() for keyword in ["path", "directory", "permission"])
+            )
 
     def test_logging_configuration_properties(self):
         """Test logging-related configuration properties."""
         config = BaconFreakConfig()
-        
+
         # Test logging properties
         self.assertIsInstance(config.log_level, str)
         self.assertIn(config.log_level, ["TRACE", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"])
@@ -225,12 +231,12 @@ scan_timeout = 60
     def test_detection_configuration_properties(self):
         """Test detection-related configuration properties."""
         config = BaconFreakConfig()
-        
+
         # Test detection properties exist and have reasonable values
         min_rssi = config.get("detection.min_rssi", -100)
         self.assertIsInstance(min_rssi, int)
         self.assertTrue(-200 <= min_rssi <= 0)  # Reasonable RSSI range
-        
+
         max_devices = config.get("detection.max_devices", 10000)
         self.assertIsInstance(max_devices, int)
         self.assertTrue(max_devices > 0)
@@ -238,21 +244,21 @@ scan_timeout = 60
     def test_configuration_inheritance(self):
         """Test configuration inheritance between environments."""
         config = BaconFreakConfig()
-        
+
         # Test that we can access nested configuration
         bluetooth_config = config.get("bluetooth", {})
         self.assertIsInstance(bluetooth_config, dict)
-        
+
         if bluetooth_config:
             self.assertIn("interface", bluetooth_config)
 
     def test_paths_with_environment_expansion(self):
         """Test path expansion with environment variables."""
         import os
-        
+
         # Set a test environment variable
         os.environ["TEST_PATH"] = str(self.temp_dir)
-        
+
         try:
             config = BaconFreakConfig()
             # Test that base_dir_path works regardless of environment

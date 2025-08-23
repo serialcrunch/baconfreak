@@ -179,18 +179,18 @@ class TestDeviceDetector(unittest.TestCase):
         """Test extraction with invalid packet."""
         mock_report = Mock()
         mock_report.haslayer.return_value = False  # No advertising report layer
-        
+
         result = self.detector.extract_packet_info(mock_report)
-        
+
         self.assertIsNone(result)
 
     def test_extract_packet_info_exception_handling(self):
         """Test exception handling during packet extraction."""
         mock_report = Mock()
         mock_report.haslayer.side_effect = Exception("Test exception")
-        
+
         result = self.detector.extract_packet_info(mock_report)
-        
+
         self.assertIsNone(result)
         self.assertEqual(self.detector.detection_stats["failed_extractions"], 1)
 
@@ -202,15 +202,10 @@ class TestDeviceDetector(unittest.TestCase):
             ("121918abcdef", DeviceType.AIRPODS),
             ("unknowndata", DeviceType.UNKNOWN),  # Unknown Apple data falls back to UNKNOWN
         ]
-        
+
         for data, expected_type in test_cases:
-            packet_info = PacketInfo(
-                addr="aa:bb:cc:dd:ee:ff",
-                rssi=-50,
-                company_id=76,
-                data=data
-            )
-            
+            packet_info = PacketInfo(addr="aa:bb:cc:dd:ee:ff", rssi=-50, company_id=76, data=data)
+
             result = self.detector.detect_device_type(packet_info)
             self.assertEqual(result, expected_type)
 
@@ -220,9 +215,9 @@ class TestDeviceDetector(unittest.TestCase):
             addr="aa:bb:cc:dd:ee:ff",
             rssi=-50,
             company_id=6,  # Microsoft company ID
-            data="somedata"
+            data="somedata",
         )
-        
+
         result = self.detector.detect_device_type(packet_info)
         # Microsoft devices likely fall under UNKNOWN unless specifically detected
         self.assertIn(result, [DeviceType.UNKNOWN, DeviceType.APPLE_UNKNOWN])
@@ -231,22 +226,18 @@ class TestDeviceDetector(unittest.TestCase):
         """Test device creation with company lookup caching."""
         # First lookup
         self.mock_company_resolver.lookup.return_value = "Apple, Inc."
-        
-        packet_info = PacketInfo(
-            addr="aa:bb:cc:dd:ee:ff",
-            rssi=-45,
-            company_id=76
-        )
-        
+
+        packet_info = PacketInfo(addr="aa:bb:cc:dd:ee:ff", rssi=-45, company_id=76)
+
         device1 = self.detector.create_device(packet_info)
-        
+
         # Second lookup should use cache
         device2 = self.detector.create_device(packet_info)
-        
+
         # The company name might be the full string or just the first character depending on implementation
         self.assertIsNotNone(device1.company_name)
         self.assertIsNotNone(device2.company_name)
-        
+
         # Test that known companies are tracked
         known_companies = self.detector.get_known_companies()
         self.assertIn(type(known_companies), [set, list])
@@ -254,17 +245,13 @@ class TestDeviceDetector(unittest.TestCase):
     def test_device_creation_unknown_company_caching(self):
         """Test device creation with unknown company caching."""
         self.mock_company_resolver.lookup.return_value = None
-        
-        packet_info = PacketInfo(
-            addr="aa:bb:cc:dd:ee:ff",
-            rssi=-45,
-            company_id=999
-        )
-        
+
+        packet_info = PacketInfo(addr="aa:bb:cc:dd:ee:ff", rssi=-45, company_id=999)
+
         device = self.detector.create_device(packet_info)
-        
+
         self.assertIsNone(device.company_name)
-        
+
         # Test that unknown companies are tracked
         unknown_companies = self.detector.get_unknown_companies()
         self.assertIn(type(unknown_companies), [set, list])
@@ -272,24 +259,21 @@ class TestDeviceDetector(unittest.TestCase):
     def test_detection_statistics_tracking(self):
         """Test detection statistics tracking."""
         initial_stats = self.detector.detection_stats.copy()
-        
+
         # Create some devices
-        packet_info = PacketInfo(
-            addr="aa:bb:cc:dd:ee:ff",
-            rssi=-45,
-            company_id=76
-        )
-        
+        packet_info = PacketInfo(addr="aa:bb:cc:dd:ee:ff", rssi=-45, company_id=76)
+
         self.mock_company_resolver.lookup.return_value = "Apple, Inc."
         self.detector.create_device(packet_info)
-        
-        self.assertEqual(self.detector.detection_stats["devices_created"], 
-                        initial_stats["devices_created"] + 1)
+
+        self.assertEqual(
+            self.detector.detection_stats["devices_created"], initial_stats["devices_created"] + 1
+        )
 
     def test_get_detection_stats(self):
         """Test getting detection statistics."""
         stats = self.detector.get_detection_stats()
-        
+
         self.assertIn("total_packets", stats)
         self.assertIn("successful_extractions", stats)
         self.assertIn("failed_extractions", stats)
@@ -300,9 +284,9 @@ class TestDeviceDetector(unittest.TestCase):
         # Modify some stats
         self.detector.detection_stats["total_packets"] = 100
         self.detector.detection_stats["devices_created"] = 50
-        
+
         self.detector.reset_stats()
-        
+
         self.assertEqual(self.detector.detection_stats["total_packets"], 0)
         self.assertEqual(self.detector.detection_stats["devices_created"], 0)
 
@@ -328,28 +312,25 @@ class TestDeviceDetector(unittest.TestCase):
             rssi=-30,  # Strong signal
             company_id=76,
             data="121918abcdef",  # Clear AirPods signature
-            device_name="AirPods Pro"
+            device_name="AirPods Pro",
         )
-        
+
         self.mock_company_resolver.lookup.return_value = "Apple, Inc."
         device = self.detector.create_device(high_confidence_packet)
-        
+
         self.assertEqual(device.device_type, DeviceType.AIRPODS)
         self.assertEqual(device.rssi, -30)
 
     def test_device_type_consistency(self):
         """Test that device type detection is consistent."""
         packet_info = PacketInfo(
-            addr="aa:bb:cc:dd:ee:ff",
-            rssi=-45,
-            company_id=76,
-            data="121918abcdef"
+            addr="aa:bb:cc:dd:ee:ff", rssi=-45, company_id=76, data="121918abcdef"
         )
-        
+
         # Multiple detections should return same result
         result1 = self.detector.detect_device_type(packet_info)
         result2 = self.detector.detect_device_type(packet_info)
-        
+
         self.assertEqual(result1, result2)
         self.assertEqual(result1, DeviceType.AIRPODS)
 

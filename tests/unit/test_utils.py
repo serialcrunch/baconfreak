@@ -4,9 +4,9 @@ import unittest
 from datetime import timedelta
 
 from src.utils import (
+    format_rssi_with_quality,
     format_time_delta,
     normalize_mac_address,
-    format_rssi_with_quality,
     truncate_string,
 )
 

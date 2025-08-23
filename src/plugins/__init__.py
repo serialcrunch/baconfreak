@@ -5,15 +5,15 @@ This module provides the core plugin architecture that allows baconfreak to supp
 different network capture protocols (BLE, WiFi, etc.) through a pluggable interface.
 
 Plugins are automatically discovered from individual folders within this package.
-Each plugin should be in its own folder with a plugin.py file containing a 
+Each plugin should be in its own folder with a plugin.py file containing a
 CapturePlugin subclass.
 """
 
 from .base import CapturePlugin, PluginInfo, PluginRegistry
-from .registry import plugin_registry  # Auto-discovery happens here
-from .manager import PluginManager
-from .tabbed_manager import TabbedPluginManager
 from .discovery import PluginDiscovery
+from .manager import PluginManager
+from .registry import plugin_registry  # Auto-discovery happens here
+from .tabbed_manager import TabbedPluginManager
 
 # Import plugin classes for backward compatibility
 try:
@@ -25,13 +25,13 @@ except ImportError:
     WiFiPlugin = None
 
 __all__ = [
-    "CapturePlugin", 
-    "PluginInfo", 
-    "PluginRegistry", 
-    "PluginManager", 
+    "CapturePlugin",
+    "PluginInfo",
+    "PluginRegistry",
+    "PluginManager",
     "TabbedPluginManager",
     "PluginDiscovery",
-    "plugin_registry"
+    "plugin_registry",
 ]
 
 # Add plugin classes if available

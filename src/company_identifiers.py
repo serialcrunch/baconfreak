@@ -123,7 +123,7 @@ class CompanyIdentifiers:
 
             # Load initial statistics
             self._load_stats()
-            
+
             # Auto-populate database on first run if empty
             if CompanyIdentifier.select().count() == 0:
                 self.logger.info("Database is empty, auto-populating from YAML sources...")

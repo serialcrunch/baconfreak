@@ -12,7 +12,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import (
     BarColumn,
-    Progress, 
+    Progress,
     SpinnerColumn,
     TaskProgressColumn,
     TextColumn,
@@ -57,10 +57,15 @@ def config_callback(value: Optional[str]):
 @app.command()
 def scan(
     protocols: List[str] = typer.Option(
-        ["ble", "wifi"], "--protocol", "-p", help="📡 Capture protocols (ble, wifi, etc.) - can specify multiple"
+        ["ble", "wifi"],
+        "--protocol",
+        "-p",
+        help="📡 Capture protocols (ble, wifi, etc.) - can specify multiple",
     ),
     ble_interface: Optional[str] = typer.Option(
-        None, "--ble-interface", help="🔗 BLE HCI interface (e.g., hci0, hci1) - overrides config file"
+        None,
+        "--ble-interface",
+        help="🔗 BLE HCI interface (e.g., hci0, hci1) - overrides config file",
     ),
     wifi_interface: Optional[str] = typer.Option(
         None, "--wifi-interface", help="📶 WiFi interface name - overrides config file"
@@ -90,7 +95,9 @@ def scan(
         True, "--channel-hop/--no-channel-hop", help="🔄 Enable WiFi channel hopping"
     ),
     tabbed: bool = typer.Option(
-        None, "--tabbed/--no-tabbed", help="📊 Use tabbed interface (auto-enabled for multiple protocols)"
+        None,
+        "--tabbed/--no-tabbed",
+        help="📊 Use tabbed interface (auto-enabled for multiple protocols)",
     ),
     enable_plugin: Optional[List[str]] = typer.Option(
         None, "--enable-plugin", help="🔌 Force enable specific plugins (overrides config)"
@@ -142,12 +149,14 @@ def scan(
     try:
         # Import plugin framework
         from src.plugins import plugin_registry
-        
+
         if use_tabbed:
             from src.plugins.tabbed_manager import TabbedPluginManager
+
             manager = TabbedPluginManager(console)
         else:
             from src.plugins import PluginManager
+
             manager = PluginManager(console)
 
         # Check if all protocols are available
@@ -165,37 +174,43 @@ def scan(
             try:
                 wifi_channel_list = [int(ch.strip()) for ch in wifi_channels.split(",")]
             except ValueError:
-                console.print("❌ [red]Invalid WiFi channels format. Use comma-separated numbers like '1,6,11'[/red]")
+                console.print(
+                    "❌ [red]Invalid WiFi channels format. Use comma-separated numbers like '1,6,11'[/red]"
+                )
                 raise typer.Exit(1)
 
         # Configure and add plugins
         plugins_added = []
-        
+
         for protocol in protocols:
             # Build protocol-specific configuration
             plugin_config = config.get_plugin_config(protocol)
-            
+
             # Apply CLI enable/disable overrides
             if disable_plugin and protocol in disable_plugin:
-                console.print(f"⚠️  [yellow]Protocol {protocol} force disabled via CLI - skipping[/yellow]")
+                console.print(
+                    f"⚠️  [yellow]Protocol {protocol} force disabled via CLI - skipping[/yellow]"
+                )
                 continue
-            
+
             if enable_plugin and protocol in enable_plugin:
                 # Force enable via CLI
                 plugin_config["enabled"] = True
                 console.print(f"🔌 [green]Protocol {protocol} force enabled via CLI[/green]")
-            
+
             # Check if plugin is enabled in configuration
             if not plugin_config.get("enabled", True):  # Default to enabled if not specified
-                console.print(f"⚠️  [yellow]Protocol {protocol} is disabled in configuration - skipping[/yellow]")
+                console.print(
+                    f"⚠️  [yellow]Protocol {protocol} is disabled in configuration - skipping[/yellow]"
+                )
                 continue
-            
+
             if protocol == "ble":
                 # Only override config values when CLI params are explicitly provided
                 ble_overrides = {
                     "scan_timeout": timeout,
                     "filter_duplicates": filter_duplicates,
-                    "min_rssi": min_rssi
+                    "min_rssi": min_rssi,
                 }
                 if ble_interface is not None:
                     ble_overrides["interface"] = ble_interface
@@ -205,7 +220,7 @@ def scan(
                 wifi_overrides = {
                     "scan_timeout": timeout,
                     "channel_hop": channel_hop,
-                    "min_rssi": min_rssi
+                    "min_rssi": min_rssi,
                 }
                 if wifi_interface is not None:
                     wifi_overrides["interface"] = wifi_interface
@@ -214,23 +229,22 @@ def scan(
                 plugin_config.update(wifi_overrides)
             else:
                 # Generic configuration for other protocols
-                plugin_config.update({
-                    "scan_timeout": timeout,
-                    "min_rssi": min_rssi
-                })
+                plugin_config.update({"scan_timeout": timeout, "min_rssi": min_rssi})
 
             # Add plugin to manager
             if use_tabbed:
                 plugin = manager.add_plugin(protocol, plugin_config)
             else:
                 plugin = manager.create_plugin(protocol, plugin_config)
-            
+
             plugins_added.append((protocol, plugin))
 
         # Check if any plugins were actually added
         if not plugins_added:
             console.print("❌ [red]No enabled plugins found![/red]")
-            console.print("💡 [blue]Enable plugins in settings.toml or use different protocols[/blue]")
+            console.print(
+                "💡 [blue]Enable plugins in settings.toml or use different protocols[/blue]"
+            )
             raise typer.Exit(1)
 
         # Show startup banner
@@ -396,15 +410,15 @@ def plugins():
     """
     try:
         from src.plugins import plugin_registry
-        
+
         console.print(Panel.fit("🔌 [bold]Available Capture Plugins[/bold]", style="blue"))
-        
+
         plugins_info = plugin_registry.list_all_plugins()
-        
+
         if not plugins_info:
             console.print("❌ [red]No plugins available[/red]")
             return
-        
+
         # Create plugins table
         table = Table(show_header=True, header_style="bold blue")
         table.add_column("Protocol", style="cyan", width=10)
@@ -413,7 +427,7 @@ def plugins():
         table.add_column("Description", style="white")
         table.add_column("Requires Root", style="red", width=12)
         table.add_column("Platforms", style="dim", width=12)
-        
+
         for protocol, info in plugins_info.items():
             table.add_row(
                 protocol.upper(),
@@ -421,16 +435,16 @@ def plugins():
                 info.version,
                 info.description,
                 "Yes" if info.requires_root else "No",
-                ", ".join(info.supported_platforms)
+                ", ".join(info.supported_platforms),
             )
-        
+
         console.print(table)
-        
+
         # Show usage example
         example_protocol = list(plugins_info.keys())[0]
         console.print(f"\n💡 [blue]Example usage:[/blue]")
         console.print(f"   baconfreak scan --protocol {example_protocol}")
-        
+
         # Show plugin status
         console.print(f"\n📊 [blue]Plugin Status:[/blue]")
         for protocol in plugins_info.keys():
@@ -438,7 +452,7 @@ def plugins():
             enabled = plugin_config.get("enabled", True)
             status = "[green]Enabled[/green]" if enabled else "[red]Disabled[/red]"
             console.print(f"   {protocol.upper()}: {status}")
-        
+
     except Exception as e:
         console.print(f"❌ [red]Failed to list plugins: {e}[/red]")
         raise typer.Exit(1)
@@ -446,46 +460,48 @@ def plugins():
 
 @app.command()
 def update_db(
-    force: bool = typer.Option(False, "--force", "-f", help="🔄 Force update even if files haven't changed")
+    force: bool = typer.Option(
+        False, "--force", "-f", help="🔄 Force update even if files haven't changed"
+    )
 ):
     """🗃️  Update company identifiers database from YAML sources."""
     try:
         from src.company_identifiers import CompanyIdentifiers
-        
+
         console.print("🗃️  [bold blue]Updating Company Identifiers Database[/bold blue]")
         console.print("Loading company identifiers...")
-        
+
         ci = CompanyIdentifiers()
-        
+
         with console.status("[bold blue]Updating database...", spinner="dots"):
             result = ci.update(force=force)
-        
+
         if result["errors"]:
             console.print(f"❌ [red]Update failed with {len(result['errors'])} errors[/red]")
             for error in result["errors"]:
                 console.print(f"   • {error}", style="red")
             raise typer.Exit(1)
-        
+
         # Show results
         table = Table(title="Update Results")
         table.add_column("Metric", style="cyan")
         table.add_column("Value", style="green")
-        
+
         table.add_row("Files Processed", str(result["files_processed"]))
         table.add_row("Records Loaded", str(result["records_loaded"]))
         table.add_row("Records Saved", str(result["records_saved"]))
         table.add_row("Duration", f"{result['duration']:.2f}s")
-        
+
         console.print(table)
-        
+
         if result["warnings"]:
             console.print(f"\n⚠️  [yellow]{len(result['warnings'])} warnings:[/yellow]")
             for warning in result["warnings"]:
                 console.print(f"   • {warning}", style="yellow")
-        
+
         console.print(f"\n✅ [green]Database updated successfully![/green]")
         console.print(f"Database location: [cyan]{config.company_identifiers_db_path}[/cyan]")
-        
+
     except Exception as e:
         console.print(f"❌ [red]Failed to update database: {e}[/red]")
         logger.error(f"Database update failed: {e}")
@@ -496,7 +512,7 @@ def show_startup_banner(protocol: str, plugin, output_dir: Path, log_level: str)
     """Show startup banner with plugin configuration."""
     info = plugin.info
     stats = plugin.get_statistics()
-    
+
     banner = Panel.fit(
         f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Network Analysis\n\n"
         f"📡 Protocol: [cyan]{protocol.upper()}[/cyan]\n"
@@ -516,49 +532,49 @@ def show_session_summary(manager):
     summary = manager.get_session_summary()
     if not summary:
         return
-    
+
     stats = summary["statistics"]
     plugin_info = summary["plugin_info"]
-    
+
     # Create summary table
     table = Table(show_header=True, header_style="bold green")
     table.add_column("Metric", style="cyan")
     table.add_column("Value", style="green")
-    
+
     table.add_row("Protocol", plugin_info["protocol"].upper())
     table.add_row("Devices Found", str(stats.get("devices", 0)))
     table.add_row("Packets Captured", f"{stats.get('packets', 0):,}")
     table.add_row("Valid Packets", f"{stats.get('valid_packets', 0):,}")
     table.add_row("Packets/Second", f"{stats.get('packets_per_second', 0):.1f}")
     table.add_row("Error Rate", f"{stats.get('error_rate', 0):.2%}")
-    
+
     console.print(Panel(table, title="📊 Session Summary", style="green"))
-    
+
     # Show output files
     output_files = stats.get("output_files", {})
     if output_files:
         files_text = "📁 [bold]Output Files:[/bold]\n\n"
         for file_type, path in output_files.items():
             files_text += f"📤 {file_type.replace('_', ' ').title()}: [cyan]{path}[/cyan]\n"
-        
+
         console.print(Panel(files_text, title="💾 Files", style="bright_blue"))
 
 
 def show_tabbed_startup_banner(plugins_added, output_dir: Path, log_level: str):
     """Show startup banner for tabbed multi-protocol session."""
     banner_text = f"🥓  [bold blue]baconfreak v1.0[/bold blue] - Multi-Protocol Analysis\n\n"
-    
+
     for protocol, plugin in plugins_added:
         info = plugin.info
         stats = plugin.get_statistics()
         banner_text += f"📡 {protocol.upper()}: [cyan]{info.name}[/cyan] on [cyan]{stats.get('interface', 'N/A')}[/cyan]\n"
-    
+
     banner_text += f"\n📁 Output: [cyan]{output_dir}[/cyan]\n"
     banner_text += f"📝 Log Level: [cyan]{log_level}[/cyan]\n\n"
     banner_text += f"[dim]Use Tab/Shift+Tab to switch between protocols[/dim]\n"
     banner_text += f"[dim]Press 1-{len(plugins_added)} to jump to specific protocols[/dim]\n"
     banner_text += f"[dim]Press Ctrl+C to stop all scanning[/dim]"
-    
+
     banner = Panel.fit(banner_text, style="blue", title="🚀 Starting Multi-Protocol Scan")
     console.print(banner)
 
@@ -568,7 +584,7 @@ def show_tabbed_session_summary(manager):
     summaries = manager.get_session_summary()
     if not summaries:
         return
-    
+
     # Create overall summary table
     table = Table(show_header=True, header_style="bold green")
     table.add_column("Protocol", style="cyan")
@@ -577,11 +593,11 @@ def show_tabbed_session_summary(manager):
     table.add_column("Valid Packets", style="green", justify="right")
     table.add_column("Rate (pkt/s)", style="green", justify="right")
     table.add_column("Error Rate", style="yellow", justify="right")
-    
+
     total_devices = 0
     total_packets = 0
     total_valid = 0
-    
+
     for protocol, summary in summaries.items():
         stats = summary["statistics"]
         devices = stats.get("devices", 0)
@@ -589,20 +605,20 @@ def show_tabbed_session_summary(manager):
         valid_packets = stats.get("valid_packets", 0)
         rate = stats.get("packets_per_second", 0)
         error_rate = stats.get("error_rate", 0)
-        
+
         table.add_row(
             protocol.upper(),
             str(devices),
             f"{packets:,}",
             f"{valid_packets:,}",
             f"{rate:.1f}",
-            f"{error_rate:.2%}"
+            f"{error_rate:.2%}",
         )
-        
+
         total_devices += devices
         total_packets += packets
         total_valid += valid_packets
-    
+
     # Add totals row
     table.add_row(
         "[bold]TOTAL[/bold]",
@@ -610,22 +626,24 @@ def show_tabbed_session_summary(manager):
         f"[bold]{total_packets:,}[/bold]",
         f"[bold]{total_valid:,}[/bold]",
         "[bold]-[/bold]",
-        "[bold]-[/bold]"
+        "[bold]-[/bold]",
     )
-    
+
     console.print(Panel(table, title="📊 Multi-Protocol Session Summary", style="green"))
-    
+
     # Show output files for each protocol
     for protocol, summary in summaries.items():
         stats = summary["statistics"]
         output_files = stats.get("output_files", {})
-        
+
         if output_files:
             files_text = f"📁 [bold]{protocol.upper()} Output Files:[/bold]\n\n"
             for file_type, path in output_files.items():
                 files_text += f"📤 {file_type.replace('_', ' ').title()}: [cyan]{path}[/cyan]\n"
-            
-            console.print(Panel(files_text, title=f"💾 {protocol.upper()} Files", style="bright_blue"))
+
+            console.print(
+                Panel(files_text, title=f"💾 {protocol.upper()} Files", style="bright_blue")
+            )
 
 
 def analyze_pcap_file(

@@ -17,4 +17,5 @@ for protocol, plugin_class in discovered_plugins.items():
         plugin_registry.register(plugin_class)
     except Exception as e:
         from loguru import logger
+
         logger.warning(f"Failed to register plugin {protocol}: {e}")

@@ -225,7 +225,9 @@ class TestScanConfiguration:
 
     def test_valid_scan_config(self):
         """Test creating valid scan configuration."""
-        config = ScanConfiguration(interface="hci1", scan_timeout=300, min_rssi=-80, log_level="DEBUG")
+        config = ScanConfiguration(
+            interface="hci1", scan_timeout=300, min_rssi=-80, log_level="DEBUG"
+        )
 
         assert config.interface == "hci1"
         assert config.scan_timeout == 300

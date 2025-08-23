@@ -133,10 +133,10 @@ class BluetoothScanner:
         # Device tracking
         self.devices: Dict[str, BluetoothDevice] = {}
         self.stats = DeviceStats()
-        
+
         # Generate session timestamp for PCAP file naming
         self.session_timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        
+
         # Store actual PCAP paths used (will be set in run method)
         self.actual_known_pcap_path: Optional[Path] = None
         self.actual_unknown_pcap_path: Optional[Path] = None
@@ -151,10 +151,10 @@ class BluetoothScanner:
         self.sort_ascending = False  # Default descending (most recent first)
         self.sort_modes = {
             "last_seen": ("Last Seen", lambda d: d.last_seen),
-            "first_seen": ("First Seen", lambda d: d.first_seen), 
+            "first_seen": ("First Seen", lambda d: d.first_seen),
             "rssi": ("RSSI", lambda d: d.rssi),
             "total_time": ("Total Time", lambda d: (datetime.now() - d.first_seen).total_seconds()),
-            "packets": ("Packets", lambda d: d.packet_count)
+            "packets": ("Packets", lambda d: d.packet_count),
         }
 
         # Initialize components
@@ -176,13 +176,14 @@ class BluetoothScanner:
             self._exit_message = "🔥 [red]Force quitting...[/red]"
             logger.warning("Second signal received, forcing exit...")
             import sys
+
             sys.exit(0)
-        
+
         # Show immediate feedback that Ctrl+C was detected
         self._exit_message = "🛑 [yellow]Exiting...[/yellow]"
         logger.info(f"Received signal {signum}, shutting down...")
         self.stop()
-    
+
     def _get_timestamped_pcap_path(self, base_filename: str) -> Path:
         """Generate a timestamped PCAP filename with Bacon prefix."""
         path = Path(base_filename)
@@ -198,31 +199,31 @@ class BluetoothScanner:
 
     def _handle_keyboard_input(self, key: str) -> None:
         """Handle keyboard input for sorting and controls."""
-        if key.lower() == 'r':  # Toggle RSSI sorting
+        if key.lower() == "r":  # Toggle RSSI sorting
             if self.sort_mode == "rssi":
                 self.sort_ascending = not self.sort_ascending
             else:
                 self.sort_mode = "rssi"
                 self.sort_ascending = False  # Start with strongest signal first
-        elif key.lower() == 'f':  # Toggle First Seen sorting
+        elif key.lower() == "f":  # Toggle First Seen sorting
             if self.sort_mode == "first_seen":
                 self.sort_ascending = not self.sort_ascending
             else:
                 self.sort_mode = "first_seen"
                 self.sort_ascending = False  # Start with most recent first
-        elif key.lower() == 'l':  # Toggle Last Seen sorting
+        elif key.lower() == "l":  # Toggle Last Seen sorting
             if self.sort_mode == "last_seen":
                 self.sort_ascending = not self.sort_ascending
             else:
                 self.sort_mode = "last_seen"
                 self.sort_ascending = False  # Start with most recent first
-        elif key.lower() == 't':  # Toggle Total Time sorting
+        elif key.lower() == "t":  # Toggle Total Time sorting
             if self.sort_mode == "total_time":
                 self.sort_ascending = not self.sort_ascending
             else:
                 self.sort_mode = "total_time"
                 self.sort_ascending = False  # Start with longest time first
-        elif key.lower() == 'p':  # Toggle Packets sorting
+        elif key.lower() == "p":  # Toggle Packets sorting
             if self.sort_mode == "packets":
                 self.sort_ascending = not self.sort_ascending
             else:
@@ -246,7 +247,7 @@ class BluetoothScanner:
         # Header with sort info
         sort_name = self.sort_modes[self.sort_mode][0]
         sort_dir = "↑" if self.sort_ascending else "↓"
-        
+
         header = Panel(
             f"🥓  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
             f"Interface: HCI{self.scan_config.interface} | "
@@ -285,9 +286,7 @@ class BluetoothScanner:
         if self.devices:
             sort_key = self.sort_modes[self.sort_mode][1]
             recent_devices = sorted(
-                self.devices.values(), 
-                key=sort_key, 
-                reverse=not self.sort_ascending
+                self.devices.values(), key=sort_key, reverse=not self.sort_ascending
             )[:20]
         else:
             recent_devices = []
@@ -296,16 +295,16 @@ class BluetoothScanner:
             now = datetime.now()
             last_seen_delta = now - device.last_seen
             total_time_delta = now - device.first_seen
-            
+
             # Format last seen
             last_seen_str = self._format_time_delta(last_seen_delta)
-            
+
             # Format first seen (show actual time if recent, otherwise relative)
             if total_time_delta.total_seconds() < 3600:  # Less than 1 hour
                 first_seen_str = device.first_seen.strftime("%H:%M:%S")
             else:
                 first_seen_str = self._format_time_delta(total_time_delta) + " ago"
-            
+
             # Format total time seen
             total_time_str = self._format_time_delta(total_time_delta)
 
@@ -328,7 +327,7 @@ class BluetoothScanner:
     def _format_time_delta(self, delta) -> str:
         """Format a timedelta into a compact human-readable string."""
         total_seconds = int(delta.total_seconds())
-        
+
         if total_seconds < 60:
             return f"{total_seconds}s"
         elif total_seconds < 3600:  # Less than 1 hour
@@ -385,7 +384,13 @@ class BluetoothScanner:
         )
         return Panel(footer_text, style="dim")
 
-    def _packet_callback(self, packet, known_writer: PcapWriter, unknown_writer: PcapWriter, devices_writer: PcapWriter):
+    def _packet_callback(
+        self,
+        packet,
+        known_writer: PcapWriter,
+        unknown_writer: PcapWriter,
+        devices_writer: PcapWriter,
+    ):
         """Process captured Bluetooth packets."""
         try:
             if not packet.haslayer(HCI_LE_Meta_Advertising_Reports):
@@ -397,14 +402,21 @@ class BluetoothScanner:
             )
 
             for report in reports:
-                self._process_advertising_report(report, packet, known_writer, unknown_writer, devices_writer)
+                self._process_advertising_report(
+                    report, packet, known_writer, unknown_writer, devices_writer
+                )
 
         except Exception as e:
             self.logger.error_with_context(e, "Error processing packet")
             self.stats.total_packets += 1  # Count failed packets
 
     def _process_advertising_report(
-        self, report, original_packet, known_writer: PcapWriter, unknown_writer: PcapWriter, devices_writer: PcapWriter
+        self,
+        report,
+        original_packet,
+        known_writer: PcapWriter,
+        unknown_writer: PcapWriter,
+        devices_writer: PcapWriter,
     ):
         """Process a single advertising report."""
         packet_info = None
@@ -431,7 +443,7 @@ class BluetoothScanner:
             is_known_company = packet_info.company_id and self.device_detector.is_known_company(
                 packet_info.company_id
             )
-            
+
             if is_special_device:
                 # Write to devices PCAP for configured device types
                 devices_writer.write(original_packet)
@@ -569,12 +581,12 @@ class BluetoothScanner:
             known_pcap_path = self._get_timestamped_pcap_path(config.known_pcap_path)
             unknown_pcap_path = self._get_timestamped_pcap_path(config.unknown_pcap_path)
             devices_pcap_path = self._get_timestamped_pcap_path(config.devices_pcap_path)
-            
+
             # Store actual paths for summary display
             self.actual_known_pcap_path = known_pcap_path
             self.actual_unknown_pcap_path = unknown_pcap_path
             self.actual_devices_pcap_path = devices_pcap_path
-            
+
             with pcap_writers(known_pcap_path, unknown_pcap_path, devices_pcap_path) as (
                 known_writer,
                 unknown_writer,
@@ -611,10 +623,10 @@ class BluetoothScanner:
                         import sys
                         import termios
                         import tty
-                        
+
                         # Create a queue to communicate between keyboard thread and main thread
                         key_queue = queue.Queue()
-                        
+
                         def keyboard_listener():
                             """Listen for keyboard input in a separate thread."""
                             stdin_fd = sys.stdin.fileno()
@@ -622,20 +634,25 @@ class BluetoothScanner:
                             try:
                                 # Save original terminal settings
                                 old_settings = termios.tcgetattr(stdin_fd)
-                                
+
                                 # Set terminal to raw mode for single char input without echo
                                 new_settings = termios.tcgetattr(stdin_fd)
-                                new_settings[3] = new_settings[3] & ~(termios.ECHO | termios.ICANON)  # Disable echo and canonical mode
+                                new_settings[3] = new_settings[3] & ~(
+                                    termios.ECHO | termios.ICANON
+                                )  # Disable echo and canonical mode
                                 new_settings[6][termios.VMIN] = 1  # Read at least 1 character
                                 new_settings[6][termios.VTIME] = 0  # No timeout
                                 termios.tcsetattr(stdin_fd, termios.TCSADRAIN, new_settings)
-                                
+
                                 while self._running:
                                     try:
                                         # Use select to check if input is available (non-blocking check)
                                         import select
-                                        ready, _, _ = select.select([sys.stdin], [], [], 0.1)  # 100ms timeout
-                                        
+
+                                        ready, _, _ = select.select(
+                                            [sys.stdin], [], [], 0.1
+                                        )  # 100ms timeout
+
                                         if ready and self._running:
                                             key = sys.stdin.read(1)
                                             if key:
@@ -643,13 +660,13 @@ class BluetoothScanner:
                                                 # Only process regular keys here
                                                 if ord(key) != 3:
                                                     key_queue.put(key)
-                                                    
+
                                     except (KeyboardInterrupt, EOFError):
                                         self.stop()
                                         break
                                     except Exception:
                                         continue  # Continue on other errors
-                                        
+
                             except Exception:
                                 pass
                             finally:
@@ -659,11 +676,11 @@ class BluetoothScanner:
                                         termios.tcsetattr(stdin_fd, termios.TCSADRAIN, old_settings)
                                     except Exception:
                                         pass
-                        
+
                         # Start keyboard listener thread
                         keyboard_thread = threading.Thread(target=keyboard_listener, daemon=True)
                         keyboard_thread.start()
-                        
+
                         # Update display while scanning
                         while self._running and capture_thread.is_alive():
                             if self._exit_message:
@@ -672,7 +689,7 @@ class BluetoothScanner:
                             else:
                                 # Normal display update
                                 self._update_display(layout)
-                            
+
                             # Process any keyboard input from the queue (non-blocking)
                             try:
                                 while True:
@@ -680,7 +697,7 @@ class BluetoothScanner:
                                     self._handle_keyboard_input(key)
                             except queue.Empty:
                                 pass  # No keys in queue
-                            
+
                             time.sleep(0.5)
                 else:
                     # Simple mode without Rich UI
@@ -717,7 +734,7 @@ class BluetoothScanner:
         # Update header and stats normally
         sort_name = self.sort_modes[self.sort_mode][0]
         sort_dir = "↑" if self.sort_ascending else "↓"
-        
+
         header = Panel(
             f"🥓  [bold bright_blue]baconfreak Live Monitor[/bold bright_blue] - "
             f"Interface: HCI{self.scan_config.interface} | "
@@ -727,28 +744,25 @@ class BluetoothScanner:
             style="bright_blue",
         )
         layout["header"].update(header)
-        
+
         # Create exit message panel to replace device table
         from rich.align import Align
         from rich.text import Text
-        
+
         exit_panel = Panel(
-            Align.center(
-                Text.from_markup(self._exit_message, style="bold"),
-                vertical="middle"
-            ),
+            Align.center(Text.from_markup(self._exit_message, style="bold"), vertical="middle"),
             title="⚠️  Exit Status",
             border_style="yellow" if "Exiting" in self._exit_message else "red",
-            style="green"
+            style="green",
         )
-        
+
         # Replace the devices section with the exit message
         layout["devices"].update(exit_panel)
-        
+
         # Update statistics normally
         stats_content = self._create_stats_panel()
         layout["stats"].update(stats_content)
-        
+
         # Update footer normally
         footer = self._create_footer()
         layout["footer"].update(footer)
@@ -776,7 +790,7 @@ class BluetoothScanner:
         """Print Rich-formatted summary."""
         if not self.console:
             return
-            
+
         # Main summary panel
         summary_table = Table(show_header=True, header_style="bold bright_blue")
         summary_table.add_column("Metric", style="cyan")

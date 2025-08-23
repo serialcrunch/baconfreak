@@ -15,12 +15,12 @@ from loguru import logger
 
 class ShutdownManager:
     """Manages clean shutdown of scapy processes and resources."""
-    
+
     def __init__(self):
         self._active_plugins: Set = set()
         self._cleanup_registered = False
         self._shutdown_lock = threading.Lock()
-    
+
     def register_plugin(self, plugin):
         """Register a plugin for cleanup on shutdown."""
         with self._shutdown_lock:
@@ -28,67 +28,59 @@ class ShutdownManager:
             if not self._cleanup_registered:
                 self._register_cleanup_handlers()
                 self._cleanup_registered = True
-    
+
     def unregister_plugin(self, plugin):
         """Unregister a plugin from cleanup."""
         with self._shutdown_lock:
             self._active_plugins.discard(plugin)
-    
+
     def _register_cleanup_handlers(self):
         """Register cleanup handlers for various shutdown scenarios."""
         # Register atexit handler
         atexit.register(self._emergency_cleanup)
-        
+
         # Register signal handlers
         for sig in [signal.SIGTERM, signal.SIGINT]:
             try:
                 signal.signal(sig, self._signal_handler)
             except (ValueError, OSError):
                 pass  # Signal not available on this platform
-    
+
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals."""
         logger.info(f"Received signal {signum}, initiating cleanup...")
         self._emergency_cleanup()
-    
+
     def _emergency_cleanup(self):
         """Emergency cleanup of all registered plugins and hanging processes."""
         with self._shutdown_lock:
             # Stop all registered plugins
             for plugin in list(self._active_plugins):
                 try:
-                    if hasattr(plugin, 'stop_capture'):
+                    if hasattr(plugin, "stop_capture"):
                         plugin.stop_capture()
                 except Exception as e:
                     logger.debug(f"Error stopping plugin during emergency cleanup: {e}")
-            
+
             # Force kill hanging scapy processes
             self._kill_hanging_processes()
-    
+
     def _kill_hanging_processes(self):
         """Kill any hanging scapy or sniffing processes."""
         try:
             current_pid = os.getpid()
-            
+
             # Look for potential hanging processes
-            patterns = [
-                "python.*sniff",
-                "scapy",
-                "tcpdump",
-                "wireshark"
-            ]
-            
+            patterns = ["python.*sniff", "scapy", "tcpdump", "wireshark"]
+
             for pattern in patterns:
                 try:
                     result = subprocess.run(
-                        ["pgrep", "-f", pattern],
-                        capture_output=True,
-                        text=True,
-                        timeout=2
+                        ["pgrep", "-f", pattern], capture_output=True, text=True, timeout=2
                     )
-                    
+
                     if result.stdout:
-                        for pid_str in result.stdout.strip().split('\n'):
+                        for pid_str in result.stdout.strip().split("\n"):
                             if pid_str.strip():
                                 try:
                                     pid = int(pid_str.strip())
@@ -108,7 +100,7 @@ class ShutdownManager:
                     continue  # pgrep not available or timeout
         except Exception as e:
             logger.debug(f"Error during hanging process cleanup: {e}")
-    
+
     def force_kill_by_pid(self, pid: int):
         """Force kill a specific process by PID."""
         try:
