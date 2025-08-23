@@ -43,18 +43,6 @@ class TestVerboseOutputSuppression:
                     assert "verbose" in call_args.kwargs
                     assert call_args.kwargs["verbose"] is False
 
-    @patch("src.baconfreak.BluetoothHCISocket")
-    def test_legacy_baconfreak_verbose_suppressed(self, mock_socket_class):
-        """Test that legacy baconfreak.py also suppresses verbose output."""
-        # This test would require more setup for the legacy code
-        # For now, we'll just verify the pattern is consistent
-
-        # Read the baconfreak.py file to check for verbose=False
-        with open("src/baconfreak.py", "r") as f:
-            content = f.read()
-
-        # Verify that sr calls include verbose=False
-        assert "sr(scan_command, verbose=False)" in content
 
     def test_all_sr_calls_have_verbose_false(self):
         """Test that all .sr() calls in the codebase include verbose=False."""

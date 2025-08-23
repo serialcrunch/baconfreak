@@ -17,7 +17,7 @@ from scapy.layers.bluetooth import (
 from scapy.packet import Raw
 
 from src.company_identifiers import CompanyIdentifiers
-from src.device_detector import DeviceDetector
+from src.plugins.ble.device_detector import DeviceDetector
 from src.models import BluetoothDevice, DeviceType, PacketInfo
 
 

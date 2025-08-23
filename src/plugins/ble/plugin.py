@@ -26,7 +26,7 @@ from scapy.layers.bluetooth import (
 from scapy.utils import PcapWriter
 
 from ...company_identifiers import CompanyIdentifiers
-from ...device_detector import DeviceDetector
+from .device_detector import DeviceDetector
 from ...logger import BaconFreakLogger
 from ...models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo
 from ...utils import (
