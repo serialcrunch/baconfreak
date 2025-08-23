@@ -15,7 +15,7 @@ from scapy.layers.bluetooth import (
 )
 from scapy.packet import Raw
 
-from .company_identifiers_unified import CompanyIdentifiers
+from .company_identifiers import CompanyIdentifiers
 from ...models import BluetoothDevice, DeviceConstants, DeviceType, PacketInfo
 
 

@@ -466,7 +466,7 @@ def update_db(
 ):
     """🗃️  Update company identifiers database from YAML sources."""
     try:
-        from src.plugins.ble.company_identifiers_unified import CompanyIdentifiers
+        from src.plugins.ble.company_identifiers import CompanyIdentifiers
 
         console.print("🗃️  [bold blue]Updating Company Identifiers Database[/bold blue]")
         console.print("Loading company identifiers...")
@@ -516,7 +516,7 @@ def update_oui_db(
 ):
     """📶  Update WiFi OUI identifiers database from YAML sources."""
     try:
-        from src.plugins.wifi.oui_identifiers_unified import OUIIdentifiers
+        from src.plugins.wifi.oui_identifiers import OUIIdentifiers
 
         console.print("📶  [bold blue]Updating OUI Identifiers Database[/bold blue]")
         console.print("Loading OUI identifiers...")
