@@ -33,12 +33,12 @@ company_identifiers_db = "company_identifiers.db"
 oui_identifiers_db = "oui_identifiers.db"
 batch_size = 500
 sources = [
-    "company_identifiers.yaml",
-    "custom_identifiers.yaml"
+    "bluetooth_sig_identifiers.yaml",  # Official Bluetooth SIG database (3,927+ companies)
+    "custom_identifiers.yaml"         # Custom overrides and local definitions
 ]
 oui_sources = [
-    "oui_identifiers.yaml",
-    "custom_oui_identifiers.yaml"
+    "ieee_oui_identifiers.yaml",    # Official IEEE OUI database (37,822+ entries)
+    "custom_oui_identifiers.yaml"  # Custom overrides and local definitions
 ]
 
 [detection]

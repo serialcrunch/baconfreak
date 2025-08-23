@@ -109,7 +109,7 @@ class BaconFreakConfig:
         """Get list of company identifier source files."""
         external_dir = self.external_dir_path
         sources = self.settings.get(
-            "database.sources", ["company_identifiers.yaml", "custom_identifiers.yaml"]
+            "database.sources", ["bluetooth_sig_identifiers.yaml", "custom_identifiers.yaml"]
         )
         return [external_dir / source for source in sources]
 
@@ -124,7 +124,7 @@ class BaconFreakConfig:
         """Get list of OUI identifier source files."""
         external_dir = self.external_dir_path
         sources = self.settings.get(
-            "database.oui_sources", ["oui_identifiers.yaml"]
+            "database.oui_sources", ["ieee_oui_identifiers.yaml", "custom_oui_identifiers.yaml"]
         )
         return [external_dir / source for source in sources]
 

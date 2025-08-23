@@ -85,6 +85,7 @@ Commands:
   doctor                   Run system diagnostics
   config-show             Show current configuration
   devices [OPTIONS]        Analyze captured devices
+  refresh-databases        Update IEEE OUI and Bluetooth SIG databases
   --help, -h              Show this help message
 
 Options:
@@ -100,6 +101,7 @@ Examples:
   $0                                    # Start BLE scanning with default settings
   $0 scan -i 1 -l DEBUG               # Scan on HCI1 with debug logging
   $0 doctor                            # Run system diagnostics
+  $0 refresh-databases                 # Update official databases
   $0 --setup                           # Setup environment
   $0 --check                           # Check requirements
 
@@ -160,6 +162,41 @@ setup_environment() {
     log_info "  main.py - Modern CLI interface"
     log_info "  src/ - Business logic modules"
     log_info "You can now run: $0 scan"
+}
+
+# Refresh all external databases
+refresh_databases() {
+    log_info "Refreshing all external databases..."
+    
+    cd "$PROJECT_ROOT"
+    
+    # Check if refresh script exists
+    if [[ ! -f "$PROJECT_ROOT/scripts/refresh_all_databases.sh" ]]; then
+        log_error "Database refresh script not found: scripts/refresh_all_databases.sh"
+        log_info "Please ensure the scripts directory contains the refresh script"
+        exit 1
+    fi
+    
+    # Make sure the script is executable
+    if [[ ! -x "$PROJECT_ROOT/scripts/refresh_all_databases.sh" ]]; then
+        log_info "Making refresh script executable..."
+        chmod +x "$PROJECT_ROOT/scripts/refresh_all_databases.sh"
+    fi
+    
+    # Find virtual environment
+    VENV_PATH=$(find_venv)
+    if [[ -z "$VENV_PATH" ]]; then
+        log_error "Virtual environment not found!"
+        log_info "Run '$0 --setup' to create the environment first"
+        exit 1
+    fi
+    
+    # Activate virtual environment and run refresh script
+    log_info "Activating virtual environment: $VENV_PATH"
+    source "$VENV_PATH/bin/activate"
+    
+    log_info "Executing database refresh script..."
+    exec "$PROJECT_ROOT/scripts/refresh_all_databases.sh"
 }
 
 # Check system requirements
@@ -284,7 +321,7 @@ run_baconfreak() {
         scan)
             needs_sudo=true
             ;;
-        doctor|config-show|devices|--help|-h|--version)
+        doctor|config-show|devices|refresh-databases|--help|-h|--version)
             needs_sudo=false
             ;;
         *)
@@ -318,6 +355,10 @@ main() {
             ;;
         --check)
             check_requirements
+            exit $?
+            ;;
+        refresh-databases)
+            refresh_databases
             exit $?
             ;;
         "")

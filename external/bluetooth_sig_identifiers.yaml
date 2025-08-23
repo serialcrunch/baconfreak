@@ -1,0 +1,7866 @@
+# Bluetooth SIG Company Identifiers Database
+# Generated from: https://bitbucket.org/bluetooth-SIG/public/raw/main/assigned_numbers/company_identifiers/company_identifiers.yaml
+# Total entries: 3927
+# 
+# This file contains Bluetooth company identifiers (16-bit values) and their assigned company names.
+# Used by baconfreak BLE plugin for device manufacturer identification.
+# 
+# Company IDs are assigned by the Bluetooth SIG to manufacturers who register
+# for a company identifier to be used in the manufacturer specific data field
+# of advertising packets and other Bluetooth protocols.
+
+company_identifiers:
+- name: Ericsson AB
+  value: 0
+- name: Nokia Mobile Phones
+  value: 1
+- name: Intel Corp
+  value: 2
+- name: IBM Corp
+  value: 3
+- name: Toshiba Corp
+  value: 4
+- name: 3Com
+  value: 5
+- name: Microsoft
+  value: 6
+- name: Lucent
+  value: 7
+- name: Motorola
+  value: 8
+- name: Infineon Technologies AG
+  value: 9
+- name: Qualcomm Technologies International, Ltd. (QTIL)
+  value: 10
+- name: Silicon Wave
+  value: 11
+- name: Digianswer A/S
+  value: 12
+- name: Texas Instruments Inc
+  value: 13
+- name: Parthus Technologies Inc
+  value: 14
+- name: Broadcom Corporation
+  value: 15
+- name: Mitel Semiconductor
+  value: 16
+- name: Widcomm, Inc
+  value: 17
+- name: Zeevo, Inc
+  value: 18
+- name: Atmel Corporation
+  value: 19
+- name: Mitsubishi Electric Corporation
+  value: 20
+- name: RTX A/S
+  value: 21
+- name: KC Technology Inc
+  value: 22
+- name: Newlogic
+  value: 23
+- name: Transilica, Inc
+  value: 24
+- name: Rohde & Schwarz GmbH & Co. KG
+  value: 25
+- name: TTPCom Limited
+  value: 26
+- name: Signia Technologies, Inc
+  value: 27
+- name: Conexant Systems Inc
+  value: 28
+- name: Qualcomm
+  value: 29
+- name: Inventel
+  value: 30
+- name: AVM Berlin
+  value: 31
+- name: BandSpeed, Inc
+  value: 32
+- name: Mansella Ltd
+  value: 33
+- name: NEC Corporation
+  value: 34
+- name: WavePlus Technology Co., Ltd
+  value: 35
+- name: Alcatel
+  value: 36
+- name: NXP B.V
+  value: 37
+- name: C Technologies
+  value: 38
+- name: Open Interface
+  value: 39
+- name: R F Micro Devices
+  value: 40
+- name: Hitachi Ltd
+  value: 41
+- name: Symbol Technologies, Inc
+  value: 42
+- name: Tenovis
+  value: 43
+- name: Macronix International Co. Ltd
+  value: 44
+- name: GCT Semiconductor
+  value: 45
+- name: Norwood Systems
+  value: 46
+- name: MewTel Technology Inc
+  value: 47
+- name: ST Microelectronics
+  value: 48
+- name: Synopsys, Inc
+  value: 49
+- name: Red-M (Communications) Ltd
+  value: 50
+- name: Commil Ltd
+  value: 51
+- name: Computer Access Technology Corporation (CATC)
+  value: 52
+- name: Eclipse (HQ Espana) S.L
+  value: 53
+- name: Renesas Electronics Corporation
+  value: 54
+- name: Mobilian Corporation
+  value: 55
+- name: Syntronix Corporation
+  value: 56
+- name: Integrated System Solution Corp
+  value: 57
+- name: Panasonic Holdings Corporation
+  value: 58
+- name: Gennum Corporation
+  value: 59
+- name: BlackBerry Limited
+  value: 60
+- name: IPextreme, Inc
+  value: 61
+- name: Systems and Chips, Inc
+  value: 62
+- name: Bluetooth SIG, Inc
+  value: 63
+- name: Seiko Epson Corporation
+  value: 64
+- name: Integrated Silicon Solution Taiwan, Inc
+  value: 65
+- name: CONWISE Technology Corporation Ltd
+  value: 66
+- name: PARROT AUTOMOTIVE SAS
+  value: 67
+- name: Socket Mobile
+  value: 68
+- name: Atheros Communications, Inc
+  value: 69
+- name: MediaTek, Inc
+  value: 70
+- name: Bluegiga
+  value: 71
+- name: Marvell Technology Group Ltd
+  value: 72
+- name: 3DSP Corporation
+  value: 73
+- name: Accel Semiconductor Ltd
+  value: 74
+- name: Continental Automotive Systems
+  value: 75
+- name: Apple, Inc
+  value: 76
+- name: Staccato Communications, Inc
+  value: 77
+- name: Avago Technologies
+  value: 78
+- name: APT Ltd
+  value: 79
+- name: SiRF Technology, Inc
+  value: 80
+- name: Tzero Technologies, Inc
+  value: 81
+- name: J&M Corporation
+  value: 82
+- name: Free2move AB
+  value: 83
+- name: 3DiJoy Corporation
+  value: 84
+- name: Plantronics, Inc
+  value: 85
+- name: Sony Ericsson Mobile Communications
+  value: 86
+- name: Harman International Industries, Inc
+  value: 87
+- name: Vizio, Inc
+  value: 88
+- name: Nordic Semiconductor ASA
+  value: 89
+- name: EM Microelectronic-Marin SA
+  value: 90
+- name: Ralink Technology Corporation
+  value: 91
+- name: Belkin International, Inc
+  value: 92
+- name: Realtek Semiconductor Corporation
+  value: 93
+- name: Stonestreet One, LLC
+  value: 94
+- name: Wicentric, Inc
+  value: 95
+- name: RivieraWaves S.A.S
+  value: 96
+- name: RDA Microelectronics
+  value: 97
+- name: Gibson Guitars
+  value: 98
+- name: MiCommand Inc
+  value: 99
+- name: Band XI International, LLC
+  value: 100
+- name: HP, Inc
+  value: 101
+- name: 9Solutions Oy
+  value: 102
+- name: GN Hearing
+  value: 103
+- name: General Motors
+  value: 104
+- name: A&D Engineering, Inc
+  value: 105
+- name: LTIMINDTREE LIMITED
+  value: 106
+- name: Polar Electro OY
+  value: 107
+- name: Beautiful Enterprise Co., Ltd
+  value: 108
+- name: BriarTek, Inc
+  value: 109
+- name: Summit Data Communications, Inc
+  value: 110
+- name: Sound ID
+  value: 111
+- name: Monster, LLC
+  value: 112
+- name: connectBlue AB
+  value: 113
+- name: ShangHai Super Smart Electronics Co. Ltd
+  value: 114
+- name: Group Sense Ltd
+  value: 115
+- name: Zomm, LLC
+  value: 116
+- name: Samsung Electronics Co. Ltd
+  value: 117
+- name: Creative Technology Ltd
+  value: 118
+- name: Laird Connectivity LLC
+  value: 119
+- name: Nike, Inc
+  value: 120
+- name: lesswire AG
+  value: 121
+- name: MStar Semiconductor, Inc
+  value: 122
+- name: Hanlynn Technologies
+  value: 123
+- name: A & R Cambridge
+  value: 124
+- name: Seers Technology Co., Ltd
+  value: 125
+- name: Sports Tracking Technologies Ltd
+  value: 126
+- name: Autonet Mobile
+  value: 127
+- name: DeLorme Publishing Company, Inc
+  value: 128
+- name: WuXi Vimicro
+  value: 129
+- name: DSEA A/S
+  value: 130
+- name: TimeKeeping Systems, Inc
+  value: 131
+- name: Ludus Helsinki Ltd
+  value: 132
+- name: BlueRadios, Inc
+  value: 133
+- name: Equinux AG
+  value: 134
+- name: Garmin International, Inc
+  value: 135
+- name: Ecotest
+  value: 136
+- name: GN Hearing A/S
+  value: 137
+- name: Jawbone
+  value: 138
+- name: Topcon Positioning Systems, LLC
+  value: 139
+- name: Gimbal Inc
+  value: 140
+- name: Zscan Software
+  value: 141
+- name: Quintic Corp
+  value: 142
+- name: Telit Wireless Solutions GmbH
+  value: 143
+- name: Funai Electric Co., Ltd
+  value: 144
+- name: Advanced PANMOBIL systems GmbH & Co. KG
+  value: 145
+- name: ThinkOptics, Inc
+  value: 146
+- name: Universal Electronics, Inc
+  value: 147
+- name: Airoha Technology Corp
+  value: 148
+- name: NEC Lighting, Ltd
+  value: 149
+- name: ODM Technology, Inc
+  value: 150
+- name: ConnecteDevice Ltd
+  value: 151
+- name: zero1.tv GmbH
+  value: 152
+- name: i.Tech Dynamic Global Distribution Ltd
+  value: 153
+- name: Alpwise
+  value: 154
+- name: Jiangsu Toppower Automotive Electronics Co., Ltd
+  value: 155
+- name: Colorfy, Inc
+  value: 156
+- name: Geoforce Inc
+  value: 157
+- name: Bose Corporation
+  value: 158
+- name: Suunto Oy
+  value: 159
+- name: Kensington Computer Products Group
+  value: 160
+- name: SR-Medizinelektronik
+  value: 161
+- name: Vertu Corporation Limited
+  value: 162
+- name: Meta Watch Ltd
+  value: 163
+- name: LINAK A/S
+  value: 164
+- name: OTL Dynamics LLC
+  value: 165
+- name: Panda Ocean Inc
+  value: 166
+- name: Visteon Corporation
+  value: 167
+- name: ARP Devices Limited
+  value: 168
+- name: MARELLI EUROPE S.P.A
+  value: 169
+- name: CAEN RFID srl
+  value: 170
+- name: Ingenieur-Systemgruppe Zahn GmbH
+  value: 171
+- name: Green Throttle Games
+  value: 172
+- name: Peter Systemtechnik GmbH
+  value: 173
+- name: Omegawave Oy
+  value: 174
+- name: Cinetix
+  value: 175
+- name: Passif Semiconductor Corp
+  value: 176
+- name: Saris Cycling Group, Inc
+  value: 177
+- name: Bekey A/S
+  value: 178
+- name: Clarinox Technologies Pty. Ltd
+  value: 179
+- name: BDE Technology Co., Ltd
+  value: 180
+- name: Swirl Networks
+  value: 181
+- name: Meso international
+  value: 182
+- name: TreLab Ltd
+  value: 183
+- name: Qualcomm Innovation Center, Inc. (QuIC)
+  value: 184
+- name: Johnson Controls, Inc
+  value: 185
+- name: Starkey Hearing Technologies
+  value: 186
+- name: S-Power Electronics Limited
+  value: 187
+- name: Ace Sensor Inc
+  value: 188
+- name: Aplix Corporation
+  value: 189
+- name: AAMP of America
+  value: 190
+- name: Stalmart Technology Limited
+  value: 191
+- name: AMICCOM Electronics Corporation
+  value: 192
+- name: Shenzhen Excelsecu Data Technology Co.,Ltd
+  value: 193
+- name: Geneq Inc
+  value: 194
+- name: adidas AG
+  value: 195
+- name: LG Electronics
+  value: 196
+- name: Onset Computer Corporation
+  value: 197
+- name: Selfly BV
+  value: 198
+- name: Quuppa Oy
+  value: 199
+- name: GeLo Inc
+  value: 200
+- name: Evluma
+  value: 201
+- name: MC10
+  value: 202
+- name: Binauric SE
+  value: 203
+- name: Beats Electronics
+  value: 204
+- name: Microchip Technology Inc
+  value: 205
+- name: Eve Systems GmbH
+  value: 206
+- name: ARCHOS SA
+  value: 207
+- name: Dexcom, Inc
+  value: 208
+- name: Polar Electro Europe B.V
+  value: 209
+- name: Renesas Design Netherlands B.V
+  value: 210
+- name: Taixingbang Technology (HK) Co,. LTD
+  value: 211
+- name: Kawantech
+  value: 212
+- name: Austco Communication Systems
+  value: 213
+- name: Timex Group USA, Inc
+  value: 214
+- name: Qualcomm Technologies, Inc
+  value: 215
+- name: Qualcomm Connected Experiences, Inc
+  value: 216
+- name: Voyetra Turtle Beach
+  value: 217
+- name: txtr GmbH
+  value: 218
+- name: Snuza (Pty) Ltd
+  value: 219
+- name: Procter & Gamble
+  value: 220
+- name: Hosiden Corporation
+  value: 221
+- name: Muzik LLC
+  value: 222
+- name: Misfit Wearables Corp
+  value: 223
+- name: Google
+  value: 224
+- name: Danlers Ltd
+  value: 225
+- name: Semilink Inc
+  value: 226
+- name: inMusic Brands, Inc
+  value: 227
+- name: L.S. Research, Inc
+  value: 228
+- name: Eden Software Consultants Ltd
+  value: 229
+- name: Freshtemp
+  value: 230
+- name: KS Technologies
+  value: 231
+- name: ACTS Technologies
+  value: 232
+- name: Vtrack Systems
+  value: 233
+- name: Nielsen-Kellerman
+  value: 234
+- name: Server Technology Inc
+  value: 235
+- name: BioResearch Associates
+  value: 236
+- name: Jolly Logic, LLC
+  value: 237
+- name: Above Average Outcomes, Inc
+  value: 238
+- name: Bitsplitters GmbH
+  value: 239
+- name: PayPal, Inc
+  value: 240
+- name: Witron Technology Limited
+  value: 241
+- name: Morse Project Inc
+  value: 242
+- name: Kent Displays Inc
+  value: 243
+- name: Nautilus Inc
+  value: 244
+- name: Smartifier Oy
+  value: 245
+- name: Elcometer Limited
+  value: 246
+- name: VSN Technologies, Inc
+  value: 247
+- name: AceUni Corp., Ltd
+  value: 248
+- name: StickNFind
+  value: 249
+- name: Crystal Alarm AB
+  value: 250
+- name: KOUKAAM a.s
+  value: 251
+- name: Delphi Corporation
+  value: 252
+- name: ValenceTech Limited
+  value: 253
+- name: Stanley Black and Decker
+  value: 254
+- name: Typo Products, LLC
+  value: 255
+- name: TomTom International BV
+  value: 256
+- name: Fugoo, Inc
+  value: 257
+- name: Keiser Corporation
+  value: 258
+- name: Bang & Olufsen A/S
+  value: 259
+- name: PLUS Location Systems Pty Ltd
+  value: 260
+- name: Ubiquitous Computing Technology Corporation
+  value: 261
+- name: Innovative Yachtter Solutions
+  value: 262
+- name: Demant A/S
+  value: 263
+- name: Chicony Electronics Co., Ltd
+  value: 264
+- name: Atus BV
+  value: 265
+- name: Codegate Ltd
+  value: 266
+- name: ERi, Inc
+  value: 267
+- name: Transducers Direct, LLC
+  value: 268
+- name: DENSO TEN Limited
+  value: 269
+- name: Audi AG
+  value: 270
+- name: HiSilicon Technologies CO., LIMITED
+  value: 271
+- name: Nippon Seiki Co., Ltd
+  value: 272
+- name: Steelseries ApS
+  value: 273
+- name: Visybl Inc
+  value: 274
+- name: Openbrain Technologies, Co., Ltd
+  value: 275
+- name: Xensr
+  value: 276
+- name: e.solutions
+  value: 277
+- name: 10AK Technologies
+  value: 278
+- name: Wimoto Technologies Inc
+  value: 279
+- name: Radius Networks, Inc
+  value: 280
+- name: Wize Technology Co., Ltd
+  value: 281
+- name: Qualcomm Labs, Inc
+  value: 282
+- name: Hewlett Packard Enterprise
+  value: 283
+- name: Baidu
+  value: 284
+- name: Arendi AG
+  value: 285
+- name: Skoda Auto a.s
+  value: 286
+- name: Volkswagen AG
+  value: 287
+- name: Porsche AG
+  value: 288
+- name: Sino Wealth Electronic Ltd
+  value: 289
+- name: AirTurn, Inc
+  value: 290
+- name: Kinsa, Inc
+  value: 291
+- name: HID Global
+  value: 292
+- name: SEAT es
+  value: 293
+- name: Promethean Ltd
+  value: 294
+- name: Salutica Allied Solutions
+  value: 295
+- name: GPSI Group Pty Ltd
+  value: 296
+- name: Nimble Devices Oy
+  value: 297
+- name: Changzhou Yongse Infotech Co., Ltd
+  value: 298
+- name: SportIQ
+  value: 299
+- name: TEMEC Instruments B.V
+  value: 300
+- name: Sony Corporation
+  value: 301
+- name: ASSA ABLOY
+  value: 302
+- name: Clarion Co. Inc
+  value: 303
+- name: Warehouse Innovations
+  value: 304
+- name: Cypress Semiconductor
+  value: 305
+- name: MADS Inc
+  value: 306
+- name: Blue Maestro Limited
+  value: 307
+- name: Resolution Products, Ltd
+  value: 308
+- name: Aireware LLC
+  value: 309
+- name: Silvair, Inc
+  value: 310
+- name: Prestigio Plaza Ltd
+  value: 311
+- name: NTEO Inc
+  value: 312
+- name: Focus Systems Corporation
+  value: 313
+- name: Tencent Holdings Ltd
+  value: 314
+- name: Allegion
+  value: 315
+- name: Murata Manufacturing Co., Ltd
+  value: 316
+- name: WirelessWERX
+  value: 317
+- name: Nod, Inc
+  value: 318
+- name: B&B Manufacturing Company
+  value: 319
+- name: Alpine Electronics (China) Co., Ltd
+  value: 320
+- name: FedEx Services
+  value: 321
+- name: Grape Systems Inc
+  value: 322
+- name: Bkon Connect
+  value: 323
+- name: Lintech GmbH
+  value: 324
+- name: Novatel Wireless
+  value: 325
+- name: Ciright
+  value: 326
+- name: Mighty Cast, Inc
+  value: 327
+- name: Ambimat Electronics
+  value: 328
+- name: Perytons Ltd
+  value: 329
+- name: Tivoli Audio, LLC
+  value: 330
+- name: Master Lock
+  value: 331
+- name: Mesh-Net Ltd
+  value: 332
+- name: HUIZHOU DESAY SV AUTOMOTIVE CO., LTD
+  value: 333
+- name: Tangerine, Inc
+  value: 334
+- name: B&W Group Ltd
+  value: 335
+- name: Pioneer Corporation
+  value: 336
+- name: OnBeep
+  value: 337
+- name: Vernier Software & Technology
+  value: 338
+- name: ROL Ergo
+  value: 339
+- name: Pebble Technology
+  value: 340
+- name: NETATMO
+  value: 341
+- name: Accumulate AB
+  value: 342
+- name: Anhui Huami Information Technology Co., Ltd
+  value: 343
+- name: Inmite s.r.o
+  value: 344
+- name: ChefSteps, Inc
+  value: 345
+- name: micas AG
+  value: 346
+- name: Biomedical Research Ltd
+  value: 347
+- name: Pitius Tec S.L
+  value: 348
+- name: Estimote, Inc
+  value: 349
+- name: Unikey Technologies, Inc
+  value: 350
+- name: Timer Cap Co
+  value: 351
+- name: AwoX
+  value: 352
+- name: yikes
+  value: 353
+- name: MADSGlobalNZ Ltd
+  value: 354
+- name: PCH International
+  value: 355
+- name: Qingdao Yeelink Information Technology Co., Ltd
+  value: 356
+- name: Milwaukee Electric Tools
+  value: 357
+- name: MISHIK Pte Ltd
+  value: 358
+- name: Ascensia Diabetes Care US Inc
+  value: 359
+- name: Spicebox LLC
+  value: 360
+- name: emberlight
+  value: 361
+- name: Copeland Cold Chain LP
+  value: 362
+- name: Qblinks
+  value: 363
+- name: MYSPHERA
+  value: 364
+- name: LifeScan Inc
+  value: 365
+- name: Volantic AB
+  value: 366
+- name: Podo Labs, Inc
+  value: 367
+- name: Roche Diabetes Care AG
+  value: 368
+- name: Amazon.com Services LLC
+  value: 369
+- name: Connovate Technology Private Limited
+  value: 370
+- name: Kocomojo, LLC
+  value: 371
+- name: Everykey Inc
+  value: 372
+- name: Dynamic Controls
+  value: 373
+- name: SentriLock
+  value: 374
+- name: I-SYST inc
+  value: 375
+- name: CASIO COMPUTER CO., LTD
+  value: 376
+- name: LAPIS Semiconductor Co.,Ltd
+  value: 377
+- name: Telemonitor, Inc
+  value: 378
+- name: taskit GmbH
+  value: 379
+- name: Mercedes-Benz Group AG
+  value: 380
+- name: BatAndCat
+  value: 381
+- name: BluDotz Ltd
+  value: 382
+- name: XTel Wireless ApS
+  value: 383
+- name: Gigaset Technologies GmbH
+  value: 384
+- name: Gecko Health Innovations, Inc
+  value: 385
+- name: HOP Ubiquitous
+  value: 386
+- name: Walt Disney
+  value: 387
+- name: Nectar
+  value: 388
+- name: bel'apps LLC
+  value: 389
+- name: CORE Lighting Ltd
+  value: 390
+- name: Seraphim Sense Ltd
+  value: 391
+- name: Unico RBC
+  value: 392
+- name: Physical Enterprises Inc
+  value: 393
+- name: Able Trend Technology Limited
+  value: 394
+- name: Konica Minolta, Inc
+  value: 395
+- name: Wilo SE
+  value: 396
+- name: Extron Design Services
+  value: 397
+- name: Google LLC
+  value: 398
+- name: Fireflies Systems
+  value: 399
+- name: Intelletto Technologies Inc
+  value: 400
+- name: FDK CORPORATION
+  value: 401
+- name: Cloudleaf, Inc
+  value: 402
+- name: Maveric Automation LLC
+  value: 403
+- name: Acoustic Stream Corporation
+  value: 404
+- name: Zuli
+  value: 405
+- name: Paxton Access Ltd
+  value: 406
+- name: WiSilica Inc
+  value: 407
+- name: VENGIT Korlatolt Felelossegu Tarsasag
+  value: 408
+- name: SALTO SYSTEMS S.L
+  value: 409
+- name: TRON Forum
+  value: 410
+- name: CUBETECH s.r.o
+  value: 411
+- name: Cokiya Incorporated
+  value: 412
+- name: CVS Health
+  value: 413
+- name: Ceruus
+  value: 414
+- name: Strainstall Ltd
+  value: 415
+- name: Channel Enterprises (HK) Ltd
+  value: 416
+- name: FIAMM
+  value: 417
+- name: GIGALANE.CO.,LTD
+  value: 418
+- name: EROAD
+  value: 419
+- name: MSA Innovation, LLC
+  value: 420
+- name: Icon Health and Fitness
+  value: 421
+- name: Wille Engineering
+  value: 422
+- name: ENERGOUS CORPORATION
+  value: 423
+- name: Taobao
+  value: 424
+- name: Canon Inc
+  value: 425
+- name: Geophysical Technology Inc
+  value: 426
+- name: Meta Platforms, Inc
+  value: 427
+- name: Trividia Health, Inc
+  value: 428
+- name: FlightSafety International
+  value: 429
+- name: Earlens Corporation
+  value: 430
+- name: Sunrise Micro Devices, Inc
+  value: 431
+- name: Star Micronics Co., Ltd
+  value: 432
+- name: Netizens Sp. z o.o
+  value: 433
+- name: Nymi Inc
+  value: 434
+- name: Nytec, Inc
+  value: 435
+- name: Trineo Sp. z o.o
+  value: 436
+- name: Nest Labs Inc
+  value: 437
+- name: LM Technologies Ltd
+  value: 438
+- name: General Electric Company
+  value: 439
+- name: i+D3 S.L
+  value: 440
+- name: HANA Micron
+  value: 441
+- name: Stages Cycling LLC
+  value: 442
+- name: Cochlear Bone Anchored Solutions AB
+  value: 443
+- name: SenionLab AB
+  value: 444
+- name: Syszone Co., Ltd
+  value: 445
+- name: Pulsate Mobile Ltd
+  value: 446
+- name: Hongkong OnMicro Electronics Limited
+  value: 447
+- name: pironex GmbH
+  value: 448
+- name: BRADATECH Corp
+  value: 449
+- name: Transenergooil AG
+  value: 450
+- name: Bunch
+  value: 451
+- name: DME Microelectronics
+  value: 452
+- name: Bitcraze AB
+  value: 453
+- name: HASWARE Inc
+  value: 454
+- name: Abiogenix Inc
+  value: 455
+- name: Poly-Control ApS
+  value: 456
+- name: Avi-on
+  value: 457
+- name: Laerdal Medical AS
+  value: 458
+- name: Fetch My Pet
+  value: 459
+- name: Sam Labs Ltd
+  value: 460
+- name: Chengdu Synwing Technology Ltd
+  value: 461
+- name: HOUWA SYSTEM DESIGN, k.k
+  value: 462
+- name: BSH
+  value: 463
+- name: Primus Inter Pares Ltd
+  value: 464
+- name: August Home, Inc
+  value: 465
+- name: Gill Electronics
+  value: 466
+- name: Sky Wave Design
+  value: 467
+- name: Newlab S.r.l
+  value: 468
+- name: ELAD srl
+  value: 469
+- name: G-wearables inc
+  value: 470
+- name: Squadrone Systems Inc
+  value: 471
+- name: Code Corporation
+  value: 472
+- name: Savant Systems LLC
+  value: 473
+- name: Logitech International SA
+  value: 474
+- name: Innblue Consulting
+  value: 475
+- name: iParking Ltd
+  value: 476
+- name: Koninklijke Philips N.V
+  value: 477
+- name: Minelab Electronics Pty Limited
+  value: 478
+- name: Bison Group Ltd
+  value: 479
+- name: Widex A/S
+  value: 480
+- name: Jolla Ltd
+  value: 481
+- name: Lectronix, Inc
+  value: 482
+- name: Caterpillar Inc
+  value: 483
+- name: Freedom Innovations
+  value: 484
+- name: Dynamic Devices Ltd
+  value: 485
+- name: Technology Solutions (UK) Ltd
+  value: 486
+- name: IPS Group Inc
+  value: 487
+- name: STIR
+  value: 488
+- name: Sano, Inc
+  value: 489
+- name: Advanced Application Design, Inc
+  value: 490
+- name: AutoMap LLC
+  value: 491
+- name: Spreadtrum Communications Shanghai Ltd
+  value: 492
+- name: CuteCircuit LTD
+  value: 493
+- name: Valeo Service
+  value: 494
+- name: Fullpower Technologies, Inc
+  value: 495
+- name: KloudNation
+  value: 496
+- name: Zebra Technologies Corporation
+  value: 497
+- name: Itron, Inc
+  value: 498
+- name: The University of Tokyo
+  value: 499
+- name: UTC Fire and Security
+  value: 500
+- name: Cool Webthings Limited
+  value: 501
+- name: DJO Global
+  value: 502
+- name: Gelliner Limited
+  value: 503
+- name: Anyka (Guangzhou) Microelectronics Technology Co, LTD
+  value: 504
+- name: Medtronic Inc
+  value: 505
+- name: Gozio Inc
+  value: 506
+- name: Form Lifting, LLC
+  value: 507
+- name: Wahoo Fitness, LLC
+  value: 508
+- name: Kontakt Micro-Location Sp. z o.o
+  value: 509
+- name: Radio Systems Corporation
+  value: 510
+- name: Freescale Semiconductor, Inc
+  value: 511
+- name: Verifone Systems Pte Ltd. Taiwan Branch
+  value: 512
+- name: AR Timing
+  value: 513
+- name: Rigado LLC
+  value: 514
+- name: Kemppi Oy
+  value: 515
+- name: Tapcentive Inc
+  value: 516
+- name: Smartbotics Inc
+  value: 517
+- name: Otter Products, LLC
+  value: 518
+- name: STEMP Inc
+  value: 519
+- name: LumiGeek LLC
+  value: 520
+- name: InvisionHeart Inc
+  value: 521
+- name: Macnica Inc
+  value: 522
+- name: Jaguar Land Rover Limited
+  value: 523
+- name: CoroWare Technologies, Inc
+  value: 524
+- name: Simplo Technology Co., LTD
+  value: 525
+- name: Omron Healthcare Co., LTD
+  value: 526
+- name: Comodule GMBH
+  value: 527
+- name: ikeGPS
+  value: 528
+- name: Telink Semiconductor Co. Ltd
+  value: 529
+- name: Interplan Co., Ltd
+  value: 530
+- name: Wyler AG
+  value: 531
+- name: IK Multimedia Production srl
+  value: 532
+- name: Lukoton Experience Oy
+  value: 533
+- name: MTI Ltd
+  value: 534
+- name: Tech4home, Lda
+  value: 535
+- name: Hiotech AB
+  value: 536
+- name: DOTT Limited
+  value: 537
+- name: Blue Speck Labs, LLC
+  value: 538
+- name: Cisco Systems, Inc
+  value: 539
+- name: Mobicomm Inc
+  value: 540
+- name: Edamic
+  value: 541
+- name: Goodnet, Ltd
+  value: 542
+- name: Luster Leaf Products Inc
+  value: 543
+- name: Manus Machina BV
+  value: 544
+- name: Mobiquity Networks Inc
+  value: 545
+- name: Praxis Dynamics
+  value: 546
+- name: Philip Morris Products S.A
+  value: 547
+- name: Comarch SA
+  value: 548
+- name: Nestlé Nespresso S.A
+  value: 549
+- name: Merlinia A/S
+  value: 550
+- name: LifeBEAM Technologies
+  value: 551
+- name: Twocanoes Labs, LLC
+  value: 552
+- name: Muoverti Limited
+  value: 553
+- name: Stamer Musikanlagen GMBH
+  value: 554
+- name: Tesla, Inc
+  value: 555
+- name: Pharynks Corporation
+  value: 556
+- name: Lupine
+  value: 557
+- name: Siemens AG
+  value: 558
+- name: Huami (Shanghai) Culture Communication CO., LTD
+  value: 559
+- name: Foster Electric Company, Ltd
+  value: 560
+- name: ETA SA
+  value: 561
+- name: x-Senso Solutions Kft
+  value: 562
+- name: Shenzhen SuLong Communication Ltd
+  value: 563
+- name: FengFan (BeiJing) Technology Co, Ltd
+  value: 564
+- name: Qrio Inc
+  value: 565
+- name: Pitpatpet Ltd
+  value: 566
+- name: MSHeli s.r.l
+  value: 567
+- name: Trakm8 Ltd
+  value: 568
+- name: JIN CO, Ltd
+  value: 569
+- name: Alatech Tehnology
+  value: 570
+- name: Beijing CarePulse Electronic Technology Co, Ltd
+  value: 571
+- name: Awarepoint
+  value: 572
+- name: ViCentra B.V
+  value: 573
+- name: Raven Industries
+  value: 574
+- name: WaveWare Technologies Inc
+  value: 575
+- name: Argenox Technologies
+  value: 576
+- name: Bragi GmbH
+  value: 577
+- name: Masimo Corp
+  value: 579
+- name: Iotera Inc
+  value: 580
+- name: Endress+Hauser
+  value: 581
+- name: ACKme Networks, Inc
+  value: 582
+- name: FiftyThree Inc
+  value: 583
+- name: Parker Hannifin Corp
+  value: 584
+- name: Transcranial Ltd
+  value: 585
+- name: Uwatec AG
+  value: 586
+- name: Orlan LLC
+  value: 587
+- name: Blue Clover Devices
+  value: 588
+- name: M-Way Solutions GmbH
+  value: 589
+- name: Microtronics Engineering GmbH
+  value: 590
+- name: Schneider SchreibgerÃ¤te GmbH
+  value: 591
+- name: Sapphire Circuits LLC
+  value: 592
+- name: Lumo Bodytech Inc
+  value: 593
+- name: UKC Technosolution
+  value: 594
+- name: Xicato Inc
+  value: 595
+- name: Playbrush
+  value: 596
+- name: Dai Nippon Printing Co., Ltd
+  value: 597
+- name: G24 Power Limited
+  value: 598
+- name: AdBabble Local Commerce Inc
+  value: 599
+- name: Devialet SA
+  value: 600
+- name: ALTYOR
+  value: 601
+- name: University of Applied Sciences Valais/Haute Ecole Valaisanne
+  value: 602
+- name: Five Interactive, LLC dba Zendo
+  value: 603
+- name: NetEaseï¼ˆHangzhouï¼‰Network co.Ltd
+  value: 604
+- name: Lexmark International Inc
+  value: 605
+- name: Fluke Corporation
+  value: 606
+- name: Yardarm Technologies
+  value: 607
+- name: SensaRx
+  value: 608
+- name: SECVRE GmbH
+  value: 609
+- name: Glacial Ridge Technologies
+  value: 610
+- name: Identiv, Inc
+  value: 611
+- name: DDS, Inc
+  value: 612
+- name: SMK Corporation
+  value: 613
+- name: Schawbel Technologies LLC
+  value: 614
+- name: XMI Systems SA
+  value: 615
+- name: Cerevo
+  value: 616
+- name: Torrox GmbH & Co KG
+  value: 617
+- name: Gemalto
+  value: 618
+- name: DEKA Research & Development Corp
+  value: 619
+- name: Domster Tadeusz Szydlowski
+  value: 620
+- name: Technogym SPA
+  value: 621
+- name: FLEURBAEY BVBA
+  value: 622
+- name: Aptcode Solutions
+  value: 623
+- name: LSI ADL Technology
+  value: 624
+- name: Animas Corp
+  value: 625
+- name: Alps Alpine Co., Ltd
+  value: 626
+- name: OCEASOFT
+  value: 627
+- name: Motsai Research
+  value: 628
+- name: Geotab
+  value: 629
+- name: E.G.O. Elektro-Geraetebau GmbH
+  value: 630
+- name: bewhere inc
+  value: 631
+- name: Johnson Outdoors Inc
+  value: 632
+- name: steute Schaltgerate GmbH & Co. KG
+  value: 633
+- name: Ekomini inc
+  value: 634
+- name: DEFA AS
+  value: 635
+- name: Aseptika Ltd
+  value: 636
+- name: HUAWEI Technologies Co., Ltd
+  value: 637
+- name: HabitAware, LLC
+  value: 638
+- name: ruwido austria gmbh
+  value: 639
+- name: ITEC corporation
+  value: 640
+- name: StoneL
+  value: 641
+- name: Sonova AG
+  value: 642
+- name: Maven Machines, Inc
+  value: 643
+- name: Synapse Electronics
+  value: 644
+- name: WOWTech Canada Ltd
+  value: 645
+- name: RF Code, Inc
+  value: 646
+- name: Wally Ventures S.L
+  value: 647
+- name: Willowbank Electronics Ltd
+  value: 648
+- name: SK Telecom
+  value: 649
+- name: Jetro AS
+  value: 650
+- name: Code Gears LTD
+  value: 651
+- name: NANOLINK APS
+  value: 652
+- name: IF, LLC
+  value: 653
+- name: RF Digital Corp
+  value: 654
+- name: Church & Dwight Co., Inc
+  value: 655
+- name: Multibit Oy
+  value: 656
+- name: CliniCloud Inc
+  value: 657
+- name: SwiftSensors
+  value: 658
+- name: Blue Bite
+  value: 659
+- name: ELIAS GmbH
+  value: 660
+- name: Sivantos GmbH
+  value: 661
+- name: Petzl
+  value: 662
+- name: storm power ltd
+  value: 663
+- name: EISST Ltd
+  value: 664
+- name: Inexess Technology Simma KG
+  value: 665
+- name: Currant, Inc
+  value: 666
+- name: C2 Development, Inc
+  value: 667
+- name: Blue Sky Scientific, LLC
+  value: 668
+- name: ALOTTAZS LABS, LLC
+  value: 669
+- name: Kupson spol. s r.o
+  value: 670
+- name: Areus Engineering GmbH
+  value: 671
+- name: Impossible Camera GmbH
+  value: 672
+- name: InventureTrack Systems
+  value: 673
+- name: Sera4 Ltd
+  value: 674
+- name: Itude
+  value: 675
+- name: Pacific Lock Company
+  value: 676
+- name: Tendyron Corporation
+  value: 677
+- name: Robert Bosch GmbH
+  value: 678
+- name: Illuxtron international B.V
+  value: 679
+- name: miSport Ltd
+  value: 680
+- name: Chargelib
+  value: 681
+- name: Doppler Lab
+  value: 682
+- name: BBPOS Limited
+  value: 683
+- name: RTB Elektronik GmbH & Co. KG
+  value: 684
+- name: Rx Networks, Inc
+  value: 685
+- name: WeatherFlow, Inc
+  value: 686
+- name: Technicolor USA Inc
+  value: 687
+- name: Bestechnic(Shanghai),Ltd
+  value: 688
+- name: Raden Inc
+  value: 689
+- name: Oura Health Oy
+  value: 690
+- name: CLABER S.P.A
+  value: 691
+- name: Hyginex, Inc
+  value: 692
+- name: HANSHIN ELECTRIC RAILWAY CO.,LTD
+  value: 693
+- name: Schneider Electric
+  value: 694
+- name: Oort Technologies LLC
+  value: 695
+- name: Chrono Therapeutics
+  value: 696
+- name: Rinnai Corporation
+  value: 697
+- name: Swissprime Technologies AG
+  value: 698
+- name: Koha.,Co.Ltd
+  value: 699
+- name: Genevac Ltd
+  value: 700
+- name: Chemtronics
+  value: 701
+- name: Seguro Technology Sp. z o.o
+  value: 702
+- name: Redbird Flight Simulations
+  value: 703
+- name: Dash Robotics
+  value: 704
+- name: LINE Corporation
+  value: 705
+- name: Guillemot Corporation
+  value: 706
+- name: Techtronic Power Tools Technology Limited
+  value: 707
+- name: Wilson Sporting Goods
+  value: 708
+- name: Lenovo (Singapore) Pte Ltd
+  value: 709
+- name: Ayatan Sensors
+  value: 710
+- name: Electronics Tomorrow Limited
+  value: 711
+- name: OneSpan
+  value: 712
+- name: PayRange Inc
+  value: 713
+- name: ABOV Semiconductor
+  value: 714
+- name: AINA-Wireless Inc
+  value: 715
+- name: Eijkelkamp Soil & Water
+  value: 716
+- name: BMA ergonomics b.v
+  value: 717
+- name: Teva Branded Pharmaceutical Products R&D, Inc
+  value: 718
+- name: Anima
+  value: 719
+- name: 3M
+  value: 720
+- name: Empatica Srl
+  value: 721
+- name: Afero, Inc
+  value: 722
+- name: Powercast Corporation
+  value: 723
+- name: Secuyou ApS
+  value: 724
+- name: OMRON Corporation
+  value: 725
+- name: Send Solutions
+  value: 726
+- name: NIPPON SYSTEMWARE CO.,LTD
+  value: 727
+- name: Neosfar
+  value: 728
+- name: Fliegl Agrartechnik GmbH
+  value: 729
+- name: Gilvader
+  value: 730
+- name: Digi International Inc (R)
+  value: 731
+- name: DeWalch Technologies, Inc
+  value: 732
+- name: Flint Rehabilitation Devices, LLC
+  value: 733
+- name: Samsung SDS Co., Ltd
+  value: 734
+- name: Blur Product Development
+  value: 735
+- name: University of Michigan
+  value: 736
+- name: Victron Energy BV
+  value: 737
+- name: NTT docomo
+  value: 738
+- name: Carmanah Technologies Corp
+  value: 739
+- name: Bytestorm Ltd
+  value: 740
+- name: Espressif Systems (Shanghai) Co., Ltd
+  value: 741
+- name: Unwire
+  value: 742
+- name: Connected Yard, Inc
+  value: 743
+- name: American Music Environments
+  value: 744
+- name: Sensogram Technologies, Inc
+  value: 745
+- name: Fujitsu Limited
+  value: 746
+- name: Ardic Technology
+  value: 747
+- name: Delta Systems, Inc
+  value: 748
+- name: HTC Corporation
+  value: 749
+- name: Citizen Holdings Co., Ltd
+  value: 750
+- name: SMART-INNOVATION.inc
+  value: 751
+- name: Blackrat Software
+  value: 752
+- name: The Idea Cave, LLC
+  value: 753
+- name: GoPro, Inc
+  value: 754
+- name: AuthAir, Inc
+  value: 755
+- name: Vensi, Inc
+  value: 756
+- name: Indagem Tech LLC
+  value: 757
+- name: Intemo Technologies
+  value: 758
+- name: DreamVisions co., Ltd
+  value: 759
+- name: Runteq Oy Ltd
+  value: 760
+- name: IMAGINATION TECHNOLOGIES LTD
+  value: 761
+- name: CoSTAR TEchnologies
+  value: 762
+- name: Clarius Mobile Health Corp
+  value: 763
+- name: Shanghai Frequen Microelectronics Co., Ltd
+  value: 764
+- name: Uwanna, Inc
+  value: 765
+- name: Lierda Science & Technology Group Co., Ltd
+  value: 766
+- name: Silicon Laboratories
+  value: 767
+- name: World Moto Inc
+  value: 768
+- name: Giatec Scientific Inc
+  value: 769
+- name: Loop Devices, Inc
+  value: 770
+- name: IACA electronique
+  value: 771
+- name: Oura Health Ltd
+  value: 772
+- name: Swipp ApS
+  value: 773
+- name: Life Laboratory Inc
+  value: 774
+- name: FUJI INDUSTRIAL CO.,LTD
+  value: 775
+- name: Surefire, LLC
+  value: 776
+- name: Dolby Labs
+  value: 777
+- name: Ellisys
+  value: 778
+- name: Magnitude Lighting Converters
+  value: 779
+- name: Hilti AG
+  value: 780
+- name: Devdata S.r.l
+  value: 781
+- name: Deviceworx
+  value: 782
+- name: Shortcut Labs
+  value: 783
+- name: SGL Italia S.r.l
+  value: 784
+- name: PEEQ DATA
+  value: 785
+- name: Ducere Technologies Pvt Ltd
+  value: 786
+- name: DiveNav, Inc
+  value: 787
+- name: RIIG AI Sp. z o.o
+  value: 788
+- name: Thermo Fisher Scientific
+  value: 789
+- name: AG Measurematics Pvt. Ltd
+  value: 790
+- name: CHUO Electronics CO., LTD
+  value: 791
+- name: Aspenta International
+  value: 792
+- name: Eugster Frismag AG
+  value: 793
+- name: Wurth Elektronik eiSos GmbH & Co. KG
+  value: 794
+- name: HQ Inc
+  value: 795
+- name: Lab Sensor Solutions
+  value: 796
+- name: Enterlab ApS
+  value: 797
+- name: Eyefi, Inc
+  value: 798
+- name: MetaSystem S.p.A
+  value: 799
+- name: SONO ELECTRONICS. CO., LTD
+  value: 800
+- name: Jewelbots
+  value: 801
+- name: Compumedics Limited
+  value: 802
+- name: Rotor Bike Components
+  value: 803
+- name: Astro, Inc
+  value: 804
+- name: Amotus Solutions
+  value: 805
+- name: Healthwear Technologies (Changzhou)Ltd
+  value: 806
+- name: Essex Electronics
+  value: 807
+- name: Grundfos A/S
+  value: 808
+- name: Eargo, Inc
+  value: 809
+- name: Electronic Design Lab
+  value: 810
+- name: ESYLUX
+  value: 811
+- name: NIPPON SMT.CO.,Ltd
+  value: 812
+- name: BM innovations GmbH
+  value: 813
+- name: indoormap
+  value: 814
+- name: OttoQ Inc
+  value: 815
+- name: North Pole Engineering
+  value: 816
+- name: 3flares Technologies Inc
+  value: 817
+- name: Electrocompaniet A.S
+  value: 818
+- name: Mul-T-Lock
+  value: 819
+- name: Airthings ASA
+  value: 820
+- name: Enlighted Inc
+  value: 821
+- name: GISTIC
+  value: 822
+- name: AJP2 Holdings, LLC
+  value: 823
+- name: COBI GmbH
+  value: 824
+- name: Blue Sky Scientific, LLC
+  value: 825
+- name: Appception, Inc
+  value: 826
+- name: Courtney Thorne Limited
+  value: 827
+- name: Virtuosys
+  value: 828
+- name: TPV Technology Limited
+  value: 829
+- name: Monitra SA
+  value: 830
+- name: Automation Components, Inc
+  value: 831
+- name: Letsense s.r.l
+  value: 832
+- name: Etesian Technologies LLC
+  value: 833
+- name: GERTEC BRASIL LTDA
+  value: 834
+- name: Drekker Development Pty. Ltd
+  value: 835
+- name: Whirl Inc
+  value: 836
+- name: Locus Positioning
+  value: 837
+- name: Acuity Brands Lighting, Inc
+  value: 838
+- name: Prevent Biometrics
+  value: 839
+- name: Arioneo
+  value: 840
+- name: VersaMe
+  value: 841
+- name: Vaddio
+  value: 842
+- name: Libratone A/S
+  value: 843
+- name: HM Electronics, Inc
+  value: 844
+- name: TASER International, Inc
+  value: 845
+- name: SafeTrust Inc
+  value: 846
+- name: Heartland Payment Systems
+  value: 847
+- name: Bitstrata Systems Inc
+  value: 848
+- name: Pieps GmbH
+  value: 849
+- name: iRiding(Xiamen)Technology Co.,Ltd
+  value: 850
+- name: Alpha Audiotronics, Inc
+  value: 851
+- name: TOPPAN FORMS CO.,LTD
+  value: 852
+- name: Sigma Designs, Inc
+  value: 853
+- name: Spectrum Brands, Inc
+  value: 854
+- name: Polymap Wireless
+  value: 855
+- name: MagniWare Ltd
+  value: 856
+- name: Novotec Medical GmbH
+  value: 857
+- name: Phillips-Medisize A/S
+  value: 858
+- name: Matrix Inc
+  value: 859
+- name: Eaton Corporation
+  value: 860
+- name: KYS
+  value: 861
+- name: Naya Health, Inc
+  value: 862
+- name: Acromag
+  value: 863
+- name: Insulet Corporation
+  value: 864
+- name: Wellinks Inc
+  value: 865
+- name: ON Semiconductor
+  value: 866
+- name: FREELAP SA
+  value: 867
+- name: Favero Electronics Srl
+  value: 868
+- name: BioMech Sensor LLC
+  value: 869
+- name: BOLTT Sports technologies Private limited
+  value: 870
+- name: Saphe International
+  value: 871
+- name: Metormote AB
+  value: 872
+- name: littleBits
+  value: 873
+- name: SetPoint Medical
+  value: 874
+- name: BRControls Products BV
+  value: 875
+- name: Zipcar
+  value: 876
+- name: AirBolt Pty Ltd
+  value: 877
+- name: MOTIVE TECHNOLOGIES, INC
+  value: 878
+- name: Motiv, Inc
+  value: 879
+- name: Wazombi Labs OÃœ
+  value: 880
+- name: ORBCOMM
+  value: 881
+- name: Nixie Labs, Inc
+  value: 882
+- name: AppNearMe Ltd
+  value: 883
+- name: Holman Industries
+  value: 884
+- name: Expain AS
+  value: 885
+- name: Electronic Temperature Instruments Ltd
+  value: 886
+- name: Plejd AB
+  value: 887
+- name: Propeller Health
+  value: 888
+- name: Shenzhen iMCO Electronic Technology Co.,Ltd
+  value: 889
+- name: Algoria
+  value: 890
+- name: Apption Labs Inc
+  value: 891
+- name: Cronologics Corporation
+  value: 892
+- name: MICRODIA Ltd
+  value: 893
+- name: lulabytes S.L
+  value: 894
+- name: Société des Produits Nestlé S.A
+  value: 895
+- name: LLC "MEGA-F service
+  value: 896
+- name: Sharp Corporation
+  value: 897
+- name: Precision Outcomes Ltd
+  value: 898
+- name: Kronos Incorporated
+  value: 899
+- name: OCOSMOS Co., Ltd
+  value: 900
+- name: Embedded Electronic Solutions Ltd. dba e2Solutions
+  value: 901
+- name: Aterica Inc
+  value: 902
+- name: BluStor PMC, Inc
+  value: 903
+- name: Kapsch TrafficCom AB
+  value: 904
+- name: ActiveBlu Corporation
+  value: 905
+- name: Kohler Mira Limited
+  value: 906
+- name: Noke
+  value: 907
+- name: Appion Inc
+  value: 908
+- name: Resmed Ltd
+  value: 909
+- name: Crownstone B.V
+  value: 910
+- name: Xiaomi Inc
+  value: 911
+- name: INFOTECH s.r.o
+  value: 912
+- name: Thingsquare AB
+  value: 913
+- name: T&D
+  value: 914
+- name: LAVAZZA S.p.A
+  value: 915
+- name: Netclearance Systems, Inc
+  value: 916
+- name: SDATAWAY
+  value: 917
+- name: BLOKS GmbH
+  value: 918
+- name: LEGO System A/S
+  value: 919
+- name: Thetatronics Ltd
+  value: 920
+- name: Nikon Corporation
+  value: 921
+- name: NeST
+  value: 922
+- name: South Silicon Valley Microelectronics
+  value: 923
+- name: ALE International
+  value: 924
+- name: CareView Communications, Inc
+  value: 925
+- name: SchoolBoard Limited
+  value: 926
+- name: Molex Corporation
+  value: 927
+- name: IVT Wireless Limited
+  value: 928
+- name: Alpine Labs LLC
+  value: 929
+- name: Candura Instruments
+  value: 930
+- name: SmartMovt Technology Co., Ltd
+  value: 931
+- name: Token Zero Ltd
+  value: 932
+- name: ACE CAD Enterprise Co., Ltd. (ACECAD)
+  value: 933
+- name: Medela, Inc
+  value: 934
+- name: AeroScout
+  value: 935
+- name: Esrille Inc
+  value: 936
+- name: THINKERLY SRL
+  value: 937
+- name: Exon Sp. z o.o
+  value: 938
+- name: Meizu Technology Co., Ltd
+  value: 939
+- name: Smablo LTD
+  value: 940
+- name: XiQ
+  value: 941
+- name: Allswell Inc
+  value: 942
+- name: Comm-N-Sense Corp DBA Verigo
+  value: 943
+- name: VIBRADORM GmbH
+  value: 944
+- name: Otodata Wireless Network Inc
+  value: 945
+- name: Propagation Systems Limited
+  value: 946
+- name: Midwest Instruments & Controls
+  value: 947
+- name: Alpha Nodus, inc
+  value: 948
+- name: petPOMM, Inc
+  value: 949
+- name: Mattel
+  value: 950
+- name: Airbly Inc
+  value: 951
+- name: A-Safe Limited
+  value: 952
+- name: FREDERIQUE CONSTANT SA
+  value: 953
+- name: Maxscend Microelectronics Company Limited
+  value: 954
+- name: Abbott
+  value: 955
+- name: ASB Bank Ltd
+  value: 956
+- name: amadas
+  value: 957
+- name: Applied Science, Inc
+  value: 958
+- name: iLumi Solutions Inc
+  value: 959
+- name: Arch Systems Inc
+  value: 960
+- name: Ember Technologies, Inc
+  value: 961
+- name: Snapchat Inc
+  value: 962
+- name: Casambi Technologies Oy
+  value: 963
+- name: Pico Technology Inc
+  value: 964
+- name: St. Jude Medical, Inc
+  value: 965
+- name: Intricon
+  value: 966
+- name: Structural Health Systems, Inc
+  value: 967
+- name: Avvel International
+  value: 968
+- name: Gallagher Group
+  value: 969
+- name: In2things Automation Pvt. Ltd
+  value: 970
+- name: SYSDEV Srl
+  value: 971
+- name: Vonkil Technologies Ltd
+  value: 972
+- name: Wynd Technologies, Inc
+  value: 973
+- name: CONTRINEX S.A
+  value: 974
+- name: MIRA, Inc
+  value: 975
+- name: Watteam Ltd
+  value: 976
+- name: Density Inc
+  value: 977
+- name: IOT Pot India Private Limited
+  value: 978
+- name: Sigma Connectivity AB
+  value: 979
+- name: PEG PEREGO SPA
+  value: 980
+- name: Wyzelink Systems Inc
+  value: 981
+- name: Yota Devices LTD
+  value: 982
+- name: FINSECUR
+  value: 983
+- name: Zen-Me Labs Ltd
+  value: 984
+- name: 3IWare Co., Ltd
+  value: 985
+- name: EnOcean GmbH
+  value: 986
+- name: Instabeat, Inc
+  value: 987
+- name: Nima Labs
+  value: 988
+- name: Andreas Stihl AG & Co. KG
+  value: 989
+- name: Nathan Rhoades LLC
+  value: 990
+- name: Grob Technologies, LLC
+  value: 991
+- name: Actions Technology Co.,Ltd
+  value: 992
+- name: SPD Development Company Ltd
+  value: 993
+- name: Sensoan Oy
+  value: 994
+- name: Qualcomm Life Inc
+  value: 995
+- name: Chip-ing AG
+  value: 996
+- name: ffly4u
+  value: 997
+- name: IoT Instruments Oy
+  value: 998
+- name: TRUE Fitness Technology
+  value: 999
+- name: Reiner Kartengeraete GmbH & Co. KG
+  value: 1000
+- name: SHENZHEN LEMONJOY TECHNOLOGY CO., LTD
+  value: 1001
+- name: Hello Inc
+  value: 1002
+- name: Ozo Edu, Inc
+  value: 1003
+- name: Jigowatts Inc
+  value: 1004
+- name: BASIC MICRO.COM,INC
+  value: 1005
+- name: CUBE TECHNOLOGIES
+  value: 1006
+- name: foolography GmbH
+  value: 1007
+- name: CLINK
+  value: 1008
+- name: Hestan Smart Cooking Inc
+  value: 1009
+- name: WindowMaster A/S
+  value: 1010
+- name: Flowscape AB
+  value: 1011
+- name: PAL Technologies Ltd
+  value: 1012
+- name: WHERE, Inc
+  value: 1013
+- name: Iton Technology Corp
+  value: 1014
+- name: Owl Labs Inc
+  value: 1015
+- name: Rockford Corp
+  value: 1016
+- name: Becon Technologies Co.,Ltd
+  value: 1017
+- name: Vyassoft Technologies Inc
+  value: 1018
+- name: Nox Medical
+  value: 1019
+- name: Kimberly-Clark
+  value: 1020
+- name: Trimble Inc
+  value: 1021
+- name: Littelfuse
+  value: 1022
+- name: Withings
+  value: 1023
+- name: i-developer IT Beratung UG
+  value: 1024
+- name: Relations Inc
+  value: 1025
+- name: Sears Holdings Corporation
+  value: 1026
+- name: Gantner Electronic GmbH
+  value: 1027
+- name: Authomate Inc
+  value: 1028
+- name: Vertex International, Inc
+  value: 1029
+- name: Airtago
+  value: 1030
+- name: Swiss Audio SA
+  value: 1031
+- name: ToGetHome Inc
+  value: 1032
+- name: RYSE INC
+  value: 1033
+- name: ZF OPENMATICS s.r.o
+  value: 1034
+- name: Jana Care Inc
+  value: 1035
+- name: Senix Corporation
+  value: 1036
+- name: NorthStar Battery Company, LLC
+  value: 1037
+- name: SKF (U.K.) Limited
+  value: 1038
+- name: CO-AX Technology, Inc
+  value: 1039
+- name: Fender Musical Instruments
+  value: 1040
+- name: Luidia Inc
+  value: 1041
+- name: SEFAM
+  value: 1042
+- name: Wireless Cables Inc
+  value: 1043
+- name: Lightning Protection International Pty Ltd
+  value: 1044
+- name: Uber Technologies Inc
+  value: 1045
+- name: SODA GmbH
+  value: 1046
+- name: Fatigue Science
+  value: 1047
+- name: Novalogy LTD
+  value: 1049
+- name: Friday Labs Limited
+  value: 1050
+- name: OrthoAccel Technologies
+  value: 1051
+- name: WaterGuru, Inc
+  value: 1052
+- name: Benning Elektrotechnik und Elektronik GmbH & Co. KG
+  value: 1053
+- name: Dell Computer Corporation
+  value: 1054
+- name: Kopin Corporation
+  value: 1055
+- name: TecBakery GmbH
+  value: 1056
+- name: Backbone Labs, Inc
+  value: 1057
+- name: DELSEY SA
+  value: 1058
+- name: Chargifi Limited
+  value: 1059
+- name: Trainesense Ltd
+  value: 1060
+- name: Unify Software and Solutions GmbH & Co. KG
+  value: 1061
+- name: Husqvarna AB
+  value: 1062
+- name: Focus fleet and fuel management inc
+  value: 1063
+- name: SmallLoop, LLC
+  value: 1064
+- name: Prolon Inc
+  value: 1065
+- name: BD Medical
+  value: 1066
+- name: iMicroMed Incorporated
+  value: 1067
+- name: Ticto N.V
+  value: 1068
+- name: Meshtech AS
+  value: 1069
+- name: MemCachier Inc
+  value: 1070
+- name: Danfoss A/S
+  value: 1071
+- name: SnapStyk Inc
+  value: 1072
+- name: Alticor Inc
+  value: 1073
+- name: Silk Labs, Inc
+  value: 1074
+- name: Pillsy Inc
+  value: 1075
+- name: Hatch Baby, Inc
+  value: 1076
+- name: Blocks Wearables Ltd
+  value: 1077
+- name: Drayson Technologies (Europe) Limited
+  value: 1078
+- name: eBest IOT Inc
+  value: 1079
+- name: Helvar Ltd
+  value: 1080
+- name: Radiance Technologies
+  value: 1081
+- name: Nuheara Limited
+  value: 1082
+- name: Appside co., ltd
+  value: 1083
+- name: DeLaval
+  value: 1084
+- name: Coiler Corporation
+  value: 1085
+- name: Thermomedics, Inc
+  value: 1086
+- name: Tentacle Sync GmbH
+  value: 1087
+- name: Valencell, Inc
+  value: 1088
+- name: iProtoXi Oy
+  value: 1089
+- name: SECOM CO., LTD
+  value: 1090
+- name: Tucker International LLC
+  value: 1091
+- name: Metanate Limited
+  value: 1092
+- name: Kobian Canada Inc
+  value: 1093
+- name: NETGEAR, Inc
+  value: 1094
+- name: Fabtronics Australia Pty Ltd
+  value: 1095
+- name: Grand Centrix GmbH
+  value: 1096
+- name: 1UP USA.com llc
+  value: 1097
+- name: SHIMANO INC
+  value: 1098
+- name: Nain Inc
+  value: 1099
+- name: LifeStyle Lock, LLC
+  value: 1100
+- name: VEGA Grieshaber KG
+  value: 1101
+- name: Xtrava Inc
+  value: 1102
+- name: TTS Tooltechnic Systems AG & Co. KG
+  value: 1103
+- name: Teenage Engineering AB
+  value: 1104
+- name: Tunstall Nordic AB
+  value: 1105
+- name: Svep Design Center AB
+  value: 1106
+- name: Qorvo Utrecht B.V
+  value: 1107
+- name: Sphinx Electronics GmbH & Co KG
+  value: 1108
+- name: Atomation
+  value: 1109
+- name: Nemik Consulting Inc
+  value: 1110
+- name: RF INNOVATION
+  value: 1111
+- name: Mini Solution Co., Ltd
+  value: 1112
+- name: Lumenetix, Inc
+  value: 1113
+- name: 2048450 Ontario Inc
+  value: 1114
+- name: SPACEEK LTD
+  value: 1115
+- name: Delta T Corporation
+  value: 1116
+- name: Boston Scientific Corporation
+  value: 1117
+- name: Nuviz, Inc
+  value: 1118
+- name: Real Time Automation, Inc
+  value: 1119
+- name: Kolibree
+  value: 1120
+- name: vhf elektronik GmbH
+  value: 1121
+- name: Bonsai Systems GmbH
+  value: 1122
+- name: Fathom Systems Inc
+  value: 1123
+- name: Bellman & Symfon Group AB
+  value: 1124
+- name: International Forte Group LLC
+  value: 1125
+- name: CycleLabs Solutions inc
+  value: 1126
+- name: Codenex Oy
+  value: 1127
+- name: Kynesim Ltd
+  value: 1128
+- name: Palago AB
+  value: 1129
+- name: INSIGMA INC
+  value: 1130
+- name: PMD Solutions
+  value: 1131
+- name: Qingdao Realtime Technology Co., Ltd
+  value: 1132
+- name: BEGA Gantenbrink-Leuchten KG
+  value: 1133
+- name: Pambor Ltd
+  value: 1134
+- name: Develco Products A/S
+  value: 1135
+- name: iDesign s.r.l
+  value: 1136
+- name: TiVo Corp
+  value: 1137
+- name: Control-J Pty Ltd
+  value: 1138
+- name: Steelcase, Inc
+  value: 1139
+- name: iApartment co., ltd
+  value: 1140
+- name: Icom inc
+  value: 1141
+- name: Oxstren Wearable Technologies Private Limited
+  value: 1142
+- name: Blue Spark Technologies
+  value: 1143
+- name: FarSite Communications Limited
+  value: 1144
+- name: mywerk system GmbH
+  value: 1145
+- name: Sinosun Technology Co., Ltd
+  value: 1146
+- name: MIYOSHI ELECTRONICS CORPORATION
+  value: 1147
+- name: POWERMAT LTD
+  value: 1148
+- name: Occly LLC
+  value: 1149
+- name: OurHub Dev IvS
+  value: 1150
+- name: Pro-Mark, Inc
+  value: 1151
+- name: Dynometrics Inc
+  value: 1152
+- name: Quintrax Limited
+  value: 1153
+- name: POS Tuning Udo Vosshenrich GmbH & Co. KG
+  value: 1154
+- name: Multi Care Systems B.V
+  value: 1155
+- name: Revol Technologies Inc
+  value: 1156
+- name: SKIDATA AG
+  value: 1157
+- name: DEV TECNOLOGIA INDUSTRIA, COMERCIO E MANUTENCAO DE...
+  value: 1158
+- name: Centrica Connected Home
+  value: 1159
+- name: Automotive Data Solutions Inc
+  value: 1160
+- name: Igarashi Engineering
+  value: 1161
+- name: Taelek Oy
+  value: 1162
+- name: CP Electronics Limited
+  value: 1163
+- name: Vectronix AG
+  value: 1164
+- name: S-Labs Sp. z o.o
+  value: 1165
+- name: Companion Medical, Inc
+  value: 1166
+- name: BlueKitchen GmbH
+  value: 1167
+- name: Matting AB
+  value: 1168
+- name: SOREX - Wireless Solutions GmbH
+  value: 1169
+- name: ADC Technology, Inc
+  value: 1170
+- name: Lynxemi Pte Ltd
+  value: 1171
+- name: SENNHEISER electronic GmbH & Co. KG
+  value: 1172
+- name: LMT Mercer Group, Inc
+  value: 1173
+- name: Polymorphic Labs LLC
+  value: 1174
+- name: Cochlear Limited
+  value: 1175
+- name: METER Group, Inc. USA
+  value: 1176
+- name: Ruuvi Innovations Ltd
+  value: 1177
+- name: Situne AS
+  value: 1178
+- name: nVisti, LLC
+  value: 1179
+- name: DyOcean
+  value: 1180
+- name: Uhlmann & Zacher GmbH
+  value: 1181
+- name: AND!XOR LLC
+  value: 1182
+- name: Popper Pay AB
+  value: 1183
+- name: Vypin, LLC
+  value: 1184
+- name: PNI Sensor Corporation
+  value: 1185
+- name: ovrEngineered, LLC
+  value: 1186
+- name: GT-tronics HK Ltd
+  value: 1187
+- name: Herbert Waldmann GmbH & Co. KG
+  value: 1188
+- name: Guangzhou FiiO Electronics Technology Co.,Ltd
+  value: 1189
+- name: Vinetech Co., Ltd
+  value: 1190
+- name: Dallas Logic Corporation
+  value: 1191
+- name: BioTex, Inc
+  value: 1192
+- name: DISCOVERY SOUND TECHNOLOGY, LLC
+  value: 1193
+- name: LINKIO SAS
+  value: 1194
+- name: Harbortronics, Inc
+  value: 1195
+- name: Undagrid B.V
+  value: 1196
+- name: Shure Inc
+  value: 1197
+- name: ERM Electronic Systems LTD
+  value: 1198
+- name: BIOROWER Handelsagentur GmbH
+  value: 1199
+- name: Weba Sport und Med. Artikel GmbH
+  value: 1200
+- name: Kartographers Technologies Pvt. Ltd
+  value: 1201
+- name: The Shadow on the Moon
+  value: 1202
+- name: mobike (Hong Kong) Limited
+  value: 1203
+- name: Inuheat Group AB
+  value: 1204
+- name: Swiftronix AB
+  value: 1205
+- name: Diagnoptics Technologies
+  value: 1206
+- name: Analog Devices, Inc
+  value: 1207
+- name: Soraa Inc
+  value: 1208
+- name: CSR Building Products Limited
+  value: 1209
+- name: Crestron Electronics, Inc
+  value: 1210
+- name: Neatebox Ltd
+  value: 1211
+- name: Draegerwerk AG & Co. KGaA
+  value: 1212
+- name: AlbynMedical
+  value: 1213
+- name: Averos FZCO
+  value: 1214
+- name: VIT Initiative, LLC
+  value: 1215
+- name: Statsports International
+  value: 1216
+- name: Sospitas, s.r.o
+  value: 1217
+- name: Dmet Products Corp
+  value: 1218
+- name: Mantracourt Electronics Limited
+  value: 1219
+- name: TeAM Hutchins AB
+  value: 1220
+- name: Seibert Williams Glass, LLC
+  value: 1221
+- name: Insta GmbH
+  value: 1222
+- name: Svantek Sp. z o.o
+  value: 1223
+- name: Shanghai Flyco Electrical Appliance Co., Ltd
+  value: 1224
+- name: Thornwave Labs Inc
+  value: 1225
+- name: Steiner-Optik GmbH
+  value: 1226
+- name: Novo Nordisk A/S
+  value: 1227
+- name: Enflux Inc
+  value: 1228
+- name: Safetech Products LLC
+  value: 1229
+- name: GOOOLED S.R.L
+  value: 1230
+- name: DOM Sicherheitstechnik GmbH & Co. KG
+  value: 1231
+- name: Olympus Corporation
+  value: 1232
+- name: KTS GmbH
+  value: 1233
+- name: Anloq Technologies Inc
+  value: 1234
+- name: Queercon, Inc
+  value: 1235
+- name: 5th Element Ltd
+  value: 1236
+- name: Gooee Limited
+  value: 1237
+- name: LUGLOC LLC
+  value: 1238
+- name: Blincam, Inc
+  value: 1239
+- name: FUJIFILM Corporation
+  value: 1240
+- name: RM Acquisition LLC
+  value: 1241
+- name: Franceschi Marina snc
+  value: 1242
+- name: Engineered Audio, LLC
+  value: 1243
+- name: IOTTIVE (OPC) PRIVATE LIMITED
+  value: 1244
+- name: 4MOD Technology
+  value: 1245
+- name: Lutron Electronics Co., Inc
+  value: 1246
+- name: Emerson Electric Co
+  value: 1247
+- name: Guardtec, Inc
+  value: 1248
+- name: REACTEC LIMITED
+  value: 1249
+- name: EllieGrid
+  value: 1250
+- name: Under Armour
+  value: 1251
+- name: Woodenshark
+  value: 1252
+- name: Avack Oy
+  value: 1253
+- name: Smart Solution Technology, Inc
+  value: 1254
+- name: REHABTRONICS INC
+  value: 1255
+- name: STABILO International
+  value: 1256
+- name: Busch Jaeger Elektro GmbH
+  value: 1257
+- name: Pacific Bioscience Laboratories, Inc
+  value: 1258
+- name: Bird Home Automation GmbH
+  value: 1259
+- name: Motorola Solutions
+  value: 1260
+- name: R9 Technology, Inc
+  value: 1261
+- name: Auxivia
+  value: 1262
+- name: DaisyWorks, Inc
+  value: 1263
+- name: Kosi Limited
+  value: 1264
+- name: Theben AG
+  value: 1265
+- name: InDreamer Techsol Private Limited
+  value: 1266
+- name: Cerevast Medical
+  value: 1267
+- name: ZanCompute Inc
+  value: 1268
+- name: Pirelli Tyre S.P.A
+  value: 1269
+- name: McLear Limited
+  value: 1270
+- name: Shenzhen Goodix Technology Co., Ltd
+  value: 1271
+- name: Convergence Systems Limited
+  value: 1272
+- name: Interactio
+  value: 1273
+- name: Androtec GmbH
+  value: 1274
+- name: Benchmark Drives GmbH & Co. KG
+  value: 1275
+- name: SwingLync L. L. C
+  value: 1276
+- name: Tapkey GmbH
+  value: 1277
+- name: Woosim Systems Inc
+  value: 1278
+- name: Microsemi Corporation
+  value: 1279
+- name: Wiliot LTD
+  value: 1280
+- name: Polaris IND
+  value: 1281
+- name: Specifi-Kali LLC
+  value: 1282
+- name: Locoroll, Inc
+  value: 1283
+- name: PHYPLUS Inc
+  value: 1284
+- name: InPlay, Inc
+  value: 1285
+- name: Hager
+  value: 1286
+- name: Yellowcog
+  value: 1287
+- name: Axes System sp. z o. o
+  value: 1288
+- name: Garage Smart, Inc
+  value: 1289
+- name: Shake-on B.V
+  value: 1290
+- name: Vibrissa Inc
+  value: 1291
+- name: OSRAM GmbH
+  value: 1292
+- name: TRSystems GmbH
+  value: 1293
+- name: Yichip Microelectronics (Hangzhou) Co.,Ltd
+  value: 1294
+- name: Foundation Engineering LLC
+  value: 1295
+- name: UNI-ELECTRONICS, INC
+  value: 1296
+- name: Brookfield Equinox LLC
+  value: 1297
+- name: Soprod SA
+  value: 1298
+- name: 9974091 Canada Inc
+  value: 1299
+- name: FIBRO GmbH
+  value: 1300
+- name: RB Controls Co., Ltd
+  value: 1301
+- name: Footmarks
+  value: 1302
+- name: Amtronic Sverige AB
+  value: 1303
+- name: MAMORIO.inc
+  value: 1304
+- name: Tyto Life LLC
+  value: 1305
+- name: Leica Camera AG
+  value: 1306
+- name: Angee Technologies Ltd
+  value: 1307
+- name: EDPS
+  value: 1308
+- name: OFF Line Co., Ltd
+  value: 1309
+- name: Detect Blue Limited
+  value: 1310
+- name: Setec Pty Ltd
+  value: 1311
+- name: Target Corporation
+  value: 1312
+- name: IAI Corporation
+  value: 1313
+- name: NS Tech, Inc
+  value: 1314
+- name: MTG Co., Ltd
+  value: 1315
+- name: Hangzhou iMagic Technology Co., Ltd
+  value: 1316
+- name: HONGKONG NANO IC TECHNOLOGIES CO., LIMITED
+  value: 1317
+- name: Honeywell International Inc
+  value: 1318
+- name: Albrecht JUNG
+  value: 1319
+- name: Lunera Lighting Inc
+  value: 1320
+- name: Lumen UAB
+  value: 1321
+- name: Keynes Controls Ltd
+  value: 1322
+- name: Novartis AG
+  value: 1323
+- name: Geosatis SA
+  value: 1324
+- name: EXFO, Inc
+  value: 1325
+- name: LEDVANCE GmbH
+  value: 1326
+- name: Center ID Corp
+  value: 1327
+- name: Adolene, Inc
+  value: 1328
+- name: D&M Holdings Inc
+  value: 1329
+- name: CRESCO Wireless, Inc
+  value: 1330
+- name: Nura Operations Pty Ltd
+  value: 1331
+- name: Frontiergadget, Inc
+  value: 1332
+- name: Smart Component Technologies Limited
+  value: 1333
+- name: ZTR Control Systems LLC
+  value: 1334
+- name: MetaLogics Corporation
+  value: 1335
+- name: Medela AG
+  value: 1336
+- name: OPPLE Lighting Co., Ltd
+  value: 1337
+- name: Savitech Corp.,
+  value: 1338
+- name: prodigy
+  value: 1339
+- name: Screenovate Technologies Ltd
+  value: 1340
+- name: TESA SA
+  value: 1341
+- name: CLIM8 LIMITED
+  value: 1342
+- name: Silergy Corp
+  value: 1343
+- name: SilverPlus, Inc
+  value: 1344
+- name: Sharknet srl
+  value: 1345
+- name: Mist Systems, Inc
+  value: 1346
+- name: MIWA LOCK CO.,Ltd
+  value: 1347
+- name: OrthoSensor, Inc
+  value: 1348
+- name: Candy Hoover Group s.r.l
+  value: 1349
+- name: Apexar Technologies S.A
+  value: 1350
+- name: LOGICDATA Electronic & Software Entwicklungs GmbH
+  value: 1351
+- name: Knick Elektronische Messgeraete GmbH & Co. KG
+  value: 1352
+- name: Smart Technologies and Investment Limited
+  value: 1353
+- name: Linough Inc
+  value: 1354
+- name: Advanced Electronic Designs, Inc
+  value: 1355
+- name: Carefree Scott Fetzer Co Inc
+  value: 1356
+- name: Sensome
+  value: 1357
+- name: FORTRONIK storitve d.o.o
+  value: 1358
+- name: Sinnoz
+  value: 1359
+- name: Versa Networks, Inc
+  value: 1360
+- name: Sylero
+  value: 1361
+- name: Avempace SARL
+  value: 1362
+- name: Nintendo Co., Ltd
+  value: 1363
+- name: National Instruments
+  value: 1364
+- name: KROHNE Messtechnik GmbH
+  value: 1365
+- name: Otodynamics Ltd
+  value: 1366
+- name: Arwin Technology Limited
+  value: 1367
+- name: benegear, inc
+  value: 1368
+- name: Newcon Optik
+  value: 1369
+- name: CANDY HOUSE, Inc
+  value: 1370
+- name: FRANKLIN TECHNOLOGY INC
+  value: 1371
+- name: Lely
+  value: 1372
+- name: Valve Corporation
+  value: 1373
+- name: Hekatron Vertriebs GmbH
+  value: 1374
+- name: PROTECH S.A.S. DI GIRARDI ANDREA & C
+  value: 1375
+- name: Sarita CareTech APS
+  value: 1376
+- name: Finder S.p.A
+  value: 1377
+- name: Thalmic Labs Inc
+  value: 1378
+- name: Steinel Vertrieb GmbH
+  value: 1379
+- name: Beghelli Spa
+  value: 1380
+- name: Beijing Smartspace Technologies Inc
+  value: 1381
+- name: CORE TRANSPORT TECHNOLOGIES NZ LIMITED
+  value: 1382
+- name: Xiamen Everesports Goods Co., Ltd
+  value: 1383
+- name: Bodyport Inc
+  value: 1384
+- name: Audionics System, INC
+  value: 1385
+- name: Flipnavi Co.,Ltd
+  value: 1386
+- name: Rion Co., Ltd
+  value: 1387
+- name: Long Range Systems, LLC
+  value: 1388
+- name: Redmond Industrial Group LLC
+  value: 1389
+- name: VIZPIN INC
+  value: 1390
+- name: BikeFinder AS
+  value: 1391
+- name: Consumer Sleep Solutions LLC
+  value: 1392
+- name: PSIKICK, INC
+  value: 1393
+- name: AntTail.com
+  value: 1394
+- name: Lighting Science Group Corp
+  value: 1395
+- name: AFFORDABLE ELECTRONICS INC
+  value: 1396
+- name: Integral Memroy Plc
+  value: 1397
+- name: Globalstar, Inc
+  value: 1398
+- name: True Wearables, Inc
+  value: 1399
+- name: Wellington Drive Technologies Ltd
+  value: 1400
+- name: Ensemble Tech Private Limited
+  value: 1401
+- name: OMNI Remotes
+  value: 1402
+- name: Duracell U.S. Operations Inc
+  value: 1403
+- name: Toor Technologies LLC
+  value: 1404
+- name: Instinct Performance
+  value: 1405
+- name: Beco, Inc
+  value: 1406
+- name: Scuf Gaming International, LLC
+  value: 1407
+- name: ARANZ Medical Limited
+  value: 1408
+- name: LYS TECHNOLOGIES LTD
+  value: 1409
+- name: Breakwall Analytics, LLC
+  value: 1410
+- name: Code Blue Communications
+  value: 1411
+- name: Gira Giersiepen GmbH & Co. KG
+  value: 1412
+- name: Hearing Lab Technology
+  value: 1413
+- name: LEGRAND
+  value: 1414
+- name: Derichs GmbH
+  value: 1415
+- name: ALT-TEKNIK LLC
+  value: 1416
+- name: Star Technologies
+  value: 1417
+- name: START TODAY CO.,LTD
+  value: 1418
+- name: Maxim Integrated Products
+  value: 1419
+- name: Fracarro Radioindustrie SRL
+  value: 1420
+- name: Jungheinrich Aktiengesellschaft
+  value: 1421
+- name: Meta Platforms Technologies, LLC
+  value: 1422
+- name: HENDON SEMICONDUCTORS PTY LTD
+  value: 1423
+- name: Pur3 Ltd
+  value: 1424
+- name: Viasat Group S.p.A
+  value: 1425
+- name: IZITHERM
+  value: 1426
+- name: Spaulding Clinical Research
+  value: 1427
+- name: Kohler Company
+  value: 1428
+- name: Inor Process AB
+  value: 1429
+- name: My Smart Blinds
+  value: 1430
+- name: RadioPulse Inc
+  value: 1431
+- name: rapitag GmbH
+  value: 1432
+- name: Lazlo326, LLC
+  value: 1433
+- name: Teledyne Lecroy, Inc
+  value: 1434
+- name: Dataflow Systems Limited
+  value: 1435
+- name: Macrogiga Electronics
+  value: 1436
+- name: Tandem Diabetes Care
+  value: 1437
+- name: Polycom, Inc
+  value: 1438
+- name: Fisher & Paykel Healthcare
+  value: 1439
+- name: Dream Devices Technologies Oy
+  value: 1440
+- name: Shanghai Xiaoyi Technology Co.,Ltd
+  value: 1441
+- name: ADHERIUM(NZ) LIMITED
+  value: 1442
+- name: Axiomware Systems Incorporated
+  value: 1443
+- name: O. E. M. Controls, Inc
+  value: 1444
+- name: Kiiroo BV
+  value: 1445
+- name: Telecon Mobile Limited
+  value: 1446
+- name: Sonos Inc
+  value: 1447
+- name: Tom Allebrandi Consulting
+  value: 1448
+- name: Monidor
+  value: 1449
+- name: Tramex Limited
+  value: 1450
+- name: Nofence AS
+  value: 1451
+- name: GoerTek Dynaudio Co., Ltd
+  value: 1452
+- name: INIA
+  value: 1453
+- name: CARMATE MFG.CO.,LTD
+  value: 1454
+- name: OV LOOP, INC
+  value: 1455
+- name: NewTec GmbH
+  value: 1456
+- name: Medallion Instrumentation Systems
+  value: 1457
+- name: CAREL INDUSTRIES S.P.A
+  value: 1458
+- name: Parabit Systems, Inc
+  value: 1459
+- name: White Horse Scientific ltd
+  value: 1460
+- name: verisilicon
+  value: 1461
+- name: Elecs Industry Co.,Ltd
+  value: 1462
+- name: Beijing Pinecone Electronics Co.,Ltd
+  value: 1463
+- name: Ambystoma Labs Inc
+  value: 1464
+- name: Suzhou Pairlink Network Technology
+  value: 1465
+- name: igloohome
+  value: 1466
+- name: Oxford Metrics plc
+  value: 1467
+- name: Leviton Mfg. Co., Inc
+  value: 1468
+- name: ULC Robotics Inc
+  value: 1469
+- name: RFID Global by Softwork SrL
+  value: 1470
+- name: Real-World-Systems Corporation
+  value: 1471
+- name: Nalu Medical, Inc
+  value: 1472
+- name: P.I.Engineering
+  value: 1473
+- name: Grote Industries
+  value: 1474
+- name: Runtime, Inc
+  value: 1475
+- name: Codecoup sp. z o.o. sp. k
+  value: 1476
+- name: SELVE GmbH & Co. KG
+  value: 1477
+- name: Smart Animal Training Systems, LLC
+  value: 1478
+- name: Lippert Components, INC
+  value: 1479
+- name: SOMFY SAS
+  value: 1480
+- name: TBS Electronics B.V
+  value: 1481
+- name: MHL Custom Inc
+  value: 1482
+- name: LucentWear LLC
+  value: 1483
+- name: WATTS ELECTRONICS
+  value: 1484
+- name: RJ Brands LLC
+  value: 1485
+- name: V-ZUG Ltd
+  value: 1486
+- name: Biowatch SA
+  value: 1487
+- name: Anova Applied Electronics
+  value: 1488
+- name: Lindab AB
+  value: 1489
+- name: frogblue TECHNOLOGY GmbH
+  value: 1490
+- name: Acurable Limited
+  value: 1491
+- name: LAMPLIGHT Co., Ltd
+  value: 1492
+- name: TEGAM, Inc
+  value: 1493
+- name: Zhuhai Jieli technology Co.,Ltd
+  value: 1494
+- name: modum.io AG
+  value: 1495
+- name: Farm Jenny LLC
+  value: 1496
+- name: Toyo Electronics Corporation
+  value: 1497
+- name: Applied Neural Research Corp
+  value: 1498
+- name: Avid Identification Systems, Inc
+  value: 1499
+- name: Petronics Inc
+  value: 1500
+- name: essentim GmbH
+  value: 1501
+- name: QT Medical INC
+  value: 1502
+- name: VIRTUALCLINIC.DIRECT LIMITED
+  value: 1503
+- name: Viper Design LLC
+  value: 1504
+- name: Human, Incorporated
+  value: 1505
+- name: stAPPtronics GmbH
+  value: 1506
+- name: Elemental Machines, Inc
+  value: 1507
+- name: Taiyo Yuden Co., Ltd
+  value: 1508
+- name: INEO ENERGY& SYSTEMS
+  value: 1509
+- name: Motion Instruments Inc
+  value: 1510
+- name: PressurePro
+  value: 1511
+- name: COWBOY
+  value: 1512
+- name: iconmobile GmbH
+  value: 1513
+- name: ACS-Control-System GmbH
+  value: 1514
+- name: Bayerische Motoren Werke AG
+  value: 1515
+- name: Gycom Svenska AB
+  value: 1516
+- name: Fuji Xerox Co., Ltd
+  value: 1517
+- name: Wristcam Inc
+  value: 1518
+- name: SIKOM AS
+  value: 1519
+- name: beken
+  value: 1520
+- name: The Linux Foundation
+  value: 1521
+- name: Try and E CO.,LTD
+  value: 1522
+- name: SeeScan
+  value: 1523
+- name: Clearity, LLC
+  value: 1524
+- name: GS TAG
+  value: 1525
+- name: DPTechnics
+  value: 1526
+- name: TRACMO, INC
+  value: 1527
+- name: Anki Inc
+  value: 1528
+- name: Hagleitner Hygiene International GmbH
+  value: 1529
+- name: Konami Sports Life Co., Ltd
+  value: 1530
+- name: Arblet Inc
+  value: 1531
+- name: Masbando GmbH
+  value: 1532
+- name: Innoseis
+  value: 1533
+- name: Niko nv
+  value: 1534
+- name: Wellnomics Ltd
+  value: 1535
+- name: iRobot Corporation
+  value: 1536
+- name: Schrader Electronics
+  value: 1537
+- name: Geberit International AG
+  value: 1538
+- name: Fourth Evolution Inc
+  value: 1539
+- name: Cell2Jack LLC
+  value: 1540
+- name: FMW electronic Futterer u. Maier-Wolf OHG
+  value: 1541
+- name: John Deere
+  value: 1542
+- name: Rookery Technology Ltd
+  value: 1543
+- name: KeySafe-Cloud
+  value: 1544
+- name: BUCHI Labortechnik AG
+  value: 1545
+- name: IQAir AG
+  value: 1546
+- name: Triax Technologies Inc
+  value: 1547
+- name: Vuzix Corporation
+  value: 1548
+- name: TDK Corporation
+  value: 1549
+- name: Blueair AB
+  value: 1550
+- name: Signify Netherlands B.V
+  value: 1551
+- name: ADH GUARDIAN USA LLC
+  value: 1552
+- name: Beurer GmbH
+  value: 1553
+- name: Playfinity AS
+  value: 1554
+- name: Hans Dinslage GmbH
+  value: 1555
+- name: OnAsset Intelligence, Inc
+  value: 1556
+- name: INTER ACTION Corporation
+  value: 1557
+- name: OS42 UG (haftungsbeschraenkt)
+  value: 1558
+- name: WIZCONNECTED COMPANY LIMITED
+  value: 1559
+- name: Audio-Technica Corporation
+  value: 1560
+- name: Six Guys Labs, s.r.o
+  value: 1561
+- name: R.W. Beckett Corporation
+  value: 1562
+- name: silex technology, inc
+  value: 1563
+- name: Univations Limited
+  value: 1564
+- name: SENS Innovation ApS
+  value: 1565
+- name: Diamond Kinetics, Inc
+  value: 1566
+- name: Phrame Inc
+  value: 1567
+- name: Forciot Oy
+  value: 1568
+- name: Noordung d.o.o
+  value: 1569
+- name: Beam Labs, LLC
+  value: 1570
+- name: Philadelphia Scientific (U.K.) Limited
+  value: 1571
+- name: Biovotion AG
+  value: 1572
+- name: Square Panda, Inc
+  value: 1573
+- name: Amplifico
+  value: 1574
+- name: WEG S.A
+  value: 1575
+- name: Ensto Oy
+  value: 1576
+- name: PHONEPE PVT LTD
+  value: 1577
+- name: Lunatico Astronomia SL
+  value: 1578
+- name: MinebeaMitsumi Inc
+  value: 1579
+- name: ASPion GmbH
+  value: 1580
+- name: Vossloh-Schwabe Deutschland GmbH
+  value: 1581
+- name: Procept
+  value: 1582
+- name: ONKYO Corporation
+  value: 1583
+- name: Asthrea D.O.O
+  value: 1584
+- name: Fortiori Design LLC
+  value: 1585
+- name: Hugo Muller GmbH & Co KG
+  value: 1586
+- name: Wangi Lai PLT
+  value: 1587
+- name: Fanstel Corp
+  value: 1588
+- name: Crookwood
+  value: 1589
+- name: ELECTRONICA INTEGRAL DE SONIDO S.A
+  value: 1590
+- name: GiP Innovation Tools GmbH
+  value: 1591
+- name: LX SOLUTIONS PTY LIMITED
+  value: 1592
+- name: Shenzhen Minew Technologies Co., Ltd
+  value: 1593
+- name: Prolojik Limited
+  value: 1594
+- name: Kromek Group Plc
+  value: 1595
+- name: Contec Medical Systems Co., Ltd
+  value: 1596
+- name: Xradio Technology Co.,Ltd
+  value: 1597
+- name: The Indoor Lab, LLC
+  value: 1598
+- name: LDL TECHNOLOGY
+  value: 1599
+- name: Dish Network LLC
+  value: 1600
+- name: Revenue Collection Systems FRANCE SAS
+  value: 1601
+- name: Bluetrum Technology Co.,Ltd
+  value: 1602
+- name: makita corporation
+  value: 1603
+- name: Apogee Instruments
+  value: 1604
+- name: BM3
+  value: 1605
+- name: SGV Group Holding GmbH & Co. KG
+  value: 1606
+- name: MED-EL
+  value: 1607
+- name: Ultune Technologies
+  value: 1608
+- name: Ryeex Technology Co.,Ltd
+  value: 1609
+- name: Open Research Institute, Inc
+  value: 1610
+- name: Scale-Tec, Ltd
+  value: 1611
+- name: Zumtobel Group AG
+  value: 1612
+- name: iLOQ Oy
+  value: 1613
+- name: KRUXWorks Technologies Private Limited
+  value: 1614
+- name: Digital Matter Pty Ltd
+  value: 1615
+- name: Coravin, Inc
+  value: 1616
+- name: Stasis Labs, Inc
+  value: 1617
+- name: ITZ Innovations- und Technologiezentrum GmbH
+  value: 1618
+- name: Meggitt SA
+  value: 1619
+- name: Ledlenser GmbH & Co. KG
+  value: 1620
+- name: Renishaw PLC
+  value: 1621
+- name: ZhuHai AdvanPro Technology Company Limited
+  value: 1622
+- name: Meshtronix Limited
+  value: 1623
+- name: Payex Norge AS
+  value: 1624
+- name: UnSeen Technologies Oy
+  value: 1625
+- name: Marshall Group AB
+  value: 1626
+- name: Sesam Solutions BV
+  value: 1627
+- name: PixArt Imaging Inc
+  value: 1628
+- name: Panduit Corp
+  value: 1629
+- name: Alo AB
+  value: 1630
+- name: Ricoh Company Ltd
+  value: 1631
+- name: RTC Industries, Inc
+  value: 1632
+- name: Mode Lighting Limited
+  value: 1633
+- name: Particle Industries, Inc
+  value: 1634
+- name: Advanced Telemetry Systems, Inc
+  value: 1635
+- name: RHA TECHNOLOGIES LTD
+  value: 1636
+- name: Pure International Limited
+  value: 1637
+- name: WTO Werkzeug-Einrichtungen GmbH
+  value: 1638
+- name: Spark Technology Labs Inc
+  value: 1639
+- name: Bleb Technology srl
+  value: 1640
+- name: Livanova USA, Inc
+  value: 1641
+- name: Brady Worldwide Inc
+  value: 1642
+- name: DewertOkin GmbH
+  value: 1643
+- name: Ztove ApS
+  value: 1644
+- name: Venso EcoSolutions AB
+  value: 1645
+- name: Eurotronik Kranj d.o.o
+  value: 1646
+- name: Hug Technology Ltd
+  value: 1647
+- name: Gema Switzerland GmbH
+  value: 1648
+- name: Buzz Products Ltd
+  value: 1649
+- name: Kopi
+  value: 1650
+- name: Innova Ideas Limited
+  value: 1651
+- name: BeSpoon
+  value: 1652
+- name: Deco Enterprises, Inc
+  value: 1653
+- name: Expai Solutions Private Limited
+  value: 1654
+- name: Innovation First, Inc
+  value: 1655
+- name: SABIK Offshore GmbH
+  value: 1656
+- name: 4iiii Innovations Inc
+  value: 1657
+- name: The Energy Conservatory, Inc
+  value: 1658
+- name: I.FARM, INC
+  value: 1659
+- name: Tile, Inc
+  value: 1660
+- name: Form Athletica Inc
+  value: 1661
+- name: MbientLab Inc
+  value: 1662
+- name: NETGRID S.N.C. DI BISSOLI MATTEO, CAMPOREALE SIMONE,...
+  value: 1663
+- name: Mannkind Corporation
+  value: 1664
+- name: Trade FIDES a.s
+  value: 1665
+- name: Photron Limited
+  value: 1666
+- name: Eltako GmbH
+  value: 1667
+- name: Dermalapps, LLC
+  value: 1668
+- name: Greenwald Industries
+  value: 1669
+- name: inQs Co., Ltd
+  value: 1670
+- name: Cherry GmbH
+  value: 1671
+- name: Amsted Digital Solutions Inc
+  value: 1672
+- name: Tacx b.v
+  value: 1673
+- name: Raytac Corporation
+  value: 1674
+- name: Jiangsu Teranovo Tech Co., Ltd
+  value: 1675
+- name: Changzhou Sound Dragon Electronics and Acoustics Co., Ltd
+  value: 1676
+- name: JetBeep Inc
+  value: 1677
+- name: Razer Inc
+  value: 1678
+- name: JRM Group Limited
+  value: 1679
+- name: Eccrine Systems, Inc
+  value: 1680
+- name: Curie Point AB
+  value: 1681
+- name: Georg Fischer AG
+  value: 1682
+- name: Hach - Danaher
+  value: 1683
+- name: T&A Laboratories LLC
+  value: 1684
+- name: Koki Holdings Co., Ltd
+  value: 1685
+- name: Gunakar Private Limited
+  value: 1686
+- name: Stemco Products Inc
+  value: 1687
+- name: Wood IT Security, LLC
+  value: 1688
+- name: RandomLab SAS
+  value: 1689
+- name: Adero, Inc
+  value: 1690
+- name: Dragonchip Limited
+  value: 1691
+- name: Noomi AB
+  value: 1692
+- name: Vakaros LLC
+  value: 1693
+- name: Delta Electronics, Inc
+  value: 1694
+- name: FlowMotion Technologies AS
+  value: 1695
+- name: OBIQ Location Technology Inc
+  value: 1696
+- name: Cardo Systems, Ltd
+  value: 1697
+- name: Globalworx GmbH
+  value: 1698
+- name: Nymbus, LLC
+  value: 1699
+- name: LIMNO Co. Ltd
+  value: 1700
+- name: TEKZITEL PTY LTD
+  value: 1701
+- name: Roambee Corporation
+  value: 1702
+- name: Chipsea Technologies (ShenZhen) Corp
+  value: 1703
+- name: GD Midea Air-Conditioning Equipment Co., Ltd
+  value: 1704
+- name: Soundmax Electronics Limited
+  value: 1705
+- name: Produal Oy
+  value: 1706
+- name: HMS Industrial Networks AB
+  value: 1707
+- name: Ingchips Technology Co., Ltd
+  value: 1708
+- name: InnovaSea Systems Inc
+  value: 1709
+- name: SenseQ Inc
+  value: 1710
+- name: Shoof Technologies
+  value: 1711
+- name: BRK Brands, Inc
+  value: 1712
+- name: SimpliSafe, Inc
+  value: 1713
+- name: Tussock Innovation 2013 Limited
+  value: 1714
+- name: The Hablab ApS
+  value: 1715
+- name: Sencilion Oy
+  value: 1716
+- name: Wabilogic Ltd
+  value: 1717
+- name: Sociometric Solutions, Inc
+  value: 1718
+- name: iCOGNIZE GmbH
+  value: 1719
+- name: ShadeCraft, Inc
+  value: 1720
+- name: Beflex Inc
+  value: 1721
+- name: Beaconzone Ltd
+  value: 1722
+- name: Leaftronix Analogic Solutions Private Limited
+  value: 1723
+- name: TWS Srl
+  value: 1724
+- name: ABB Oy
+  value: 1725
+- name: HitSeed Oy
+  value: 1726
+- name: Delcom Products Inc
+  value: 1727
+- name: CAME S.p.A
+  value: 1728
+- name: Alarm.com Holdings, Inc
+  value: 1729
+- name: Measurlogic Inc
+  value: 1730
+- name: King I Electronics.Co.,Ltd
+  value: 1731
+- name: Dream Labs GmbH
+  value: 1732
+- name: Urban Compass, Inc
+  value: 1733
+- name: Simm Tronic Limited
+  value: 1734
+- name: Somatix Inc
+  value: 1735
+- name: Storz & Bickel GmbH & Co. KG
+  value: 1736
+- name: MYLAPS B.V
+  value: 1737
+- name: Shenzhen Zhongguang Infotech Technology Development Co., Ltd
+  value: 1738
+- name: Dyeware, LLC
+  value: 1739
+- name: Dongguan SmartAction Technology Co.,Ltd
+  value: 1740
+- name: DIG Corporation
+  value: 1741
+- name: FIOR & GENTZ
+  value: 1742
+- name: Belparts N.V
+  value: 1743
+- name: Etekcity Corporation
+  value: 1744
+- name: Meyer Sound Laboratories, Incorporated
+  value: 1745
+- name: CeoTronics AG
+  value: 1746
+- name: TriTeq Lock and Security, LLC
+  value: 1747
+- name: DYNAKODE TECHNOLOGY PRIVATE LIMITED
+  value: 1748
+- name: Sensirion AG
+  value: 1749
+- name: JCT Healthcare Pty Ltd
+  value: 1750
+- name: FUBA Automotive Electronics GmbH
+  value: 1751
+- name: AW Company
+  value: 1752
+- name: Shanghai Mountain View Silicon Co.,Ltd
+  value: 1753
+- name: Zliide Technologies ApS
+  value: 1754
+- name: Automatic Labs, Inc
+  value: 1755
+- name: Industrial Network Controls, LLC
+  value: 1756
+- name: Intellithings Ltd
+  value: 1757
+- name: Navcast, Inc
+  value: 1758
+- name: HLI Solutions Inc
+  value: 1759
+- name: Avaya Inc
+  value: 1760
+- name: Milestone AV Technologies LLC
+  value: 1761
+- name: Alango Technologies Ltd
+  value: 1762
+- name: Spinlock Ltd
+  value: 1763
+- name: Aluna
+  value: 1764
+- name: OPTEX CO.,LTD
+  value: 1765
+- name: NIHON DENGYO KOUSAKU
+  value: 1766
+- name: VELUX A/S
+  value: 1767
+- name: Almendo Technologies GmbH
+  value: 1768
+- name: Zmartfun Electronics, Inc
+  value: 1769
+- name: SafeLine Sweden AB
+  value: 1770
+- name: Houston Radar LLC
+  value: 1771
+- name: Sigur
+  value: 1772
+- name: J Neades Ltd
+  value: 1773
+- name: Avantis Systems Limited
+  value: 1774
+- name: ALCARE Co., Ltd
+  value: 1775
+- name: Chargy Technologies, SL
+  value: 1776
+- name: Shibutani Co., Ltd
+  value: 1777
+- name: Trapper Data AB
+  value: 1778
+- name: Alfred International Inc
+  value: 1779
+- name: Touché Technology Ltd
+  value: 1780
+- name: Vigil Technologies Inc
+  value: 1781
+- name: Vitulo Plus BV
+  value: 1782
+- name: WILKA Schliesstechnik GmbH
+  value: 1783
+- name: BodyPlus Technology Co.,Ltd
+  value: 1784
+- name: happybrush GmbH
+  value: 1785
+- name: Enequi AB
+  value: 1786
+- name: Sartorius AG
+  value: 1787
+- name: Tom Communication Industrial Co.,Ltd
+  value: 1788
+- name: ESS Embedded System Solutions Inc
+  value: 1789
+- name: Mahr GmbH
+  value: 1790
+- name: Redpine Signals Inc
+  value: 1791
+- name: TraqFreq LLC
+  value: 1792
+- name: PAFERS TECH
+  value: 1793
+- name: Akciju sabiedriba "SAF TEHNIKA
+  value: 1794
+- name: Beijing Jingdong Century Trading Co., Ltd
+  value: 1795
+- name: JBX Designs Inc
+  value: 1796
+- name: AB Electrolux
+  value: 1797
+- name: Wernher von Braun Center for ASdvanced Research
+  value: 1798
+- name: Essity Hygiene and Health Aktiebolag
+  value: 1799
+- name: Be Interactive Co., Ltd
+  value: 1800
+- name: Carewear Corp
+  value: 1801
+- name: Huf HÃ¼lsbeck & FÃ¼rst GmbH & Co. KG
+  value: 1802
+- name: Element Products, Inc
+  value: 1803
+- name: Beijing Winner Microelectronics Co.,Ltd
+  value: 1804
+- name: SmartSnugg Pty Ltd
+  value: 1805
+- name: FiveCo Sarl
+  value: 1806
+- name: California Things Inc
+  value: 1807
+- name: Audiodo AB
+  value: 1808
+- name: ABAX AS
+  value: 1809
+- name: Bull Group Company Limited
+  value: 1810
+- name: Respiri Limited
+  value: 1811
+- name: MindPeace Safety LLC
+  value: 1812
+- name: MBARC LABS Inc
+  value: 1813
+- name: Altonics
+  value: 1814
+- name: iQsquare BV
+  value: 1815
+- name: IDIBAIX enginneering
+  value: 1816
+- name: COREIOT PTY LTD
+  value: 1817
+- name: REVSMART WEARABLE HK CO LTD
+  value: 1818
+- name: Precor
+  value: 1819
+- name: F5 Sports, Inc
+  value: 1820
+- name: exoTIC Systems
+  value: 1821
+- name: DONGGUAN HELE ELECTRONICS CO., LTD
+  value: 1822
+- name: Dongguan Liesheng Electronic Co.Ltd
+  value: 1823
+- name: Oculeve, Inc
+  value: 1824
+- name: Clover Network, Inc
+  value: 1825
+- name: Xiamen Eholder Electronics Co.Ltd
+  value: 1826
+- name: Ford Motor Company
+  value: 1827
+- name: Guangzhou SuperSound Information Technology Co.,Ltd
+  value: 1828
+- name: Tedee Sp. z o.o
+  value: 1829
+- name: PHC Corporation
+  value: 1830
+- name: STALKIT AS
+  value: 1831
+- name: Eli Lilly and Company
+  value: 1832
+- name: SwaraLink Technologies
+  value: 1833
+- name: JMR embedded systems GmbH
+  value: 1834
+- name: Bitkey Inc
+  value: 1835
+- name: GWA Hygiene GmbH
+  value: 1836
+- name: Safera Oy
+  value: 1837
+- name: Open Platform Systems LLC
+  value: 1838
+- name: OnePlus Electronics (Shenzhen) Co., Ltd
+  value: 1839
+- name: Wildlife Acoustics, Inc
+  value: 1840
+- name: ABLIC Inc
+  value: 1841
+- name: Dairy Tech, LLC
+  value: 1842
+- name: Iguanavation, Inc
+  value: 1843
+- name: DiUS Computing Pty Ltd
+  value: 1844
+- name: UpRight Technologies LTD
+  value: 1845
+- name: Luna XIO, Inc
+  value: 1846
+- name: LLC Navitek
+  value: 1847
+- name: Glass Security Pte Ltd
+  value: 1848
+- name: Jiangsu Qinheng Co., Ltd
+  value: 1849
+- name: Chandler Systems Inc
+  value: 1850
+- name: Fantini Cosmi s.p.a
+  value: 1851
+- name: Acubit ApS
+  value: 1852
+- name: Beijing Hao Heng Tian Tech Co., Ltd
+  value: 1853
+- name: Bluepack S.R.L
+  value: 1854
+- name: Beijing Unisoc Technologies Co., Ltd
+  value: 1855
+- name: HITIQ LIMITED
+  value: 1856
+- name: MAC SRL
+  value: 1857
+- name: DML LLC
+  value: 1858
+- name: Sanofi
+  value: 1859
+- name: SOCOMEC
+  value: 1860
+- name: WIZNOVA, Inc
+  value: 1861
+- name: Seitec Elektronik GmbH
+  value: 1862
+- name: OR Technologies Pty Ltd
+  value: 1863
+- name: GuangZhou KuGou Computer Technology Co.Ltd
+  value: 1864
+- name: DIAODIAO (Beijing) Technology Co., Ltd
+  value: 1865
+- name: Illusory Studios LLC
+  value: 1866
+- name: Sarvavid Software Solutions LLP
+  value: 1867
+- name: iopool s.a
+  value: 1868
+- name: Amtech Systems, LLC
+  value: 1869
+- name: EAGLE DETECTION SA
+  value: 1870
+- name: MEDIATECH S.R.L
+  value: 1871
+- name: Hamilton Professional Services of Canada Incorporated
+  value: 1872
+- name: Changsha JEMO IC Design Co.,Ltd
+  value: 1873
+- name: Elatec GmbH
+  value: 1874
+- name: JLG Industries, Inc
+  value: 1875
+- name: Michael Parkin
+  value: 1876
+- name: Brother Industries, Ltd
+  value: 1877
+- name: Lumens For Less, Inc
+  value: 1878
+- name: ELA Innovation
+  value: 1879
+- name: umanSense AB
+  value: 1880
+- name: Shanghai InGeek Cyber Security Co., Ltd
+  value: 1881
+- name: HARMAN CO.,LTD
+  value: 1882
+- name: Smart Sensor Devices AB
+  value: 1883
+- name: Antitronics Inc
+  value: 1884
+- name: RHOMBUS SYSTEMS, INC
+  value: 1885
+- name: Katerra Inc
+  value: 1886
+- name: Remote Solution Co., LTD
+  value: 1887
+- name: Vimar SpA
+  value: 1888
+- name: Mantis Tech LLC
+  value: 1889
+- name: TerOpta Ltd
+  value: 1890
+- name: PIKOLIN S.L
+  value: 1891
+- name: WWZN Information Technology Company Limited
+  value: 1892
+- name: Voxx International
+  value: 1893
+- name: ART AND PROGRAM, INC
+  value: 1894
+- name: NITTO DENKO ASIA TECHNICAL CENTRE PTE. LTD
+  value: 1895
+- name: Peloton Interactive Inc
+  value: 1896
+- name: Force Impact Technologies
+  value: 1897
+- name: Dmac Mobile Developments, LLC
+  value: 1898
+- name: Engineered Medical Technologies
+  value: 1899
+- name: Noodle Technology inc
+  value: 1900
+- name: Graesslin GmbH
+  value: 1901
+- name: WuQi technologies, Inc
+  value: 1902
+- name: Successful Endeavours Pty Ltd
+  value: 1903
+- name: InnoCon Medical ApS
+  value: 1904
+- name: Corvex Connected Safety
+  value: 1905
+- name: Thirdwayv Inc
+  value: 1906
+- name: Echoflex Solutions Inc
+  value: 1907
+- name: C-MAX Asia Limited
+  value: 1908
+- name: 4eBusiness GmbH
+  value: 1909
+- name: Cyber Transport Control GmbH
+  value: 1910
+- name: Cue
+  value: 1911
+- name: KOAMTAC INC
+  value: 1912
+- name: Loopshore Oy
+  value: 1913
+- name: Niruha Systems Private Limited
+  value: 1914
+- name: AmaterZ, Inc
+  value: 1915
+- name: radius co., ltd
+  value: 1916
+- name: Sensority, s.r.o
+  value: 1917
+- name: Sparkage Inc
+  value: 1918
+- name: Glenview Software Corporation
+  value: 1919
+- name: Finch Technologies Ltd
+  value: 1920
+- name: Qingping Technology (Beijing) Co., Ltd
+  value: 1921
+- name: DeviceDrive AS
+  value: 1922
+- name: ESEMBER LIMITED LIABILITY COMPANY
+  value: 1923
+- name: audifon GmbH & Co. KG
+  value: 1924
+- name: O2 Micro, Inc
+  value: 1925
+- name: HLP Controls Pty Limited
+  value: 1926
+- name: Pangaea Solution
+  value: 1927
+- name: BubblyNet, LLC
+  value: 1928
+- name: PCB Piezotronics, Inc
+  value: 1929
+- name: The Wildflower Foundation
+  value: 1930
+- name: Optikam Tech Inc
+  value: 1931
+- name: MINIBREW HOLDING B.V
+  value: 1932
+- name: Cybex GmbH
+  value: 1933
+- name: FUJIMIC NIIGATA, INC
+  value: 1934
+- name: Hanna Instruments, Inc
+  value: 1935
+- name: KOMPAN A/S
+  value: 1936
+- name: Scosche Industries, Inc
+  value: 1937
+- name: Cricut, Inc
+  value: 1938
+- name: AEV spol. s r.o
+  value: 1939
+- name: The Coca-Cola Company
+  value: 1940
+- name: GASTEC CORPORATION
+  value: 1941
+- name: StarLeaf Ltd
+  value: 1942
+- name: Water-i.d. GmbH
+  value: 1943
+- name: HoloKit, Inc
+  value: 1944
+- name: PlantChoir Inc
+  value: 1945
+- name: GuangDong Oppo Mobile Telecommunications Corp., Ltd
+  value: 1946
+- name: CST ELECTRONICS (PROPRIETARY) LIMITED
+  value: 1947
+- name: Sky UK Limited
+  value: 1948
+- name: Digibale Pty Ltd
+  value: 1949
+- name: Smartloxx GmbH
+  value: 1950
+- name: Pune Scientific LLP
+  value: 1951
+- name: Regent Beleuchtungskorper AG
+  value: 1952
+- name: Apollo Neuroscience, Inc
+  value: 1953
+- name: Roku, Inc
+  value: 1954
+- name: Comcast Cable
+  value: 1955
+- name: Xiamen Mage Information Technology Co., Ltd
+  value: 1956
+- name: RAB Lighting, Inc
+  value: 1957
+- name: Musen Connect, Inc
+  value: 1958
+- name: Zume, Inc
+  value: 1959
+- name: conbee GmbH
+  value: 1960
+- name: Bruel & Kjaer Sound & Vibration
+  value: 1961
+- name: The Kroger Co
+  value: 1962
+- name: Granite River Solutions, Inc
+  value: 1963
+- name: LoupeDeck Oy
+  value: 1964
+- name: New H3C Technologies Co.,Ltd
+  value: 1965
+- name: Aurea Solucoes Tecnologicas Ltda
+  value: 1966
+- name: Hong Kong Bouffalo Lab Limited
+  value: 1967
+- name: GV Concepts Inc
+  value: 1968
+- name: Thomas Dynamics, LLC
+  value: 1969
+- name: Moeco IOT Inc
+  value: 1970
+- name: 2N TELEKOMUNIKACE a.s
+  value: 1971
+- name: Hormann KG Antriebstechnik
+  value: 1972
+- name: CRONO CHIP, S.L
+  value: 1973
+- name: Soundbrenner Limited
+  value: 1974
+- name: ETABLISSEMENTS GEORGES RENAULT
+  value: 1975
+- name: iSwip
+  value: 1976
+- name: Epona Biotec Limited
+  value: 1977
+- name: Battery-Biz Inc
+  value: 1978
+- name: EPIC S.R.L
+  value: 1979
+- name: KD CIRCUITS LLC
+  value: 1980
+- name: Genedrive Diagnostics Ltd
+  value: 1981
+- name: Axentia Technologies AB
+  value: 1982
+- name: REGULA Ltd
+  value: 1983
+- name: Biral AG
+  value: 1984
+- name: A.W. Chesterton Company
+  value: 1985
+- name: Radinn AB
+  value: 1986
+- name: CIMTechniques, Inc
+  value: 1987
+- name: Johnson Health Tech NA
+  value: 1988
+- name: June Life, Inc
+  value: 1989
+- name: Bluenetics GmbH
+  value: 1990
+- name: iaconicDesign Inc
+  value: 1991
+- name: WRLDS Creations AB
+  value: 1992
+- name: Skullcandy, Inc
+  value: 1993
+- name: Modul-System HH AB
+  value: 1994
+- name: West Pharmaceutical Services, Inc
+  value: 1995
+- name: Barnacle Systems Inc
+  value: 1996
+- name: Smart Wave Technologies Canada Inc
+  value: 1997
+- name: Shanghai Top-Chip Microelectronics Tech. Co., LTD
+  value: 1998
+- name: NeoSensory, Inc
+  value: 1999
+- name: Hangzhou Tuya Information Technology Co., Ltd
+  value: 2000
+- name: Shanghai Panchip Microelectronics Co., Ltd
+  value: 2001
+- name: React Accessibility Limited
+  value: 2002
+- name: LIVNEX Co.,Ltd
+  value: 2003
+- name: Kano Computing Limited
+  value: 2004
+- name: hoots classic GmbH
+  value: 2005
+- name: ecobee Inc
+  value: 2006
+- name: Nanjing Qinheng Microelectronics Co., Ltd
+  value: 2007
+- name: SOLUTIONS AMBRA INC
+  value: 2008
+- name: Micro-Design, Inc
+  value: 2009
+- name: STARLITE Co., Ltd
+  value: 2010
+- name: Remedee Labs
+  value: 2011
+- name: ThingOS GmbH & Co KG
+  value: 2012
+- name: Linear Circuits
+  value: 2013
+- name: Unlimited Engineering SL
+  value: 2014
+- name: Snap-on Incorporated
+  value: 2015
+- name: Edifier International Limited
+  value: 2016
+- name: Lucie Labs
+  value: 2017
+- name: Alfred Kaercher SE & Co. KG
+  value: 2018
+- name: Airoha Technology Corp
+  value: 2019
+- name: Geeksme S.L
+  value: 2020
+- name: Minut, Inc
+  value: 2021
+- name: Waybeyond Limited
+  value: 2022
+- name: Komfort IQ, Inc
+  value: 2023
+- name: Packetcraft, Inc
+  value: 2024
+- name: HÃ¤fele GmbH & Co KG
+  value: 2025
+- name: ShapeLog, Inc
+  value: 2026
+- name: NOVABASE S.R.L
+  value: 2027
+- name: Frecce LLC
+  value: 2028
+- name: Joule IQ, INC
+  value: 2029
+- name: KidzTek LLC
+  value: 2030
+- name: Aktiebolaget Sandvik Coromant
+  value: 2031
+- name: e-moola.com Pty Ltd
+  value: 2032
+- name: Zimi Innovations Pty Ltd
+  value: 2033
+- name: SERENE GROUP, INC
+  value: 2034
+- name: DIGISINE ENERGYTECH CO. LTD
+  value: 2035
+- name: MEDIRLAB Orvosbiologiai Fejleszto Korlatolt Felelossegu...
+  value: 2036
+- name: Byton North America Corporation
+  value: 2037
+- name: Shenzhen TonliScience and Technology Development Co.,Ltd
+  value: 2038
+- name: Cesar Systems Ltd
+  value: 2039
+- name: quip NYC Inc
+  value: 2040
+- name: Direct Communication Solutions, Inc
+  value: 2041
+- name: Klipsch Group, Inc
+  value: 2042
+- name: Access Co., Ltd
+  value: 2043
+- name: Renault SA
+  value: 2044
+- name: JSK CO., LTD
+  value: 2045
+- name: BIROTA
+  value: 2046
+- name: maxon motor ltd
+  value: 2047
+- name: Optek
+  value: 2048
+- name: CRONUS ELECTRONICS LTD
+  value: 2049
+- name: NantSound, Inc
+  value: 2050
+- name: Domintell s.a
+  value: 2051
+- name: Andon Health Co.,Ltd
+  value: 2052
+- name: Urbanminded Ltd
+  value: 2053
+- name: TYRI Sweden AB
+  value: 2054
+- name: ECD Electronic Components GmbH Dresden
+  value: 2055
+- name: SISTEMAS KERN, SOCIEDAD ANÃ"MINA
+  value: 2056
+- name: Trulli Audio
+  value: 2057
+- name: Altaneos
+  value: 2058
+- name: Nanoleaf Canada Limited
+  value: 2059
+- name: Ingy B.V
+  value: 2060
+- name: Azbil Co
+  value: 2061
+- name: TATTCOM LLC
+  value: 2062
+- name: Paradox Engineering SA
+  value: 2063
+- name: LECO Corporation
+  value: 2064
+- name: Becker Antriebe GmbH
+  value: 2065
+- name: Mstream Technologies., Inc
+  value: 2066
+- name: Flextronics International USA Inc
+  value: 2067
+- name: Ossur hf
+  value: 2068
+- name: SKC Inc
+  value: 2069
+- name: SPICA SYSTEMS LLC
+  value: 2070
+- name: Wangs Alliance Corporation
+  value: 2071
+- name: tatwah SA
+  value: 2072
+- name: Hunter Douglas Inc
+  value: 2073
+- name: Shenzhen Conex
+  value: 2074
+- name: DIM3
+  value: 2075
+- name: Bobrick Washroom Equipment, Inc
+  value: 2076
+- name: Potrykus Holdings and Development LLC
+  value: 2077
+- name: iNFORM Technology GmbH
+  value: 2078
+- name: eSenseLab LTD
+  value: 2079
+- name: Brilliant Home Technology, Inc
+  value: 2080
+- name: INOVA Geophysical, Inc
+  value: 2081
+- name: adafruit industries
+  value: 2082
+- name: Nexite Ltd
+  value: 2083
+- name: 8Power Limited
+  value: 2084
+- name: CME PTE. LTD
+  value: 2085
+- name: Hyundai Motor Company
+  value: 2086
+- name: Kickmaker
+  value: 2087
+- name: Shanghai Suisheng Information Technology Co., Ltd
+  value: 2088
+- name: HEXAGON METROLOGY DIVISION ROMER
+  value: 2089
+- name: Mitutoyo Corporation
+  value: 2090
+- name: shenzhen fitcare electronics Co.,Ltd
+  value: 2091
+- name: INGICS TECHNOLOGY CO., LTD
+  value: 2092
+- name: INCUS PERFORMANCE LTD
+  value: 2093
+- name: ABB S.p.A
+  value: 2094
+- name: Blippit AB
+  value: 2095
+- name: Core Health and Fitness LLC
+  value: 2096
+- name: Foxble, LLC
+  value: 2097
+- name: Intermotive,Inc
+  value: 2098
+- name: Conneqtech B.V
+  value: 2099
+- name: RIKEN KEIKI CO., LTD.,
+  value: 2100
+- name: Canopy Growth Corporation
+  value: 2101
+- name: Bitwards Oy
+  value: 2102
+- name: vivo Mobile Communication Co., Ltd
+  value: 2103
+- name: Etymotic Research, Inc
+  value: 2104
+- name: A puissance 3
+  value: 2105
+- name: BPW Bergische Achsen Kommanditgesellschaft
+  value: 2106
+- name: Piaggio Fast Forward
+  value: 2107
+- name: BeerTech LTD
+  value: 2108
+- name: Tokenize, Inc
+  value: 2109
+- name: Zorachka LTD
+  value: 2110
+- name: D-Link Corp
+  value: 2111
+- name: Down Range Systems LLC
+  value: 2112
+- name: General Luminaire (Shanghai) Co., Ltd
+  value: 2113
+- name: Tangshan HongJia electronic technology co., LTD
+  value: 2114
+- name: FRAGRANCE DELIVERY TECHNOLOGIES LTD
+  value: 2115
+- name: Pepperl + Fuchs GmbH
+  value: 2116
+- name: Dometic Corporation
+  value: 2117
+- name: USound GmbH
+  value: 2118
+- name: DNANUDGE LIMITED
+  value: 2119
+- name: JUJU JOINTS CANADA CORP
+  value: 2120
+- name: Dopple Technologies B.V
+  value: 2121
+- name: ARCOM
+  value: 2122
+- name: Biotechware SRL
+  value: 2123
+- name: ORSO Inc
+  value: 2124
+- name: SafePort
+  value: 2125
+- name: Carol Cole Company
+  value: 2126
+- name: Embedded Fitness B.V
+  value: 2127
+- name: Yealink (Xiamen) Network Technology Co.,LTD
+  value: 2128
+- name: Subeca, Inc
+  value: 2129
+- name: Cognosos, Inc
+  value: 2130
+- name: Pektron Group Limited
+  value: 2131
+- name: Tap Sound System
+  value: 2132
+- name: Helios Sports, Inc
+  value: 2133
+- name: Canopy Growth Corporation
+  value: 2134
+- name: Parsyl Inc
+  value: 2135
+- name: SOUNDBOKS
+  value: 2136
+- name: BlueUp
+  value: 2137
+- name: DAKATECH
+  value: 2138
+- name: Nisshinbo Micro Devices Inc
+  value: 2139
+- name: ACOS CO.,LTD
+  value: 2140
+- name: Guilin Zhishen Information Technology Co.,Ltd
+  value: 2141
+- name: Krog Systems LLC
+  value: 2142
+- name: COMPEGPS TEAM,SOCIEDAD LIMITADA
+  value: 2143
+- name: Alflex Products B.V
+  value: 2144
+- name: SmartSensor Labs Ltd
+  value: 2145
+- name: SmartDrive
+  value: 2146
+- name: Yo-tronics Technology Co., Ltd
+  value: 2147
+- name: Rafaelmicro
+  value: 2148
+- name: Emergency Lighting Products Limited
+  value: 2149
+- name: LAONZ Co.,Ltd
+  value: 2150
+- name: Western Digital Techologies, Inc
+  value: 2151
+- name: WIOsense GmbH & Co. KG
+  value: 2152
+- name: EVVA Sicherheitstechnologie GmbH
+  value: 2153
+- name: Odic Incorporated
+  value: 2154
+- name: Pacific Track, LLC
+  value: 2155
+- name: Revvo Technologies, Inc
+  value: 2156
+- name: Biometrika d.o.o
+  value: 2157
+- name: Vorwerk Elektrowerke GmbH & Co. KG
+  value: 2158
+- name: Trackunit A/S
+  value: 2159
+- name: Wyze Labs, Inc
+  value: 2160
+- name: Dension Elektronikai Kft
+  value: 2161
+- name: 11 Health & Technologies Limited
+  value: 2162
+- name: Innophase Incorporated
+  value: 2163
+- name: Treegreen Limited
+  value: 2164
+- name: Berner International LLC
+  value: 2165
+- name: SmartResQ ApS
+  value: 2166
+- name: Tome, Inc
+  value: 2167
+- name: The Chamberlain Group, Inc
+  value: 2168
+- name: MIZUNO Corporation
+  value: 2169
+- name: ZRF, LLC
+  value: 2170
+- name: BYSTAMP
+  value: 2171
+- name: Crosscan GmbH
+  value: 2172
+- name: Konftel AB
+  value: 2173
+- name: 1bar.net Limited
+  value: 2174
+- name: Phillips Connect Technologies LLC
+  value: 2175
+- name: imagiLabs AB
+  value: 2176
+- name: Optalert
+  value: 2177
+- name: PSYONIC, Inc
+  value: 2178
+- name: Wintersteiger AG
+  value: 2179
+- name: Controlid Industria, Comercio de Hardware e Servicos de...
+  value: 2180
+- name: LEVOLOR INC
+  value: 2181
+- name: Movella Technologies B.V
+  value: 2182
+- name: Hydro-Gear Limited Partnership
+  value: 2183
+- name: EnPointe Fencing Pty Ltd
+  value: 2184
+- name: XANTHIO
+  value: 2185
+- name: sclak s.r.l
+  value: 2186
+- name: Tricorder Arraay Technologies LLC
+  value: 2187
+- name: GB Solution co.,Ltd
+  value: 2188
+- name: Soliton Systems K.K
+  value: 2189
+- name: GIGA-TMS INC
+  value: 2190
+- name: Tait International Limited
+  value: 2191
+- name: NICHIEI INTEC CO., LTD
+  value: 2192
+- name: SmartWireless GmbH & Co. KG
+  value: 2193
+- name: Ingenieurbuero Birnfeld UG (haftungsbeschraenkt)
+  value: 2194
+- name: Maytronics Ltd
+  value: 2195
+- name: EPIFIT
+  value: 2196
+- name: Gimer medical
+  value: 2197
+- name: Nokian Renkaat Oyj
+  value: 2198
+- name: Current Lighting Solutions LLC
+  value: 2199
+- name: Sensibo, Inc
+  value: 2200
+- name: SFS unimarket AG
+  value: 2201
+- name: Private limited company "Teltonika
+  value: 2202
+- name: Saucon Technologies
+  value: 2203
+- name: Embedded Devices Co. Company
+  value: 2204
+- name: J-J.A.D.E. Enterprise LLC
+  value: 2205
+- name: i-SENS, inc
+  value: 2206
+- name: Witschi Electronic Ltd
+  value: 2207
+- name: Aclara Technologies LLC
+  value: 2208
+- name: EXEO TECH CORPORATION
+  value: 2209
+- name: Epic Systems Co., Ltd
+  value: 2210
+- name: Hoffmann SE
+  value: 2211
+- name: Realme Chongqing Mobile Telecommunications Corp., Ltd
+  value: 2212
+- name: UMEHEAL Ltd
+  value: 2213
+- name: Intelligenceworks Inc
+  value: 2214
+- name: TGR 1.618 Limited
+  value: 2215
+- name: Shanghai Kfcube Inc
+  value: 2216
+- name: Fraunhofer IIS
+  value: 2217
+- name: SZ DJI TECHNOLOGY CO.,LTD
+  value: 2218
+- name: Coburn Technology, LLC
+  value: 2219
+- name: Topre Corporation
+  value: 2220
+- name: Kayamatics Limited
+  value: 2221
+- name: Moticon ReGo AG
+  value: 2222
+- name: Polidea Sp. z o.o
+  value: 2223
+- name: Trivedi Advanced Technologies LLC
+  value: 2224
+- name: CORE|vision BV
+  value: 2225
+- name: PF SCHWEISSTECHNOLOGIE GMBH
+  value: 2226
+- name: IONIQ Skincare GmbH & Co. KG
+  value: 2227
+- name: Sengled Co., Ltd
+  value: 2228
+- name: TransferFi
+  value: 2229
+- name: Boehringer Ingelheim Vetmedica GmbH
+  value: 2230
+- name: ABB Inc
+  value: 2231
+- name: Check Technology Solutions LLC
+  value: 2232
+- name: U-Shin Ltd
+  value: 2233
+- name: HYPER ICE, INC
+  value: 2234
+- name: Tokai-rika co.,ltd
+  value: 2235
+- name: Prevayl Limited
+  value: 2236
+- name: bf1systems limited
+  value: 2237
+- name: ubisys technologies GmbH
+  value: 2238
+- name: SIRC Co., Ltd
+  value: 2239
+- name: Accent Advanced Systems SLU
+  value: 2240
+- name: Rayden.Earth LTD
+  value: 2241
+- name: Lindinvent AB
+  value: 2242
+- name: CHIPOLO d.o.o
+  value: 2243
+- name: CellAssist, LLC
+  value: 2244
+- name: J. Wagner GmbH
+  value: 2245
+- name: Integra Optics Inc
+  value: 2246
+- name: Monadnock Systems Ltd
+  value: 2247
+- name: Liteboxer Technologies Inc
+  value: 2248
+- name: Noventa AG
+  value: 2249
+- name: Nubia Technology Co.,Ltd
+  value: 2250
+- name: JT INNOVATIONS LIMITED
+  value: 2251
+- name: TGM TECHNOLOGY CO., LTD
+  value: 2252
+- name: ifly
+  value: 2253
+- name: ZIMI CORPORATION
+  value: 2254
+- name: betternotstealmybike UG (with limited liability)
+  value: 2255
+- name: ESTOM Infotech Kft
+  value: 2256
+- name: Sensovium Inc
+  value: 2257
+- name: Virscient Limited
+  value: 2258
+- name: Novel Bits, LLC
+  value: 2259
+- name: ADATA Technology Co., LTD
+  value: 2260
+- name: KEYes
+  value: 2261
+- name: Nome Oy
+  value: 2262
+- name: Inovonics Corp
+  value: 2263
+- name: WARES
+  value: 2264
+- name: Pointr Labs Limited
+  value: 2265
+- name: Miridia Technology Incorporated
+  value: 2266
+- name: Tertium Technology
+  value: 2267
+- name: SHENZHEN AUKEY E BUSINESS CO., LTD
+  value: 2268
+- name: code-Q
+  value: 2269
+- name: TE Connectivity Corporation
+  value: 2270
+- name: IRIS OHYAMA CO.,LTD
+  value: 2271
+- name: Philia Technology
+  value: 2272
+- name: KOZO KEIKAKU ENGINEERING Inc
+  value: 2273
+- name: Shenzhen Simo Technology co. LTD
+  value: 2274
+- name: Republic Wireless, Inc
+  value: 2275
+- name: Rashidov ltd
+  value: 2276
+- name: Crowd Connected Ltd
+  value: 2277
+- name: Eneso Tecnologia de Adaptacion S.L
+  value: 2278
+- name: Barrot Technology Co.,Ltd
+  value: 2279
+- name: Naonext
+  value: 2280
+- name: Taiwan Intelligent Home Corp
+  value: 2281
+- name: COWBELL ENGINEERING CO.,LTD
+  value: 2282
+- name: Beijing Big Moment Technology Co., Ltd
+  value: 2283
+- name: Denso Corporation
+  value: 2284
+- name: IMI Hydronic Engineering International SA
+  value: 2285
+- name: Askey Computer Corp
+  value: 2286
+- name: Cumulus Digital Systems, Inc
+  value: 2287
+- name: Joovv, Inc
+  value: 2288
+- name: The L.S. Starrett Company
+  value: 2289
+- name: Microoled
+  value: 2290
+- name: PSP - Pauli Services & Products GmbH
+  value: 2291
+- name: Kodimo Technologies Company Limited
+  value: 2292
+- name: Tymtix Technologies Private Limited
+  value: 2293
+- name: Dermal Photonics Corporation
+  value: 2294
+- name: MTD Products Inc & Affiliates
+  value: 2295
+- name: instagrid GmbH
+  value: 2296
+- name: Spacelabs Medical Inc
+  value: 2297
+- name: Troo Corporation
+  value: 2298
+- name: Darkglass Electronics Oy
+  value: 2299
+- name: Hill-Rom
+  value: 2300
+- name: BioIntelliSense, Inc
+  value: 2301
+- name: Ketronixs Sdn Bhd
+  value: 2302
+- name: Plastimold Products, Inc
+  value: 2303
+- name: Beijing Zizai Technology Co., LTD
+  value: 2304
+- name: Lucimed
+  value: 2305
+- name: TSC Auto-ID Technology Co., Ltd
+  value: 2306
+- name: DATAMARS, Inc
+  value: 2307
+- name: SUNCORPORATION
+  value: 2308
+- name: Yandex Services AG
+  value: 2309
+- name: Scope Logistical Solutions
+  value: 2310
+- name: User Hello, LLC
+  value: 2311
+- name: Pinpoint Innovations Limited
+  value: 2312
+- name: 70mai Co.,Ltd
+  value: 2313
+- name: Zhuhai Hoksi Technology CO.,LTD
+  value: 2314
+- name: EMBR labs, INC
+  value: 2315
+- name: Radiawave Technologies Co.,Ltd
+  value: 2316
+- name: IOT Invent GmbH
+  value: 2317
+- name: OPTIMUSIOT TECH LLP
+  value: 2318
+- name: VC Inc
+  value: 2319
+- name: ASR Microelectronics (Shanghai) Co., Ltd
+  value: 2320
+- name: Douglas Lighting Controls Inc
+  value: 2321
+- name: Nerbio Medical Software Platforms Inc
+  value: 2322
+- name: Braveheart Wireless, Inc
+  value: 2323
+- name: INEO-SENSE
+  value: 2324
+- name: Honda Motor Co., Ltd
+  value: 2325
+- name: Ambient Sensors LLC
+  value: 2326
+- name: ASR Microelectronics(ShenZhen)Co., Ltd
+  value: 2327
+- name: Technosphere Labs Pvt. Ltd
+  value: 2328
+- name: NO SMD LIMITED
+  value: 2329
+- name: Albertronic BV
+  value: 2330
+- name: Luminostics, Inc
+  value: 2331
+- name: Oblamatik AG
+  value: 2332
+- name: Innokind, Inc
+  value: 2333
+- name: Melbot Studios, Sociedad Limitada
+  value: 2334
+- name: Myzee Technology
+  value: 2335
+- name: Omnisense Limited
+  value: 2336
+- name: KAHA PTE. LTD
+  value: 2337
+- name: Shanghai MXCHIP Information Technology Co., Ltd
+  value: 2338
+- name: JSB TECH PTE LTD
+  value: 2339
+- name: Fundacion Tecnalia Research and Innovation
+  value: 2340
+- name: Yukai Engineering Inc
+  value: 2341
+- name: Gooligum Technologies Pty Ltd
+  value: 2342
+- name: ROOQ GmbH
+  value: 2343
+- name: AiRISTA
+  value: 2344
+- name: Qingdao Haier Technology Co., Ltd
+  value: 2345
+- name: Sappl Verwaltungs- und Betriebs GmbH
+  value: 2346
+- name: TekHome
+  value: 2347
+- name: PCI Private Limited
+  value: 2348
+- name: Leggett & Platt, Incorporated
+  value: 2349
+- name: PS GmbH
+  value: 2350
+- name: C.O.B.O. SpA
+  value: 2351
+- name: James Walker RotaBolt Limited
+  value: 2352
+- name: BREATHINGS Co., Ltd
+  value: 2353
+- name: BarVision, LLC
+  value: 2354
+- name: SRAM
+  value: 2355
+- name: KiteSpring Inc
+  value: 2356
+- name: Reconnect, Inc
+  value: 2357
+- name: Elekon AG
+  value: 2358
+- name: RealThingks GmbH
+  value: 2359
+- name: Henway Technologies, LTD
+  value: 2360
+- name: ASTEM Co.,Ltd
+  value: 2361
+- name: LinkedSemi Microelectronics (Xiamen) Co., Ltd
+  value: 2362
+- name: ENSESO LLC
+  value: 2363
+- name: Xenoma Inc
+  value: 2364
+- name: Adolf Wuerth GmbH & Co KG
+  value: 2365
+- name: Catalyft Labs, Inc
+  value: 2366
+- name: JEPICO Corporation
+  value: 2367
+- name: Hero Workout GmbH
+  value: 2368
+- name: Rivian Automotive, LLC
+  value: 2369
+- name: TRANSSION HOLDINGS LIMITED
+  value: 2370
+- name: Agitron d.o.o
+  value: 2372
+- name: Globe (Jiangsu) Co., Ltd
+  value: 2373
+- name: AMC International Alfa Metalcraft Corporation AG
+  value: 2374
+- name: First Light Technologies Ltd
+  value: 2375
+- name: Wearable Link Limited
+  value: 2376
+- name: Metronom Health Europe
+  value: 2377
+- name: Zwift, Inc
+  value: 2378
+- name: Kindeva Drug Delivery L.P
+  value: 2379
+- name: GimmiSys GmbH
+  value: 2380
+- name: tkLABS INC
+  value: 2381
+- name: PassiveBolt, Inc
+  value: 2382
+- name: Limited Liability Company "Mikrotikls
+  value: 2383
+- name: Capetech
+  value: 2384
+- name: PPRS
+  value: 2385
+- name: Apptricity Corporation
+  value: 2386
+- name: LogiLube, LLC
+  value: 2387
+- name: Julbo
+  value: 2388
+- name: Breville Group
+  value: 2389
+- name: Kerlink
+  value: 2390
+- name: Ohsung Electronics
+  value: 2391
+- name: ZTE Corporation
+  value: 2392
+- name: HerdDogg, Inc
+  value: 2393
+- name: Selekt Bilgisayar, lletisim Urunleri lnsaat Sanayi ve...
+  value: 2394
+- name: Lismore Instruments Limited
+  value: 2395
+- name: LogiLube, LLC
+  value: 2396
+- name: Electronic Theatre Controls
+  value: 2397
+- name: BioEchoNet inc
+  value: 2398
+- name: NUANCE HEARING LTD
+  value: 2399
+- name: Sena Technologies Inc
+  value: 2400
+- name: Linkura AB
+  value: 2401
+- name: GL Solutions K.K
+  value: 2402
+- name: Moonbird BV
+  value: 2403
+- name: Countrymate Technology Limited
+  value: 2404
+- name: Asahi Kasei Corporation
+  value: 2405
+- name: PointGuard, LLC
+  value: 2406
+- name: Neo Materials and Consulting Inc
+  value: 2407
+- name: Actev Motors, Inc
+  value: 2408
+- name: Woan Technology (Shenzhen) Co., Ltd
+  value: 2409
+- name: dricos, Inc
+  value: 2410
+- name: Guide ID B.V
+  value: 2411
+- name: 9374-7319 Quebec inc
+  value: 2412
+- name: Gunwerks, LLC
+  value: 2413
+- name: Band Industries, inc
+  value: 2414
+- name: Lund Motion Products, Inc
+  value: 2415
+- name: IBA Dosimetry GmbH
+  value: 2416
+- name: GA
+  value: 2417
+- name: Closed Joint Stock Company "Zavod Flometr" ("Zavod...
+  value: 2418
+- name: Popit Oy
+  value: 2419
+- name: ABEYE
+  value: 2420
+- name: BlueIOT(Beijing) Technology Co.,Ltd
+  value: 2421
+- name: Fauna Audio GmbH
+  value: 2422
+- name: TOYOTA motor corporation
+  value: 2423
+- name: ZifferEins GmbH & Co. KG
+  value: 2424
+- name: BIOTRONIK SE & Co. KG
+  value: 2425
+- name: CORE CORPORATION
+  value: 2426
+- name: CTEK Sweden AB
+  value: 2427
+- name: Thorley Industries, LLC
+  value: 2428
+- name: CLB B.V
+  value: 2429
+- name: SonicSensory Inc
+  value: 2430
+- name: ISEMAR S.R.L
+  value: 2431
+- name: DEKRA TESTING AND CERTIFICATION, S.A.U
+  value: 2432
+- name: Bernard Krone Holding SE & Co.KG
+  value: 2433
+- name: ELPRO-BUCHS AG
+  value: 2434
+- name: Feedback Sports LLC
+  value: 2435
+- name: TeraTron GmbH
+  value: 2436
+- name: Lumos Health Inc
+  value: 2437
+- name: Cello Hill, LLC
+  value: 2438
+- name: TSE BRAKES, INC
+  value: 2439
+- name: BHM-Tech Produktionsgesellschaft m.b.H
+  value: 2440
+- name: WIKA Alexander Wiegand SE & Co.KG
+  value: 2441
+- name: Biovigil
+  value: 2442
+- name: Mequonic Engineering, S.L
+  value: 2443
+- name: bGrid B.V
+  value: 2444
+- name: C3-WIRELESS, LLC
+  value: 2445
+- name: ADVEEZ
+  value: 2446
+- name: Aktiebolaget Regin
+  value: 2447
+- name: Anton Paar GmbH
+  value: 2448
+- name: Telenor ASA
+  value: 2449
+- name: Big Kaiser Precision Tooling Ltd
+  value: 2450
+- name: Absolute Audio Labs B.V
+  value: 2451
+- name: VT42 Pty Ltd
+  value: 2452
+- name: Bronkhorst High-Tech B.V
+  value: 2453
+- name: C. & E. Fein GmbH
+  value: 2454
+- name: NextMind
+  value: 2455
+- name: Pixie Dust Technologies, Inc
+  value: 2456
+- name: eTactica ehf
+  value: 2457
+- name: New Audio LLC
+  value: 2458
+- name: Sendum Wireless Corporation
+  value: 2459
+- name: deister electronic GmbH
+  value: 2460
+- name: YKK AP Inc
+  value: 2461
+- name: Step One Limited
+  value: 2462
+- name: Koya Medical, Inc
+  value: 2463
+- name: Proof Diagnostics, Inc
+  value: 2464
+- name: VOS Systems, LLC
+  value: 2465
+- name: ENGAGENOW DATA SCIENCES PRIVATE LIMITED
+  value: 2466
+- name: ARDUINO SA
+  value: 2467
+- name: KUMHO ELECTRICS, INC
+  value: 2468
+- name: Security Enhancement Systems, LLC
+  value: 2469
+- name: BEIJING ELECTRIC VEHICLE CO.,LTD
+  value: 2470
+- name: Paybuddy ApS
+  value: 2471
+- name: KHN Solutions LLC
+  value: 2472
+- name: Nippon Ceramic Co.,Ltd
+  value: 2473
+- name: PHOTODYNAMIC INCORPORATED
+  value: 2474
+- name: DashLogic, Inc
+  value: 2475
+- name: Ambiq
+  value: 2476
+- name: Narhwall Inc
+  value: 2477
+- name: Pozyx NV
+  value: 2478
+- name: ifLink Open Community
+  value: 2479
+- name: Deublin Company, LLC
+  value: 2480
+- name: BLINQY
+  value: 2481
+- name: DYPHI
+  value: 2482
+- name: BlueX Microelectronics Corp Ltd
+  value: 2483
+- name: PentaLock Aps
+  value: 2484
+- name: AUTEC Gesellschaft fuer Automationstechnik mbH
+  value: 2485
+- name: Pegasus Technologies, Inc
+  value: 2486
+- name: Bout Labs, LLC
+  value: 2487
+- name: PlayerData Limited
+  value: 2488
+- name: SAVOY ELECTRONIC LIGHTING
+  value: 2489
+- name: Elimo Engineering Ltd
+  value: 2490
+- name: SkyStream Corporation
+  value: 2491
+- name: Aerosens LLC
+  value: 2492
+- name: Centre Suisse d'Electronique et de Microtechnique SA
+  value: 2493
+- name: Vessel Ltd
+  value: 2494
+- name: Span.IO, Inc
+  value: 2495
+- name: AnotherBrain inc
+  value: 2496
+- name: Rosewill
+  value: 2497
+- name: Universal Audio, Inc
+  value: 2498
+- name: JAPAN TOBACCO INC
+  value: 2499
+- name: UVISIO
+  value: 2500
+- name: HungYi Microelectronics Co.,Ltd
+  value: 2501
+- name: Honor Device Co., Ltd
+  value: 2502
+- name: Combustion, LLC
+  value: 2503
+- name: XUNTONG
+  value: 2504
+- name: CrowdGlow Ltd
+  value: 2505
+- name: Mobitrace
+  value: 2506
+- name: Hx Engineering, LLC
+  value: 2507
+- name: Senso4s d.o.o
+  value: 2508
+- name: Blyott
+  value: 2509
+- name: Julius Blum GmbH
+  value: 2510
+- name: BlueStreak IoT, LLC
+  value: 2511
+- name: Chess Wise B.V
+  value: 2512
+- name: ABLEPAY TECHNOLOGIES AS
+  value: 2513
+- name: Temperature Sensitive Solutions Systems Sweden AB
+  value: 2514
+- name: HeartHero, inc
+  value: 2515
+- name: ORBIS Inc
+  value: 2516
+- name: GEAR RADIO ELECTRONICS CORP
+  value: 2517
+- name: EAR TEKNIK ISITME VE ODIOMETRI CIHAZLARI SANAYI VE...
+  value: 2518
+- name: Coyotta
+  value: 2519
+- name: Synergy Tecnologia em Sistemas Ltda
+  value: 2520
+- name: VivoSensMedical GmbH
+  value: 2521
+- name: Nagravision SA
+  value: 2522
+- name: Bionic Avionics Inc
+  value: 2523
+- name: AON2 Ltd
+  value: 2524
+- name: Innoware Development AB
+  value: 2525
+- name: JLD Technology Solutions, LLC
+  value: 2526
+- name: Magnus Technology Sdn Bhd
+  value: 2527
+- name: Preddio Technologies Inc
+  value: 2528
+- name: Tag-N-Trac Inc
+  value: 2529
+- name: Wuhan Linptech Co.,Ltd
+  value: 2530
+- name: Friday Home Aps
+  value: 2531
+- name: CPS AS
+  value: 2532
+- name: Mobilogix
+  value: 2533
+- name: Masonite Corporation
+  value: 2534
+- name: Kabushikigaisha HANERON
+  value: 2535
+- name: Melange Systems Pvt. Ltd
+  value: 2536
+- name: LumenRadio AB
+  value: 2537
+- name: Athlos Oy
+  value: 2538
+- name: KEAN ELECTRONICS PTY LTD
+  value: 2539
+- name: Yukon advanced optics worldwide, UAB
+  value: 2540
+- name: Sibel Inc
+  value: 2541
+- name: OJMAR SA
+  value: 2542
+- name: Steinel Solutions AG
+  value: 2543
+- name: WatchGas B.V
+  value: 2544
+- name: OM Digital Solutions Corporation
+  value: 2545
+- name: Audeara Pty Ltd
+  value: 2546
+- name: Beijing Zero Zero Infinity Technology Co.,Ltd
+  value: 2547
+- name: Spectrum Technologies, Inc
+  value: 2548
+- name: OKI Electric Industry Co., Ltd
+  value: 2549
+- name: Mobile Action Technology Inc
+  value: 2550
+- name: SENSATEC Co., Ltd
+  value: 2551
+- name: R.O. S.R.L
+  value: 2552
+- name: Hangzhou Yaguan Technology Co. LTD
+  value: 2553
+- name: Listen Technologies Corporation
+  value: 2554
+- name: TOITU CO., LTD
+  value: 2555
+- name: Confidex
+  value: 2556
+- name: Keep Technologies, Inc
+  value: 2557
+- name: Lichtvision Engineering GmbH
+  value: 2558
+- name: AIRSTAR
+  value: 2559
+- name: Ampler Bikes OU
+  value: 2560
+- name: Cleveron AS
+  value: 2561
+- name: Ayxon-Dynamics GmbH
+  value: 2562
+- name: donutrobotics Co., Ltd
+  value: 2563
+- name: Flosonics Medical
+  value: 2564
+- name: Southwire Company, LLC
+  value: 2565
+- name: Shanghai wuqi microelectronics Co.,Ltd
+  value: 2566
+- name: Reflow Pty Ltd
+  value: 2567
+- name: Oras Oy
+  value: 2568
+- name: ECCT
+  value: 2569
+- name: Volan Technology Inc
+  value: 2570
+- name: SIANA Systems
+  value: 2571
+- name: Shanghai Yidian Intelligent Technology Co., Ltd
+  value: 2572
+- name: Blue Peacock GmbH
+  value: 2573
+- name: Roland Corporation
+  value: 2574
+- name: LIXIL Corporation
+  value: 2575
+- name: SUBARU Corporation
+  value: 2576
+- name: Sensolus
+  value: 2577
+- name: Dyson Technology Limited
+  value: 2578
+- name: Tec4med LifeScience GmbH
+  value: 2579
+- name: CROXEL, INC
+  value: 2580
+- name: Syng Inc
+  value: 2581
+- name: RIDE VISION LTD
+  value: 2582
+- name: Plume Design Inc
+  value: 2583
+- name: Cambridge Animal Technologies Ltd
+  value: 2584
+- name: Maxell, Ltd
+  value: 2585
+- name: Link Labs, Inc
+  value: 2586
+- name: Embrava Pty Ltd
+  value: 2587
+- name: INPEAK S.C
+  value: 2588
+- name: API-K
+  value: 2589
+- name: CombiQ AB
+  value: 2590
+- name: DeVilbiss Healthcare LLC
+  value: 2591
+- name: Jiangxi Innotech Technology Co., Ltd
+  value: 2592
+- name: Apollogic Sp. z o.o
+  value: 2593
+- name: DAIICHIKOSHO CO., LTD
+  value: 2594
+- name: BIXOLON CO.,LTD
+  value: 2595
+- name: Atmosic Technologies, Inc
+  value: 2596
+- name: Eran Financial Services LLC
+  value: 2597
+- name: Louis Vuitton
+  value: 2598
+- name: AYU DEVICES PRIVATE LIMITED
+  value: 2599
+- name: NanoFlex Power Corporation
+  value: 2600
+- name: Worthcloud Technology Co.,Ltd
+  value: 2601
+- name: Yamaha Corporation
+  value: 2602
+- name: PaceBait IVS
+  value: 2603
+- name: Shenzhen H&T Intelligent Control Co., Ltd
+  value: 2604
+- name: Shenzhen Feasycom Technology Co., Ltd
+  value: 2605
+- name: Zuma Array Limited
+  value: 2606
+- name: Instamic, Inc
+  value: 2607
+- name: Air-Weigh
+  value: 2608
+- name: Nevro Corp
+  value: 2609
+- name: Pinnacle Technology, Inc
+  value: 2610
+- name: WMF AG
+  value: 2611
+- name: Luxer Corporation
+  value: 2612
+- name: safectory GmbH
+  value: 2613
+- name: NGK SPARK PLUG CO., LTD
+  value: 2614
+- name: 2587702 Ontario Inc
+  value: 2615
+- name: Bouffalo Lab (Nanjing)., Ltd
+  value: 2616
+- name: BLUETICKETING SRL
+  value: 2617
+- name: Incotex Co. Ltd
+  value: 2618
+- name: Galileo Technology Limited
+  value: 2619
+- name: Siteco GmbH
+  value: 2620
+- name: DELABIE
+  value: 2621
+- name: Hefei Yunlian Semiconductor Co., Ltd
+  value: 2622
+- name: Shenzhen Yopeak Optoelectronics Technology Co., Ltd
+  value: 2623
+- name: GEWISS S.p.A
+  value: 2624
+- name: OPEX Corporation
+  value: 2625
+- name: Motionalysis, Inc
+  value: 2626
+- name: Busch Systems International Inc
+  value: 2627
+- name: Novidan, Inc
+  value: 2628
+- name: 3SI Security Systems, Inc
+  value: 2629
+- name: Beijing HC-Infinite Technology Limited
+  value: 2630
+- name: The Wand Company Ltd
+  value: 2631
+- name: JRC Mobility Inc
+  value: 2632
+- name: Venture Research Inc
+  value: 2633
+- name: Map Large, Inc
+  value: 2634
+- name: MistyWest Energy and Transport Ltd
+  value: 2635
+- name: SiFli Technologies (shanghai) Inc
+  value: 2636
+- name: Lockn Technologies Private Limited
+  value: 2637
+- name: Toytec Corporation
+  value: 2638
+- name: VANMOOF Global Holding B.V
+  value: 2639
+- name: Nextscape Inc
+  value: 2640
+- name: CSIRO
+  value: 2641
+- name: Follow Sense Europe B.V
+  value: 2642
+- name: KKM COMPANY LIMITED
+  value: 2643
+- name: SQL Technologies Corp
+  value: 2644
+- name: Inugo Systems Limited
+  value: 2645
+- name: ambie
+  value: 2646
+- name: Meizhou Guo Wei Electronics Co., Ltd
+  value: 2647
+- name: Indigo Diabetes
+  value: 2648
+- name: TourBuilt, LLC
+  value: 2649
+- name: Sontheim Industrie Elektronik GmbH
+  value: 2650
+- name: LEGIC Identsystems AG
+  value: 2651
+- name: Innovative Design Labs Inc
+  value: 2652
+- name: MG Energy Systems B.V
+  value: 2653
+- name: LaceClips llc
+  value: 2654
+- name: stryker
+  value: 2655
+- name: DATANG SEMICONDUCTOR TECHNOLOGY CO.,LTD
+  value: 2656
+- name: Smart Parks B.V
+  value: 2657
+- name: MOKO TECHNOLOGY Ltd
+  value: 2658
+- name: Gremsy JSC
+  value: 2659
+- name: Geopal system A/S
+  value: 2660
+- name: Lytx, INC
+  value: 2661
+- name: JUSTMORPH PTE. LTD
+  value: 2662
+- name: Beijing SuperHexa Century Technology CO. Ltd
+  value: 2663
+- name: Focus Ingenieria SRL
+  value: 2664
+- name: HAPPIEST BABY, INC
+  value: 2665
+- name: Scribble Design Inc
+  value: 2666
+- name: Olympic Ophthalmics, Inc
+  value: 2667
+- name: Pokkels
+  value: 2668
+- name: KUUKANJYOKIN Co.,Ltd
+  value: 2669
+- name: Pac Sane Limited
+  value: 2670
+- name: Warner Bros
+  value: 2671
+- name: Ooma
+  value: 2672
+- name: Senquip Pty Ltd
+  value: 2673
+- name: Jumo GmbH & Co. KG
+  value: 2674
+- name: Innohome Oy
+  value: 2675
+- name: MICROSON S.A
+  value: 2676
+- name: Delta Cycle Corporation
+  value: 2677
+- name: Synaptics Incorporated
+  value: 2678
+- name: AXTRO PTE. LTD
+  value: 2679
+- name: Shenzhen Sunricher Technology Limited
+  value: 2680
+- name: Webasto SE
+  value: 2681
+- name: Emlid Limited
+  value: 2682
+- name: UniqAir Oy
+  value: 2683
+- name: WAFERLOCK
+  value: 2684
+- name: Freedman Electronics Pty Ltd
+  value: 2685
+- name: KEBA Handover Automation GmbH
+  value: 2686
+- name: Intuity Medical
+  value: 2687
+- name: Cleer Limited
+  value: 2688
+- name: Universal Biosensors Pty Ltd
+  value: 2689
+- name: Corsair
+  value: 2690
+- name: Rivata, Inc
+  value: 2691
+- name: Greennote Inc,
+  value: 2692
+- name: Snowball Technology Co., Ltd
+  value: 2693
+- name: ALIZENT International
+  value: 2694
+- name: Shanghai Smart System Technology Co., Ltd
+  value: 2695
+- name: PSA Peugeot Citroen
+  value: 2696
+- name: VusionGroup
+  value: 2697
+- name: HAINBUCH GMBH SPANNENDE TECHNIK
+  value: 2698
+- name: SANlight GmbH
+  value: 2699
+- name: DelpSys, s.r.o
+  value: 2700
+- name: JCM TECHNOLOGIES S.A
+  value: 2701
+- name: Perfect Company
+  value: 2702
+- name: TOTO LTD
+  value: 2703
+- name: Shenzhen Grandsun Electronic Co.,Ltd
+  value: 2704
+- name: Monarch International Inc
+  value: 2705
+- name: Carestream Dental LLC
+  value: 2706
+- name: GiPStech S.r.l
+  value: 2707
+- name: OOBIK Inc
+  value: 2708
+- name: Pamex Inc
+  value: 2709
+- name: Lightricity Ltd
+  value: 2710
+- name: SensTek
+  value: 2711
+- name: Foil, Inc
+  value: 2712
+- name: Shanghai high-flying electronics technology Co.,Ltd
+  value: 2713
+- name: TEMKIN ASSOCIATES, LLC
+  value: 2714
+- name: Eello LLC
+  value: 2715
+- name: Xi'an Fengyu Information Technology Co., Ltd
+  value: 2716
+- name: Canon Finetech Nisca Inc
+  value: 2717
+- name: LifePlus, Inc
+  value: 2718
+- name: ista International GmbH
+  value: 2719
+- name: Loy Tec electronics GmbH
+  value: 2720
+- name: LINCOGN TECHNOLOGY CO. LIMITED
+  value: 2721
+- name: Care Bloom, LLC
+  value: 2722
+- name: DIC Corporation
+  value: 2723
+- name: FAZEPRO LLC
+  value: 2724
+- name: Shenzhen Uascent Technology Co., Ltd
+  value: 2725
+- name: Realityworks, inc
+  value: 2726
+- name: Urbanista AB
+  value: 2727
+- name: Zencontrol Pty Ltd
+  value: 2728
+- name: Spintly, Inc
+  value: 2729
+- name: Computime International Ltd
+  value: 2730
+- name: Anhui Listenai Co
+  value: 2731
+- name: OSM HK Limited
+  value: 2732
+- name: Adevo Consulting AB
+  value: 2733
+- name: PS Engineering, Inc
+  value: 2734
+- name: AIAIAI ApS
+  value: 2735
+- name: Visiontronic s.r.o
+  value: 2736
+- name: InVue Security Products Inc
+  value: 2737
+- name: TouchTronics, Inc
+  value: 2738
+- name: INNER RANGE PTY. LTD
+  value: 2739
+- name: Ellenby Technologies, Inc
+  value: 2740
+- name: Elstat Electronics Ltd
+  value: 2741
+- name: Xenter, Inc
+  value: 2742
+- name: LogTag North America Inc
+  value: 2743
+- name: Sens.ai Incorporated
+  value: 2744
+- name: STL
+  value: 2745
+- name: Open Bionics Ltd
+  value: 2746
+- name: R-DAS, s.r.o
+  value: 2747
+- name: KCCS Mobile Engineering Co., Ltd
+  value: 2748
+- name: Inventas AS
+  value: 2749
+- name: Robkoo Information & Technologies Co., Ltd
+  value: 2750
+- name: PAUL HARTMANN AG
+  value: 2751
+- name: Omni-ID USA, INC
+  value: 2752
+- name: Shenzhen Jingxun Technology Co., Ltd
+  value: 2753
+- name: RealMega Microelectronics technology (Shanghai) Co. Ltd
+  value: 2754
+- name: Kenzen, Inc
+  value: 2755
+- name: CODIUM
+  value: 2756
+- name: Flexoptix GmbH
+  value: 2757
+- name: Barnes Group Inc
+  value: 2758
+- name: Chengdu Aich Technology Co.,Ltd
+  value: 2759
+- name: Keepin Co., Ltd
+  value: 2760
+- name: Swedlock AB
+  value: 2761
+- name: Shenzhen CoolKit Technology Co., Ltd
+  value: 2762
+- name: ise Individuelle Software und Elektronik GmbH
+  value: 2763
+- name: Nuvoton
+  value: 2764
+- name: Visuallex Sport International Limited
+  value: 2765
+- name: KOBATA GAUGE MFG. CO., LTD
+  value: 2766
+- name: CACI Technologies
+  value: 2767
+- name: Nordic Strong ApS
+  value: 2768
+- name: EAGLE KINGDOM TECHNOLOGIES LIMITED
+  value: 2769
+- name: Lautsprecher Teufel GmbH
+  value: 2770
+- name: SSV Software Systems GmbH
+  value: 2771
+- name: Zhuhai Pantum Electronisc Co., Ltd
+  value: 2772
+- name: Streamit B.V
+  value: 2773
+- name: nymea GmbH
+  value: 2774
+- name: AL-KO Geraete GmbH
+  value: 2775
+- name: Franz Kaldewei GmbH&Co KG
+  value: 2776
+- name: Shenzhen Aimore. Co.,Ltd
+  value: 2777
+- name: Codefabrik GmbH
+  value: 2778
+- name: Reelables, Inc
+  value: 2779
+- name: Duravit AG
+  value: 2780
+- name: Boss Audio
+  value: 2781
+- name: Vocera Communications, Inc
+  value: 2782
+- name: Douglas Dynamics L.L.C
+  value: 2783
+- name: Viceroy Devices Corporation
+  value: 2784
+- name: ChengDu ForThink Technology Co., Ltd
+  value: 2785
+- name: IMATRIX SYSTEMS, INC
+  value: 2786
+- name: GlobalMed
+  value: 2787
+- name: DALI Alliance
+  value: 2788
+- name: unu GmbH
+  value: 2789
+- name: Hexology
+  value: 2790
+- name: Sunplus Technology Co., Ltd
+  value: 2791
+- name: LEVEL, s.r.o
+  value: 2792
+- name: FLIR Systems AB
+  value: 2793
+- name: Borda Technology
+  value: 2794
+- name: Square, Inc
+  value: 2795
+- name: FUTEK ADVANCED SENSOR TECHNOLOGY, INC
+  value: 2796
+- name: Saxonar GmbH
+  value: 2797
+- name: Velentium, LLC
+  value: 2798
+- name: GLP German Light Products GmbH
+  value: 2799
+- name: Leupold & Stevens, Inc
+  value: 2800
+- name: CRADERS,CO.,LTD
+  value: 2801
+- name: Shanghai All Link Microelectronics Co.,Ltd
+  value: 2802
+- name: 701x Inc
+  value: 2803
+- name: Radioworks Microelectronics PTY LTD
+  value: 2804
+- name: Unitech Electronic Inc
+  value: 2805
+- name: AMETEK, Inc
+  value: 2806
+- name: Irdeto
+  value: 2807
+- name: First Design System Inc
+  value: 2808
+- name: Unisto AG
+  value: 2809
+- name: Chengdu Ambit Technology Co., Ltd
+  value: 2810
+- name: SMT ELEKTRONIK GmbH
+  value: 2811
+- name: Cerebrum Sensor Technologies Inc
+  value: 2812
+- name: Weber Sensors, LLC
+  value: 2813
+- name: Earda Technologies Co.,Ltd
+  value: 2814
+- name: FUSEAWARE LIMITED
+  value: 2815
+- name: Flaircomm Microelectronics Inc
+  value: 2816
+- name: RESIDEO TECHNOLOGIES, INC
+  value: 2817
+- name: IORA Technology Development Ltd. Sti
+  value: 2818
+- name: Precision Triathlon Systems Limited
+  value: 2819
+- name: I-PERCUT
+  value: 2820
+- name: Marquardt GmbH
+  value: 2821
+- name: FAZUA GmbH
+  value: 2822
+- name: Workaround Gmbh
+  value: 2823
+- name: Shenzhen Qianfenyi Intelligent Technology Co., LTD
+  value: 2824
+- name: soonisys
+  value: 2825
+- name: Belun Technology Company Limited
+  value: 2826
+- name: Sanistaal A/S
+  value: 2827
+- name: BluPeak
+  value: 2828
+- name: SANYO DENKO Co.,Ltd
+  value: 2829
+- name: Minebea Access Solutions Inc
+  value: 2830
+- name: B.E.A. S.A
+  value: 2831
+- name: Alfa Laval Corporate AB
+  value: 2832
+- name: ThermoWorks, Inc
+  value: 2833
+- name: ToughBuilt Industries LLC
+  value: 2834
+- name: IOTOOLS
+  value: 2835
+- name: Olumee
+  value: 2836
+- name: NAOS JAPAN K.K
+  value: 2837
+- name: Guard RFID Solutions Inc
+  value: 2838
+- name: SIG SAUER, INC
+  value: 2839
+- name: DECATHLON SE
+  value: 2840
+- name: WBS PROJECT H PTY LTD
+  value: 2841
+- name: Roca Sanitario, S.A
+  value: 2842
+- name: Enerpac Tool Group Corp
+  value: 2843
+- name: Nanoleq AG
+  value: 2844
+- name: Accelerated Systems
+  value: 2845
+- name: PB INC
+  value: 2846
+- name: Beijing ESWIN Computing Technology Co., Ltd
+  value: 2847
+- name: TKH Security B.V
+  value: 2848
+- name: ams AG
+  value: 2849
+- name: Hygiene IQ, LLC
+  value: 2850
+- name: iRhythm Technologies, Inc
+  value: 2851
+- name: BeiJing ZiJie TiaoDong KeJi Co.,Ltd
+  value: 2852
+- name: NIBROTECH LTD
+  value: 2853
+- name: Baracoda Daily Healthtech
+  value: 2854
+- name: Lumi United Technology Co., Ltd
+  value: 2855
+- name: CHACON
+  value: 2856
+- name: Tech-Venom Entertainment Private Limited
+  value: 2857
+- name: ACL Airshop B.V
+  value: 2858
+- name: MAINBOT
+  value: 2859
+- name: ILLUMAGEAR, Inc
+  value: 2860
+- name: REDARC ELECTRONICS PTY LTD
+  value: 2861
+- name: MOCA System Inc
+  value: 2862
+- name: Duke Manufacturing Co
+  value: 2863
+- name: ART SPA
+  value: 2864
+- name: Silver Wolf Vehicles Inc
+  value: 2865
+- name: Hala Systems, Inc
+  value: 2866
+- name: ARMATURA LLC
+  value: 2867
+- name: CONZUMEX INDUSTRIES PRIVATE LIMITED
+  value: 2868
+- name: BH SENS
+  value: 2869
+- name: SINTEF
+  value: 2870
+- name: Omnivoltaic Energy Solutions Limited Company
+  value: 2871
+- name: WISYCOM S.R.L
+  value: 2872
+- name: Red 100 Lighting Co., ltd
+  value: 2873
+- name: Impact Biosystems, Inc
+  value: 2874
+- name: AIC semiconductor (Shanghai) Co., Ltd
+  value: 2875
+- name: Dodge Industrial, Inc
+  value: 2876
+- name: REALTIMEID AS
+  value: 2877
+- name: ISEO Serrature S.p.a
+  value: 2878
+- name: MindRhythm, Inc
+  value: 2879
+- name: Havells India Limited
+  value: 2880
+- name: Sentrax GmbH
+  value: 2881
+- name: TSI
+  value: 2882
+- name: INCITAT ENVIRONNEMENT
+  value: 2883
+- name: nFore Technology Co., Ltd
+  value: 2884
+- name: Electronic Sensors, Inc
+  value: 2885
+- name: Bird Rides, Inc
+  value: 2886
+- name: Gentex Corporation
+  value: 2887
+- name: NIO USA, Inc
+  value: 2888
+- name: SkyHawke Technologies
+  value: 2889
+- name: Nomono AS
+  value: 2890
+- name: EMS Integrators, LLC
+  value: 2891
+- name: BiosBob.Biz
+  value: 2892
+- name: Adam Hall GmbH
+  value: 2893
+- name: ICP Systems B.V
+  value: 2894
+- name: Breezi.io, Inc
+  value: 2895
+- name: Mesh Systems LLC
+  value: 2896
+- name: FUN FACTORY GmbH
+  value: 2897
+- name: ZIIP Inc
+  value: 2898
+- name: SHENZHEN KAADAS INTELLIGENT TECHNOLOGY CO.,Ltd
+  value: 2899
+- name: Emotion Fitness GmbH & Co. KG
+  value: 2900
+- name: H G M Automotive Electronics, Inc
+  value: 2901
+- name: BORA - Vertriebs GmbH & Co KG
+  value: 2902
+- name: CONVERTRONIX TECHNOLOGIES AND SERVICES LLP
+  value: 2903
+- name: TOKAI-DENSHI INC
+  value: 2904
+- name: Versa Group B.V
+  value: 2905
+- name: H.P. Shelby Manufacturing, LLC
+  value: 2906
+- name: Shenzhen ImagineVision Technology Limited
+  value: 2907
+- name: Exponential Power, Inc
+  value: 2908
+- name: Fujian Newland Auto-ID Tech. Co., Ltd
+  value: 2909
+- name: CELLCONTROL, INC
+  value: 2910
+- name: Rivieh, Inc
+  value: 2911
+- name: RATOC Systems, Inc
+  value: 2912
+- name: Sentek Pty Ltd
+  value: 2913
+- name: NOVEA ENERGIES
+  value: 2914
+- name: Innolux Corporation
+  value: 2915
+- name: NingBo klite Electric Manufacture Co.,LTD
+  value: 2916
+- name: The Apache Software Foundation
+  value: 2917
+- name: MITSUBISHI ELECTRIC AUTOMATION (THAILAND) COMPANY LIMITED
+  value: 2918
+- name: CleanSpace Technology Pty Ltd
+  value: 2919
+- name: Quha oy
+  value: 2920
+- name: Addaday
+  value: 2921
+- name: Dymo
+  value: 2922
+- name: Samsara Networks, Inc
+  value: 2923
+- name: Sensitech, Inc
+  value: 2924
+- name: SOLUM CO., LTD
+  value: 2925
+- name: React Mobile
+  value: 2926
+- name: Shenzhen Malide Technology Co.,Ltd
+  value: 2927
+- name: JDRF Electromag Engineering Inc
+  value: 2928
+- name: lilbit ODM AS
+  value: 2929
+- name: Geeknet, Inc
+  value: 2930
+- name: HARADA INDUSTRY CO., LTD
+  value: 2931
+- name: BQN
+  value: 2932
+- name: Triple W Japan Inc
+  value: 2933
+- name: MAX-co., ltd
+  value: 2934
+- name: Aixlink(Chengdu) Co., Ltd
+  value: 2935
+- name: FIELD DESIGN INC
+  value: 2936
+- name: Sankyo Air Tech Co.,Ltd
+  value: 2937
+- name: Shenzhen KTC Technology Co.,Ltd
+  value: 2938
+- name: Hardcoder Oy
+  value: 2939
+- name: Scangrip A/S
+  value: 2940
+- name: FoundersLane GmbH
+  value: 2941
+- name: Offcode Oy
+  value: 2942
+- name: ICU tech GmbH
+  value: 2943
+- name: AXELIFE
+  value: 2944
+- name: SCM Group
+  value: 2945
+- name: Mammut Sports Group AG
+  value: 2946
+- name: Taiga Motors Inc
+  value: 2947
+- name: Presidio Medical, Inc
+  value: 2948
+- name: VIMANA TECH PTY LTD
+  value: 2949
+- name: Trek Bicycle
+  value: 2950
+- name: Ampetronic Ltd
+  value: 2951
+- name: Muguang (Guangdong) Intelligent Lighting Technology Co., Ltd
+  value: 2952
+- name: Rotronic AG
+  value: 2953
+- name: Seiko Instruments Inc
+  value: 2954
+- name: American Technology Components, Incorporated
+  value: 2955
+- name: MOTREX
+  value: 2956
+- name: Pertech Industries Inc
+  value: 2957
+- name: Gentle Energy Corp
+  value: 2958
+- name: Senscomm Semiconductor Co., Ltd
+  value: 2959
+- name: Ineos Automotive Limited
+  value: 2960
+- name: Alfen ICU B.V
+  value: 2961
+- name: Citisend Solutions, SL
+  value: 2962
+- name: Hangzhou BroadLink Technology Co., Ltd
+  value: 2963
+- name: Dreem SAS
+  value: 2964
+- name: Netwake GmbH
+  value: 2965
+- name: Telecom Design
+  value: 2966
+- name: SILVER TREE LABS, INC
+  value: 2967
+- name: Gymstory B.V
+  value: 2968
+- name: The Goodyear Tire & Rubber Company
+  value: 2969
+- name: Beijing Wisepool Infinite Intelligence Technology Co.,Ltd
+  value: 2970
+- name: GISMAN
+  value: 2971
+- name: Komatsu Ltd
+  value: 2972
+- name: Sensoria Holdings LTD
+  value: 2973
+- name: Audio Partnership Plc
+  value: 2974
+- name: Group Lotus Limited
+  value: 2975
+- name: Data Sciences International
+  value: 2976
+- name: Bunn-O-Matic Corporation
+  value: 2977
+- name: TireCheck GmbH
+  value: 2978
+- name: Sonova Consumer Hearing GmbH
+  value: 2979
+- name: Vervent Audio Group
+  value: 2980
+- name: SONICOS ENTERPRISES, LLC
+  value: 2981
+- name: Nissan Motor Co., Ltd
+  value: 2982
+- name: hearX Group (Pty) Ltd
+  value: 2983
+- name: GLOWFORGE INC
+  value: 2984
+- name: Allterco Robotics ltd
+  value: 2985
+- name: Infinitegra, Inc
+  value: 2986
+- name: Grandex International Corporation
+  value: 2987
+- name: Machfu Inc
+  value: 2988
+- name: Roambotics, Inc
+  value: 2989
+- name: Soma Labs LLC
+  value: 2990
+- name: NITTO KOGYO CORPORATION
+  value: 2991
+- name: Ecolab Inc
+  value: 2992
+- name: Beijing ranxin intelligence technology Co.,LTD
+  value: 2993
+- name: Fjorden Electra AS
+  value: 2994
+- name: Flender GmbH
+  value: 2995
+- name: New Cosmos USA, Inc
+  value: 2996
+- name: Xirgo Technologies, LLC
+  value: 2997
+- name: Build With Robots Inc
+  value: 2998
+- name: IONA Tech LLC
+  value: 2999
+- name: INNOVAG PTY. LTD
+  value: 3000
+- name: SaluStim Group Oy
+  value: 3001
+- name: Huso, INC
+  value: 3002
+- name: SWISSINNO SOLUTIONS AG
+  value: 3003
+- name: T2REALITY SOLUTIONS PRIVATE LIMITED
+  value: 3004
+- name: ETHEORY PTY LTD
+  value: 3005
+- name: SAAB Aktiebolag
+  value: 3006
+- name: HIMSA II K/S
+  value: 3007
+- name: READY FOR SKY LLP
+  value: 3008
+- name: Miele & Cie. KG
+  value: 3009
+- name: EntWick Co
+  value: 3010
+- name: MCOT INC
+  value: 3011
+- name: TECHTICS ENGINEERING B.V
+  value: 3012
+- name: Aperia Technologies, Inc
+  value: 3013
+- name: TCL COMMUNICATION EQUIPMENT CO.,LTD
+  value: 3014
+- name: Signtle Inc
+  value: 3015
+- name: OTF Distribution, LLC
+  value: 3016
+- name: Neuvatek Inc
+  value: 3017
+- name: Perimeter Technologies, Inc
+  value: 3018
+- name: Divesoft s.r.o
+  value: 3019
+- name: Sylvac sa
+  value: 3020
+- name: Amiko srl
+  value: 3021
+- name: Neurosity, Inc
+  value: 3022
+- name: LL Tec Group LLC
+  value: 3023
+- name: Durag GmbH
+  value: 3024
+- name: Hubei Yuan Times Technology Co., Ltd
+  value: 3025
+- name: IDEC
+  value: 3026
+- name: Procon Analytics, LLC
+  value: 3027
+- name: ndd Medizintechnik AG
+  value: 3028
+- name: Super B Lithium Power B.V
+  value: 3029
+- name: Shenzhen Injoinic Technology Co., Ltd
+  value: 3030
+- name: VINFAST TRADING AND PRODUCTION JOINT STOCK COMPANY
+  value: 3031
+- name: PURA SCENTS, INC
+  value: 3032
+- name: Elics Basis Ltd
+  value: 3033
+- name: Aardex Ltd
+  value: 3034
+- name: CHAR-BROIL, LLC
+  value: 3035
+- name: Ledworks S.r.l
+  value: 3036
+- name: Coroflo Limited
+  value: 3037
+- name: Yale
+  value: 3038
+- name: WINKEY ENTERPRISE (HONG KONG) LIMITED
+  value: 3039
+- name: Koizumi Lighting Technology corp
+  value: 3040
+- name: Back40 Precision
+  value: 3041
+- name: OTC engineering
+  value: 3042
+- name: Comtel Systems Ltd
+  value: 3043
+- name: Deepfield Connect GmbH
+  value: 3044
+- name: ZWILLING J.A. Henckels Aktiengesellschaft
+  value: 3045
+- name: Puratap Pty Ltd
+  value: 3046
+- name: Fresnel Technologies, Inc
+  value: 3047
+- name: Sensormate AG
+  value: 3048
+- name: Shindengen Electric Manufacturing Co., Ltd
+  value: 3049
+- name: Twenty Five Seven, prodaja in storitve, d.o.o
+  value: 3050
+- name: Luna Health, Inc
+  value: 3051
+- name: Miracle-Ear, Inc
+  value: 3052
+- name: CORAL-TAIYI Co. Ltd
+  value: 3053
+- name: LINKSYS USA, INC
+  value: 3054
+- name: Safetytest GmbH
+  value: 3055
+- name: KIDO SPORTS CO., LTD
+  value: 3056
+- name: Site IQ LLC
+  value: 3057
+- name: Angel Medical Systems, Inc
+  value: 3058
+- name: PONE BIOMETRICS AS
+  value: 3059
+- name: ER Lab LLC
+  value: 3060
+- name: T5 tek, Inc
+  value: 3061
+- name: greenTEG AG
+  value: 3062
+- name: Wacker Neuson SE
+  value: 3063
+- name: Innovacionnye Resheniya
+  value: 3064
+- name: Alio, Inc
+  value: 3065
+- name: CleanBands Systems Ltd
+  value: 3066
+- name: Dodam Enersys Co., Ltd
+  value: 3067
+- name: T+A elektroakustik GmbH & Co.KG
+  value: 3068
+- name: Esmé Solutions
+  value: 3069
+- name: Media-Cartec GmbH
+  value: 3070
+- name: Ratio Electric BV
+  value: 3071
+- name: MQA Limited
+  value: 3072
+- name: NEOWRK SISTEMAS INTELIGENTES S.A
+  value: 3073
+- name: Loomanet, Inc
+  value: 3074
+- name: Puff Corp
+  value: 3075
+- name: Happy Health, Inc
+  value: 3076
+- name: Montage Connect, Inc
+  value: 3077
+- name: LED Smart Inc
+  value: 3078
+- name: CONSTRUKTS, INC
+  value: 3079
+- name: limited liability company "Red
+  value: 3080
+- name: Senic Inc
+  value: 3081
+- name: Automated Pet Care Products, LLC
+  value: 3082
+- name: aconno GmbH
+  value: 3083
+- name: Mendeltron, Inc
+  value: 3084
+- name: Mereltron bv
+  value: 3085
+- name: ALEX DENKO CO.,LTD
+  value: 3086
+- name: AETERLINK
+  value: 3087
+- name: Cosmed s.r.l
+  value: 3088
+- name: Gordon Murray Design Limited
+  value: 3089
+- name: IoSA
+  value: 3090
+- name: Scandinavian Health Limited
+  value: 3091
+- name: Fasetto, Inc
+  value: 3092
+- name: Geva Sol B.V
+  value: 3093
+- name: TYKEE PTY. LTD
+  value: 3094
+- name: SomnoMed Limited
+  value: 3095
+- name: CORROHM
+  value: 3096
+- name: Arlo Technologies, Inc
+  value: 3097
+- name: Catapult Group International Ltd
+  value: 3098
+- name: Rockchip Electronics Co., Ltd
+  value: 3099
+- name: GEMU
+  value: 3100
+- name: OFF Line Japan Co., Ltd
+  value: 3101
+- name: EC sense co., Ltd
+  value: 3102
+- name: LVI Co
+  value: 3103
+- name: COMELIT GROUP S.P.A
+  value: 3104
+- name: Foshan Viomi Electrical Technology Co., Ltd
+  value: 3105
+- name: Glamo Inc
+  value: 3106
+- name: KEYTEC,Inc
+  value: 3107
+- name: SMARTD TECHNOLOGIES INC
+  value: 3108
+- name: JURA Elektroapparate AG
+  value: 3109
+- name: Performance Electronics, Ltd
+  value: 3110
+- name: Pal Electronics
+  value: 3111
+- name: Embecta Corp
+  value: 3112
+- name: DENSO AIRCOOL CORPORATION
+  value: 3113
+- name: Caresix Inc
+  value: 3114
+- name: GigaDevice Semiconductor Inc
+  value: 3115
+- name: Zeku Technology (Shanghai) Corp., Ltd
+  value: 3116
+- name: OTF Product Sourcing, LLC
+  value: 3117
+- name: Easee AS
+  value: 3118
+- name: BEEHERO, INC
+  value: 3119
+- name: McIntosh Group Inc
+  value: 3120
+- name: KINDOO LLP
+  value: 3121
+- name: Xian Yisuobao Electronic Technology Co., Ltd
+  value: 3122
+- name: Exeger Operations AB
+  value: 3123
+- name: BYD Company Limited
+  value: 3124
+- name: Thermokon-Sensortechnik GmbH
+  value: 3125
+- name: Cosmicnode BV
+  value: 3126
+- name: SignalQuest, LLC
+  value: 3127
+- name: Noritz Corporation
+  value: 3128
+- name: TIGER CORPORATION
+  value: 3129
+- name: Equinosis, LLC
+  value: 3130
+- name: ORB Innovations Ltd
+  value: 3131
+- name: Classified Cycling
+  value: 3132
+- name: Wrmth Corp
+  value: 3133
+- name: BELLDESIGN Inc
+  value: 3134
+- name: Stinger Equipment, Inc
+  value: 3135
+- name: HORIBA, Ltd
+  value: 3136
+- name: Control Solutions LLC
+  value: 3137
+- name: Heath Consultants Inc
+  value: 3138
+- name: Berlinger & Co. AG
+  value: 3139
+- name: ONCELABS LLC
+  value: 3140
+- name: Brose Verwaltung SE, Bamberg
+  value: 3141
+- name: Granwin IoT Technology (Guangzhou) Co.,Ltd
+  value: 3142
+- name: Epsilon Electronics,lnc
+  value: 3143
+- name: VALEO MANAGEMENT SERVICES
+  value: 3144
+- name: twopounds gmbh
+  value: 3145
+- name: atSpiro ApS
+  value: 3146
+- name: ADTRAN, Inc
+  value: 3147
+- name: Orpyx Medical Technologies Inc
+  value: 3148
+- name: Seekwave Technology Co.,ltd
+  value: 3149
+- name: Tactile Engineering, Inc
+  value: 3150
+- name: SharkNinja Operating LLC
+  value: 3151
+- name: Imostar Technologies Inc
+  value: 3152
+- name: INNOVA S.R.L
+  value: 3153
+- name: ESCEA LIMITED
+  value: 3154
+- name: Taco, Inc
+  value: 3155
+- name: HiViz Lighting, Inc
+  value: 3156
+- name: Zintouch B.V
+  value: 3157
+- name: Rheem Sales Company, Inc
+  value: 3158
+- name: UNEEG medical A/S
+  value: 3159
+- name: Hykso Inc
+  value: 3160
+- name: CYBERDYNE Inc
+  value: 3161
+- name: Lockswitch Sdn Bhd
+  value: 3162
+- name: Alban Giacomo S.P.A
+  value: 3163
+- name: MGM WIRELESSS HOLDINGS PTY LTD
+  value: 3164
+- name: StepUp Solutions ApS
+  value: 3165
+- name: BlueID GmbH
+  value: 3166
+- name: Wuxi Linkpower Microelectronics Co.,Ltd
+  value: 3167
+- name: KEBA Energy Automation GmbH
+  value: 3168
+- name: NNOXX, Inc
+  value: 3169
+- name: Phiaton Corporation
+  value: 3170
+- name: phg Peter Hengstler GmbH + Co. KG
+  value: 3171
+- name: dormakaba Holding AG
+  value: 3172
+- name: WAKO CO,.LTD
+  value: 3173
+- name: DEN Smart Home B.V
+  value: 3174
+- name: TRACKTING S.R.L
+  value: 3175
+- name: Emerja Corporation
+  value: 3176
+- name: BLITZ electric motors. LTD
+  value: 3177
+- name: CONSORCIO TRUST CONTROL - NETTEL
+  value: 3178
+- name: GILSON SAS
+  value: 3179
+- name: SNIFF LOGIC LTD
+  value: 3180
+- name: Fidure Corp
+  value: 3181
+- name: Sensa LLC
+  value: 3182
+- name: Parakey AB
+  value: 3183
+- name: SCARAB SOLUTIONS LTD
+  value: 3184
+- name: BitGreen Technolabz (OPC) Private Limited
+  value: 3185
+- name: StreetCar ORV, LLC
+  value: 3186
+- name: Truma GerÃ¤tetechnik GmbH & Co. KG
+  value: 3187
+- name: yupiteru
+  value: 3188
+- name: Embedded Engineering Solutions LLC
+  value: 3189
+- name: Shenzhen Gwell Times Technology Co. , Ltd
+  value: 3190
+- name: TEAC Corporation
+  value: 3191
+- name: CHARGTRON IOT PRIVATE LIMITED
+  value: 3192
+- name: Zhuhai Smartlink Technology Co., Ltd
+  value: 3193
+- name: Triductor Technology (Suzhou), Inc
+  value: 3194
+- name: PT SADAMAYA GRAHA TEKNOLOGI
+  value: 3195
+- name: Mopeka Products LLC
+  value: 3196
+- name: 3ALogics, Inc
+  value: 3197
+- name: BOOMING OF THINGS
+  value: 3198
+- name: Rochester Sensors, LLC
+  value: 3199
+- name: CARDIOID - TECHNOLOGIES, LDA
+  value: 3200
+- name: Carrier Corporation
+  value: 3201
+- name: NACON
+  value: 3202
+- name: Watchdog Systems LLC
+  value: 3203
+- name: MAXON INDUSTRIES, INC
+  value: 3204
+- name: Amlogic, Inc
+  value: 3205
+- name: Qingdao Eastsoft Communication Technology Co.,Ltd
+  value: 3206
+- name: Weltek Technologies Company Limited
+  value: 3207
+- name: Nextivity Inc
+  value: 3208
+- name: AGZZX OPTOELECTRONICS TECHNOLOGY CO., LTD
+  value: 3209
+- name: A.GLOBAL co.,Ltd
+  value: 3210
+- name: Heavys Inc
+  value: 3211
+- name: T-Mobile USA
+  value: 3212
+- name: tonies GmbH
+  value: 3213
+- name: Technocon Engineering Ltd
+  value: 3214
+- name: Radar Automobile Sales(Shandong)Co.,Ltd
+  value: 3215
+- name: WESCO AG
+  value: 3216
+- name: Yashu Systems
+  value: 3217
+- name: KessebÃ¶hmer Ergonomietechnik GmbH
+  value: 3218
+- name: Movesense Oy
+  value: 3219
+- name: Baxter Healthcare Corporation
+  value: 3220
+- name: Gemstone Lights Canada Ltd
+  value: 3221
+- name: H+B Hightech GmbH
+  value: 3222
+- name: Deako
+  value: 3223
+- name: MiX Telematics International (PTY) LTD
+  value: 3224
+- name: Vire Health Oy
+  value: 3225
+- name: ALF Inc
+  value: 3226
+- name: NTT sonority, Inc
+  value: 3227
+- name: Sunstone-RTLS Ipari Szolgaltato Korlatolt Felelossegu...
+  value: 3228
+- name: Ribbiot, INC
+  value: 3229
+- name: ECCEL CORPORATION SAS
+  value: 3230
+- name: Dragonfly Energy Corp
+  value: 3231
+- name: BIGBEN
+  value: 3232
+- name: YAMAHA MOTOR CO.,LTD
+  value: 3233
+- name: XSENSE LTD
+  value: 3234
+- name: MAQUET GmbH
+  value: 3235
+- name: MITSUBISHI ELECTRIC LIGHTING CO, LTD
+  value: 3236
+- name: Princess Cruise Lines, Ltd
+  value: 3237
+- name: Megger Ltd
+  value: 3238
+- name: Verve InfoTec Pty Ltd
+  value: 3239
+- name: Sonas, Inc
+  value: 3240
+- name: Mievo Technologies Private Limited
+  value: 3241
+- name: Shenzhen Poseidon Network Technology Co., Ltd
+  value: 3242
+- name: HERUTU ELECTRONICS CORPORATION
+  value: 3243
+- name: Shenzhen Shokz Co.,Ltd
+  value: 3244
+- name: Shenzhen Openhearing Tech CO., LTD
+  value: 3245
+- name: Evident Corporation
+  value: 3246
+- name: NEURINNOV
+  value: 3247
+- name: SwipeSense, Inc
+  value: 3248
+- name: RF Creations
+  value: 3249
+- name: SHINKAWA Sensor Technology, Inc
+  value: 3250
+- name: janova GmbH
+  value: 3251
+- name: Eberspaecher Climate Control Systems GmbH
+  value: 3252
+- name: Racketry, d. o. o
+  value: 3253
+- name: THE EELECTRIC MACARON LLC
+  value: 3254
+- name: Cucumber Lighting Controls Limited
+  value: 3255
+- name: Shanghai Proxy Network Technology Co., Ltd
+  value: 3256
+- name: seca GmbH & Co. KG
+  value: 3257
+- name: Ameso Tech (OPC) Private Limited
+  value: 3258
+- name: Emlid Tech Kft
+  value: 3259
+- name: TROX GmbH
+  value: 3260
+- name: Pricer AB
+  value: 3261
+- name: Forward Thinking Systems LLC
+  value: 3263
+- name: Garnet Instruments Ltd
+  value: 3264
+- name: CLEIO Inc
+  value: 3265
+- name: Anker Innovations Limited
+  value: 3266
+- name: HMD Global Oy
+  value: 3267
+- name: ABUS August Bremicker Soehne Kommanditgesellschaft
+  value: 3268
+- name: Open Road Solutions, Inc
+  value: 3269
+- name: Serial Technology Corporation
+  value: 3270
+- name: SB C&S Corp
+  value: 3271
+- name: TrikThom
+  value: 3272
+- name: Innocent Technology Co., Ltd
+  value: 3273
+- name: Cyclops Marine Ltd
+  value: 3274
+- name: NOTHING TECHNOLOGY LIMITED
+  value: 3275
+- name: Kord Defence Pty Ltd
+  value: 3276
+- name: YanFeng Visteon(Chongqing) Automotive Electronic Co.,Ltd
+  value: 3277
+- name: SENOSPACE LLC
+  value: 3278
+- name: Shenzhen CESI Information Technology Co., Ltd
+  value: 3279
+- name: MooreSilicon Semiconductor Technology (Shanghai) Co., LTD
+  value: 3280
+- name: Imagine Marketing Limited
+  value: 3281
+- name: EQOM SSC B.V
+  value: 3282
+- name: TechSwipe
+  value: 3283
+- name: Reoqoo IoT Technology Co., Ltd
+  value: 3284
+- name: Numa Products, LLC
+  value: 3285
+- name: HHO (Hangzhou) Digital Technology Co., Ltd
+  value: 3286
+- name: Maztech Industries, LLC
+  value: 3287
+- name: SIA Mesh Group
+  value: 3288
+- name: Minami acoustics Limited
+  value: 3289
+- name: Wolf Steel ltd
+  value: 3290
+- name: Circus World Displays Limited
+  value: 3291
+- name: Ypsomed AG
+  value: 3292
+- name: Alif Semiconductor, Inc
+  value: 3293
+- name: RESPONSE TECHNOLOGIES, LTD
+  value: 3294
+- name: SHENZHEN CHENYUN ELECTRONICS CO., LTD
+  value: 3295
+- name: VODALOGIC PTY LTD
+  value: 3296
+- name: Regal Beloit America, Inc
+  value: 3297
+- name: CORVENT MEDICAL, INC
+  value: 3298
+- name: Taiwan Fuhsing
+  value: 3299
+- name: Off-Highway Powertrain Services Germany GmbH
+  value: 3300
+- name: Amina Distribution AS
+  value: 3301
+- name: McWong International, Inc
+  value: 3302
+- name: TAG HEUER SA
+  value: 3303
+- name: Dongguan Yougo Electronics Co.,Ltd
+  value: 3304
+- name: PEAG, LLC dba JLab Audio
+  value: 3305
+- name: HAYWARD INDUSTRIES, INC
+  value: 3306
+- name: Shenzhen Tingting Technology Co. LTD
+  value: 3307
+- name: Pacific Coast Fishery Services (2003) Inc
+  value: 3308
+- name: CV. NURI TEKNIK
+  value: 3309
+- name: MadgeTech, Inc
+  value: 3310
+- name: POGS B.V
+  value: 3311
+- name: THOTAKA TEKHNOLOGIES INDIA PRIVATE LIMITED
+  value: 3312
+- name: Midmark
+  value: 3313
+- name: BestSens AG
+  value: 3314
+- name: Radio Sound
+  value: 3315
+- name: SOLUX PTY LTD
+  value: 3316
+- name: BOS Balance of Storage Systems AG
+  value: 3317
+- name: OJ Electronics A/S
+  value: 3318
+- name: TVS Motor Company Ltd
+  value: 3319
+- name: core sensing GmbH
+  value: 3320
+- name: Tamblue Oy
+  value: 3321
+- name: Protect Animals With Satellites LLC
+  value: 3322
+- name: Tyromotion GmbH
+  value: 3323
+- name: ElectronX design
+  value: 3324
+- name: Wuhan Woncan Construction Technologies Co., Ltd
+  value: 3325
+- name: Thule Group AB
+  value: 3326
+- name: Ergodriven Inc
+  value: 3327
+- name: Sparkpark AS
+  value: 3328
+- name: KEEPEN
+  value: 3329
+- name: Rocky Mountain ATV/MC Jake Wilson
+  value: 3330
+- name: MakuSafe Corp
+  value: 3331
+- name: Bartec Auto Id Ltd
+  value: 3332
+- name: Energy Technology and Control Limited
+  value: 3333
+- name: doubleO Co., Ltd
+  value: 3334
+- name: Datalogic S.r.l
+  value: 3335
+- name: Datalogic USA, Inc
+  value: 3336
+- name: Leica Geosystems AG
+  value: 3337
+- name: CATEYE Co., Ltd
+  value: 3338
+- name: Research Products Corporation
+  value: 3339
+- name: Planmeca Oy
+  value: 3340
+- name: C.Ed. Schulte GmbH Zylinderschlossfabrik
+  value: 3341
+- name: PetVoice Co., Ltd
+  value: 3342
+- name: Timebirds Australia Pty Ltd
+  value: 3343
+- name: JVC KENWOOD Corporation
+  value: 3344
+- name: Great Dane LLC
+  value: 3345
+- name: Spartek Systems Inc
+  value: 3346
+- name: MERRY ELECTRONICS CO., LTD
+  value: 3347
+- name: Merry Electronics (S) Pte Ltd
+  value: 3348
+- name: Spark
+  value: 3349
+- name: Nations Technologies Inc
+  value: 3350
+- name: Akix S.r.l
+  value: 3351
+- name: Bioliberty Ltd
+  value: 3352
+- name: C.G. Air Systemes Inc
+  value: 3353
+- name: Maturix ApS
+  value: 3354
+- name: RACHIO, INC
+  value: 3355
+- name: LIMBOID LLC
+  value: 3356
+- name: Electronics4All Inc
+  value: 3357
+- name: FESTINA LOTUS SA
+  value: 3358
+- name: Synkopi, Inc
+  value: 3359
+- name: SCIENTERRA LIMITED
+  value: 3360
+- name: Cennox Group Limited
+  value: 3361
+- name: Cedarware, Corp
+  value: 3362
+- name: GREE Electric Appliances, Inc. of Zhuhai
+  value: 3363
+- name: Japan Display Inc
+  value: 3364
+- name: System Elite Holdings Group Limited
+  value: 3365
+- name: Burkert Werke GmbH & Co. KG
+  value: 3366
+- name: velocitux
+  value: 3367
+- name: FUJITSU COMPONENT LIMITED
+  value: 3368
+- name: MIYAKAWA ELECTRIC WORKS LTD
+  value: 3369
+- name: PhysioLogic Devices, Inc
+  value: 3370
+- name: Sensoryx AG
+  value: 3371
+- name: SIL System Integration Laboratory GmbH
+  value: 3372
+- name: Cooler Pro, LLC
+  value: 3373
+- name: Advanced Electronic Applications, Inc
+  value: 3374
+- name: Delta Development Team, Inc
+  value: 3375
+- name: Laxmi Therapeutic Devices, Inc
+  value: 3376
+- name: SYNCHRON, INC
+  value: 3377
+- name: Badger Meter
+  value: 3378
+- name: Micropower Group AB
+  value: 3379
+- name: ZILLIOT TECHNOLOGIES PRIVATE LIMITED
+  value: 3380
+- name: Universidad Politecnica de Madrid
+  value: 3381
+- name: XIHAO INTELLIGENGT TECHNOLOGY CO., LTD
+  value: 3382
+- name: Zerene Inc
+  value: 3383
+- name: CycLock
+  value: 3384
+- name: Systemic Games, LLC
+  value: 3385
+- name: Frost Solutions, LLC
+  value: 3386
+- name: Lone Star Marine Pty Ltd
+  value: 3387
+- name: SIRONA Dental Systems GmbH
+  value: 3388
+- name: bHaptics Inc
+  value: 3389
+- name: LUMINOAH, INC
+  value: 3390
+- name: Vogels Products B.V
+  value: 3391
+- name: SignalFire Telemetry, Inc
+  value: 3392
+- name: CPAC Systems AB
+  value: 3393
+- name: TEKTRO TECHNOLOGY CORPORATION
+  value: 3394
+- name: Gosuncn Technology Group Co., Ltd
+  value: 3395
+- name: Ex Makhina Inc
+  value: 3396
+- name: Odeon, Inc
+  value: 3397
+- name: Thales Simulation & Training AG
+  value: 3398
+- name: Shenzhen DOKE Electronic Co., Ltd
+  value: 3399
+- name: Vemcon GmbH
+  value: 3400
+- name: Refrigerated Transport Electronics, Inc
+  value: 3401
+- name: Rockpile Solutions, LLC
+  value: 3402
+- name: Soundwave Hearing, LLC
+  value: 3403
+- name: IotGizmo Corporation
+  value: 3404
+- name: Optec, LLC
+  value: 3405
+- name: NIKAT SOLUTIONS PRIVATE LIMITED
+  value: 3406
+- name: Movano Inc
+  value: 3407
+- name: NINGBO FOTILE KITCHENWARE CO., LTD
+  value: 3408
+- name: Genetus inc
+  value: 3409
+- name: DIVAN TRADING CO., LTD
+  value: 3410
+- name: Luxottica Group S.p.A
+  value: 3411
+- name: ISEKI FRANCE S.A.S
+  value: 3412
+- name: NO CLIMB PRODUCTS LTD
+  value: 3413
+- name: Wellang.Co,.Ltd
+  value: 3414
+- name: Nanjing Xinxiangyuan Microelectronics Co., Ltd
+  value: 3415
+- name: ifm electronic gmbh
+  value: 3416
+- name: HYUPSUNG MACHINERY ELECTRIC CO., LTD
+  value: 3417
+- name: Gunnebo Aktiebolag
+  value: 3418
+- name: Axis Communications AB
+  value: 3419
+- name: Pison Technology, Inc
+  value: 3420
+- name: Stogger B.V
+  value: 3421
+- name: Pella Corp
+  value: 3422
+- name: SiChuan Homme Intelligent Technology co.,Ltd
+  value: 3423
+- name: Smart Products Connection, S.A
+  value: 3424
+- name: F.I.P. FORMATURA INIEZIONE POLIMERI - S.P.A
+  value: 3425
+- name: MEBSTER s.r.o
+  value: 3426
+- name: SKF France
+  value: 3427
+- name: Southco
+  value: 3428
+- name: Molnlycke Health Care AB
+  value: 3429
+- name: Hendrickson USA , L.L.C
+  value: 3430
+- name: BLACK BOX NETWORK SERVICES INDIA PRIVATE LIMITED
+  value: 3431
+- name: Status Audio LLC
+  value: 3432
+- name: AIR AROMA INTERNATIONAL PTY LTD
+  value: 3433
+- name: Helge Kaiser GmbH
+  value: 3434
+- name: Crane Payment Innovations, Inc
+  value: 3435
+- name: Ambient IoT Pty Ltd
+  value: 3436
+- name: DYNAMOX S/A
+  value: 3437
+- name: Look Cycle International
+  value: 3438
+- name: Closed Joint Stock Company NVP BOLID
+  value: 3439
+- name: Kindhome
+  value: 3440
+- name: Kiteras Inc
+  value: 3441
+- name: Earfun Technology (HK) Limited
+  value: 3442
+- name: iota Biosciences, Inc
+  value: 3443
+- name: ANUME s.r.o
+  value: 3444
+- name: Indistinguishable From Magic, Inc
+  value: 3445
+- name: i-focus Co.,Ltd
+  value: 3446
+- name: DualNetworks SA
+  value: 3447
+- name: MITACHI CO.,LTD
+  value: 3448
+- name: VIVIWARE JAPAN, Inc
+  value: 3449
+- name: Xiamen Intretech Inc
+  value: 3450
+- name: MindMaze SA
+  value: 3451
+- name: BeiJing SmartChip Microelectronics Technology Co.,Ltd
+  value: 3452
+- name: Taiko Audio B.V
+  value: 3453
+- name: Daihatsu Motor Co., Ltd
+  value: 3454
+- name: Konova
+  value: 3455
+- name: Gravaa B.V
+  value: 3456
+- name: Beyerdynamic GmbH & Co. KG
+  value: 3457
+- name: VELCO
+  value: 3458
+- name: ATLANTIC SOCIETE FRANCAISE DE DEVELOPPEMENT THERMIQUE
+  value: 3459
+- name: Testo SE & Co. KGaA
+  value: 3460
+- name: SEW-EURODRIVE GmbH & Co KG
+  value: 3461
+- name: ROCKWELL AUTOMATION, INC
+  value: 3462
+- name: Quectel Wireless Solutions Co., Ltd
+  value: 3463
+- name: Geocene Inc
+  value: 3464
+- name: Nanohex Corp
+  value: 3465
+- name: Simply Embedded Inc
+  value: 3466
+- name: Software Development, LLC
+  value: 3467
+- name: Ultimea Technology (Shenzhen) Limited
+  value: 3468
+- name: RF Electronics Limited
+  value: 3469
+- name: Optivolt Labs, Inc
+  value: 3470
+- name: Canon Electronics Inc
+  value: 3471
+- name: LAAS ApS
+  value: 3472
+- name: Beamex Oy Ab
+  value: 3473
+- name: TACHIKAWA CORPORATION
+  value: 3474
+- name: HagerEnergy GmbH
+  value: 3475
+- name: Shrooly Inc
+  value: 3476
+- name: Hunter Industries Incorporated
+  value: 3477
+- name: NEOKOHM SISTEMAS ELETRONICOS LTDA
+  value: 3478
+- name: Zhejiang Huanfu Technology Co., LTD
+  value: 3479
+- name: E.F. Johnson Company
+  value: 3480
+- name: Caire Inc
+  value: 3481
+- name: Yeasound (Xiamen) Hearing Technology Co., Ltd
+  value: 3482
+- name: Boxyz, Inc
+  value: 3483
+- name: Skytech Creations Limited
+  value: 3484
+- name: Cear, Inc
+  value: 3485
+- name: Impulse Wellness LLC
+  value: 3486
+- name: MML US, Inc
+  value: 3487
+- name: SICK AG
+  value: 3488
+- name: Fen Systems Ltd
+  value: 3489
+- name: KIWI.KI GmbH
+  value: 3490
+- name: Airgraft Inc
+  value: 3491
+- name: HP Tuners
+  value: 3492
+- name: PIXELA CORPORATION
+  value: 3493
+- name: Generac Corporation
+  value: 3494
+- name: Novoferm tormatic GmbH
+  value: 3495
+- name: Airwallet ApS
+  value: 3496
+- name: Inventronics GmbH
+  value: 3497
+- name: Shenzhen EBELONG Technology Co., Ltd
+  value: 3498
+- name: Efento
+  value: 3499
+- name: ITALTRACTOR ITM S.P.A
+  value: 3500
+- name: linktop
+  value: 3501
+- name: TITUM AUDIO, INC
+  value: 3502
+- name: Hexagon Aura Reality AG
+  value: 3503
+- name: Invisalert Solutions, Inc
+  value: 3504
+- name: TELE System Communications Pte. Ltd
+  value: 3505
+- name: Whirlpool
+  value: 3506
+- name: SHENZHEN REFLYING ELECTRONIC CO., LTD
+  value: 3507
+- name: Franklin Control Systems
+  value: 3508
+- name: Djup AB
+  value: 3509
+- name: SAFEGUARD EQUIPMENT, INC
+  value: 3510
+- name: Morningstar Corporation
+  value: 3511
+- name: Shenzhen Chuangyuan Digital Technology Co., Ltd
+  value: 3512
+- name: CompanyDeep Ltd
+  value: 3513
+- name: Veo Technologies ApS
+  value: 3514
+- name: Nexis Link Technology Co., Ltd
+  value: 3515
+- name: Felion Technologies Company Limited
+  value: 3516
+- name: MAATEL
+  value: 3517
+- name: HELLA GmbH & Co. KGaA
+  value: 3518
+- name: HWM-Water Limited
+  value: 3519
+- name: Shenzhen Jahport Electronic Technology Co., Ltd
+  value: 3520
+- name: NACHI-FUJIKOSHI CORP
+  value: 3521
+- name: Cirrus Research plc
+  value: 3522
+- name: GEARBAC TECHNOLOGIES INC
+  value: 3523
+- name: Hangzhou NationalChip Science & Technology Co.,Ltd
+  value: 3524
+- name: DHL
+  value: 3525
+- name: Levita
+  value: 3526
+- name: MORNINGSTAR FX PTE. LTD
+  value: 3527
+- name: ETO GRUPPE TECHNOLOGIES GmbH
+  value: 3528
+- name: farmunited GmbH
+  value: 3529
+- name: Aptener Mechatronics Private Limited
+  value: 3530
+- name: GEOPH, LLC
+  value: 3531
+- name: Trotec GmbH
+  value: 3532
+- name: Astra LED AG
+  value: 3533
+- name: NOVAFON - Electromedical devices limited liability company
+  value: 3534
+- name: KUBU SMART LIMITED
+  value: 3535
+- name: ESNAH
+  value: 3536
+- name: OrangeMicro Limited
+  value: 3537
+- name: Fresh n Rebel B.V
+  value: 3538
+- name: Global Satellite Engineering
+  value: 3539
+- name: KOQOON GmbH & Co.KG
+  value: 3540
+- name: BEEPINGS
+  value: 3541
+- name: MODULAR MEDICAL, INC
+  value: 3542
+- name: Xiant Technologies, Inc
+  value: 3543
+- name: Granchip IoT Technology (Guangzhou) Co.,Ltd
+  value: 3544
+- name: SCHELL GmbH & Co. KG
+  value: 3545
+- name: Minebea Intec GmbH
+  value: 3546
+- name: KAGA FEI Co., Ltd
+  value: 3547
+- name: AUTHOR-ALARM, razvoj in prodaja avtomobilskih sistemov...
+  value: 3548
+- name: Tozoa LLC
+  value: 3549
+- name: SHENZHEN DNS INDUSTRIES CO., LTD
+  value: 3550
+- name: Shenzhen Lunci Technology Co., Ltd
+  value: 3551
+- name: KNOG PTY. LTD
+  value: 3552
+- name: Outshiny India Private Limited
+  value: 3553
+- name: TAMADIC Co., Ltd
+  value: 3554
+- name: Shenzhen MODSEMI Co., Ltd
+  value: 3555
+- name: EMBEINT INC
+  value: 3556
+- name: Ehong Technology Co.,Ltd
+  value: 3557
+- name: DEXATEK Technology LTD
+  value: 3558
+- name: Dendro Technologies, Inc
+  value: 3559
+- name: Vivint, Inc
+  value: 3560
+- name: General Laser GmbH
+  value: 3561
+- name: Kathrein Solutions GmbH
+  value: 3562
+- name: Fitz Inc
+  value: 3563
+- name: ATEGENOS PHARMACEUTICALS INC
+  value: 3564
+- name: Flextronic GmbH
+  value: 3565
+- name: Safety Swim LLC
+  value: 3566
+- name: SING SUN TECHNOLOGY (INTERNATIONAL) LIMITED
+  value: 3567
+- name: Woncan (Hong Kong) Limited
+  value: 3568
+- name: iFLYTEK (Suzhou) Technology Co., Ltd
+  value: 3569
+- name: Weber-Stephen Products LLC
+  value: 3570
+- name: hDrop Technologies Inc
+  value: 3571
+- name: REEKON TOOLS INC
+  value: 3572
+- name: Delta Faucet Company
+  value: 3573
+- name: Mutrack Co., Ltd
+  value: 3574
+- name: Hangzhou Zhaotong Microelectronics Co., Ltd
+  value: 3575
+- name: Chengdu CSCT Microelectronics Co., Ltd
+  value: 3576
+- name: Belusun Technology Ltd
+  value: 3577
+- name: Shenzhen Matches IoT Technology Co., Ltd
+  value: 3578
+- name: Beidou Intelligent Connected Vehicle Technology Co., Ltd
+  value: 3579
+- name: SOJI ELECTRONICS JOINT STOCK COMPANY
+  value: 3580
+- name: BH Technologies
+  value: 3581
+- name: Haptech, Inc
+  value: 3582
+- name: WaveRF, Corp
+  value: 3583
+- name: SHENZHEN SOUNDSOUL INFORMATION TECHNOLOGY CO.,LTD
+  value: 3584
+- name: Wuhu Mengbo Technology Co., Ltd
+  value: 3585
+- name: PROSYS DEV LIMITED
+  value: 3586
+- name: Shenzhen eMeet technology Co.,Ltd
+  value: 3587
+- name: Doro AB
+  value: 3588
+- name: SUREPULSE MEDICAL LIMITED
+  value: 3589
+- name: iodyne, LLC
+  value: 3590
+- name: Pinpoint GmbH
+  value: 3591
+- name: Heinrich Kopp GmbH
+  value: 3592
+- name: Evolutive Systems SL
+  value: 3593
+- name: PRINT INTERNATIONAL LIMITED
+  value: 3594
+- name: Sounding Audio Industrial Ltd
+  value: 3595
+- name: Yuanfeng Technology Co., Ltd
+  value: 3596
+- name: FrontAct Co., Ltd
+  value: 3597
+- name: ALOGIC CORPORATION PTY LTD
+  value: 3598
+- name: SenseWorks Tecnologia Ltda
+  value: 3599
+- name: Eko Health, Inc
+  value: 3600
+- name: Wanzl GmbH & Co. KGaA
+  value: 3601
+- name: CLEVER LOGGER TECHNOLOGIES PTY LIMITED
+  value: 3602
+- name: ASYSTOM
+  value: 3603
+- name: Heilongjiang Tianyouwei Electronics Co.,Ltd
+  value: 3604
+- name: Eastern Partner Limited
+  value: 3605
+- name: Xiamen RUI YI Da Electronic Technology Co.,Ltd
+  value: 3606
+- name: Ad Hoc Electronics, llc
+  value: 3607
+- name: Hangzhou Microimage Software Co.,Ltd
+  value: 3608
+- name: Hive-Zox International SA
+  value: 3609
+- name: Sensovo GmbH
+  value: 3610
+- name: Time Location Systems AS
+  value: 3611
+- name: SHENZHEN DIGITECH CO., LTD
+  value: 3612
+- name: Capte B.V
+  value: 3613
+- name: 9512-5837 QUEBEC INC
+  value: 3614
+- name: Blecon Ltd
+  value: 3615
+- name: CFLAB TEKNOLOJI TICARET LIMITED SIRKETI
+  value: 3616
+- name: FOGO
+  value: 3617
+- name: HITO INC
+  value: 3618
+- name: MS kajak7 UG (limited liability)
+  value: 3619
+- name: Avedis Zildjian Co
+  value: 3620
+- name: Hangzhou Hikvision Digital Technology Co., Ltd
+  value: 3621
+- name: LIHJOEN SPEED METER CO., LTD
+  value: 3622
+- name: NextSense, Inc
+  value: 3623
+- name: PatchRx, Inc
+  value: 3624
+- name: Flipper Devices Inc
+  value: 3625
+- name: Huizhou Foryou General Electronics Co., Ltd
+  value: 3626
+- name: JE electronic a/s
+  value: 3627
+- name: 9313-7263 Quebec inc
+  value: 3628
+- name: ECARX (Hubei) Tech Co.,Ltd
+  value: 3629
+- name: NIHON KOHDEN CORPORATION
+  value: 3630
+- name: ONWI
+  value: 3631
+- name: Primax Electronics Ltd
+  value: 3632
+- name: AlphaTheta Corporation
+  value: 3633
+- name: PACIFIC INDUSTRIAL CO., LTD
+  value: 3634
+- name: Crescent NV
+  value: 3635
+- name: Vermis, software solutions llc
+  value: 3636
+- name: SNAPPWISH LLC
+  value: 3637
+- name: Cousins and Sears LLC
+  value: 3638
+- name: CESYS Gesellschaft fÃ¼r angewandte Mikroelektronik mbH
+  value: 3639
+- name: SLOC GmbH
+  value: 3640
+- name: IRES Infrarot Energie Systeme GmbH
+  value: 3641
+- name: OFIVE LIMITED
+  value: 3642
+- name: Swift IOT Tech (Shenzhen) Co., LTD
+  value: 3643
+- name: Viselabs
+  value: 3644
+- name: Walmart Inc
+  value: 3645
+- name: VANBOX
+  value: 3646
+- name: Wiser Devices, LLC
+  value: 3647
+- name: WKD Labs Ltd
+  value: 3648
+- name: Asustek Computer Inc
+  value: 3649
+- name: Z-ONE Technology Co., Ltd
+  value: 3650
+- name: InnoVision Medical Technologies, LLC
+  value: 3651
+- name: QUANTATEC
+  value: 3652
+- name: Filo Srl
+  value: 3653
+- name: SOUNDUCT
+  value: 3654
+- name: Hosiden Besson Limited
+  value: 3655
+- name: KARLUNA MUHENDISLIK SANAYI VE TICARET ANONIM SIRKETI
+  value: 3656
+- name: Deone (Shanghai) Communication & Technology Co., Ltd
+  value: 3657
+- name: Nitto Denko Corporation
+  value: 3658
+- name: PUDSEY DIAMOND ENGINEERING LIMITED
+  value: 3659
+- name: Luxshare Precision Industry Co., Ltd
+  value: 3660
+- name: Brooksee, Inc
+  value: 3661
+- name: QSC, LLC
+  value: 3662
+- name: eBet Gaming Sytems Pty Limited
+  value: 3663
+- name: Zhejiang Desman Intelligent Technology Co., Ltd
+  value: 3664
+- name: Dyaco International Inc
+  value: 3665
+- name: Aquana, LLC
+  value: 3666
+- name: MINIRIG
+  value: 3667
+- name: Relief Technologies AS
+  value: 3668
+- name: New Cosmos Electric Co., Ltd
+  value: 3669
+- name: INEPRO Metering B.V
+  value: 3670
+- name: Altina Inc
+  value: 3671
+- name: Urban Armor Gear, LLC
+  value: 3672
+- name: Loewe Technology GmbH
+  value: 3673
+- name: OmniWave Microelectronics Shanghai Co., Ltd
+  value: 3674
+- name: Wuhu Hongjing Electronic Co.,Ltd
+  value: 3675
+- name: Amimon Ltd
+  value: 3676
+- name: L.T.H. Electronics Limited
+  value: 3677
+- name: SHAPER TOOLS, INC
+  value: 3678
+- name: Ruptela
+  value: 3679
+- name: Ant Group Co., Ltd
+  value: 3680
+- name: Queclink Wireless Solutions Co., Ltd
+  value: 3681
+- name: GOKI PTY LTD
+  value: 3682
+- name: LAST LOCK INC
+  value: 3683
+- name: HuiTong intelligence Company Limited
+  value: 3684
+- name: Daikin Industries, LTD
+  value: 3685
+- name: Shenzhen Baseus Technology Co., Ltd
+  value: 3686
+- name: NEXT DEVICES LTDA
+  value: 3687
+- name: EarTex Ltd
+  value: 3688
+- name: Megatronix (Beijing) Technology Co., Ltd
+  value: 3689
+- name: Hyena Inc
+  value: 3690
+- name: Shenzhen Goodocom Information Technology Co., Ltd
+  value: 3691
+- name: RIGH, INC
+  value: 3692
+- name: FEVOS LIMITED
+  value: 3693
+- name: I.M.LAB Inc
+  value: 3694
+- name: OpConnect, Inc
+  value: 3695
+- name: Powerstick.com
+  value: 3696
+- name: ENABLEWEAR LLC
+  value: 3697
+- name: TOR.AI LIMITED
+  value: 3698
+- name: Adventures of the Persistently Impaired (and other tales)...
+  value: 3699
+- name: Rocky Radios LLC
+  value: 3700
+- name: Le Touch (Shenzhen) Electronics Co., Ltd
+  value: 3701
+- name: Guangdong Nanguang Photo&Video Systems Co., Ltd
+  value: 3702
+- name: MOBILE TECH, INC
+  value: 3703
+- name: HONG KONG COMMUNICATIONS COMPANY LIMITED
+  value: 3704
+- name: Neptune First OU
+  value: 3705
+- name: Vivago Oy
+  value: 3706
+- name: Circular
+  value: 3707
+- name: final Inc
+  value: 3708
+- name: Jiangsu XinTongda Electric Technology Co.,Ltd
+  value: 3709
+- name: Archon Controls LLC
+  value: 3710
+- name: SZR-Dev UG
+  value: 3711
+- name: IQNEXXT Solutions GmbH
+  value: 3712
+- name: Guangdong Hengqin Xingtong Technology Co.,ltd
+  value: 3713
+- name: CHEVALIER TECH LIMITED
+  value: 3714
+- name: SPRiNTUS GmbH
+  value: 3715
+- name: Tymphany HK Ltd
+  value: 3716
+- name: TigerLight, Inc
+  value: 3717
+- name: Mercury Marine, a division of Brunswick Corporation
+  value: 3718
+- name: OpenTech Alliance, Inc
+  value: 3719
+- name: Skewered Fencing, LLC
+  value: 3720
+- name: Brudden
+  value: 3721
+- name: Tele-Radio i Lysekil AB
+  value: 3722
+- name: Allgon AB
+  value: 3723
+- name: Gopod Group Holding Limited
+  value: 3724
+- name: Celebrities Management Private Limited
+  value: 3725
+- name: Nobest Inc
+  value: 3726
+- name: Avetos Design LLC
+  value: 3727
+- name: RainMaker Solutions, Inc
+  value: 3728
+- name: Identita Inc
+  value: 3729
+- name: Glutz AG
+  value: 3730
+- name: MIV ELECTRONICS, LTD
+  value: 3731
+- name: Tactrix
+  value: 3732
+- name: Viaanix, Inc
+  value: 3733
+- name: Skeed,co,Ltd
+  value: 3734
+- name: kokoromil Inc
+  value: 3735
+- name: Chromatic Inc
+  value: 3736
+- name: Medibound, Inc
+  value: 3737
+- name: Scanbro OU
+  value: 3738
+- name: Panasonic Automotive Systems Co., Ltd
+  value: 3739
+- name: Andrews & Arnold Ltd
+  value: 3740
+- name: Audinor ApS
+  value: 3741
+- name: Travelxp India Private Limited
+  value: 3742
+- name: Owlet Baby Care Inc
+  value: 3743
+- name: ENLESS WIRELESS
+  value: 3744
+- name: Culligan International Company
+  value: 3745
+- name: QIKCONNEX LLC
+  value: 3746
+- name: OLIS ELECTRONICS, LLC
+  value: 3747
+- name: BiTECH Automotive (Wuhu) Co.,Ltd
+  value: 3748
+- name: EasyReach Solutions Private Limited
+  value: 3749
+- name: AMG Lab LLC
+  value: 3750
+- name: BrickXter GmbH
+  value: 3751
+- name: Dongguan Trangjan Industrial Co., Ltd
+  value: 3752
+- name: Makichie Co., Ltd
+  value: 3753
+- name: Hive Soundz inc
+  value: 3754
+- name: STEYR Sport GmbH
+  value: 3755
+- name: Dynetrex Solutions Inc
+  value: 3756
+- name: OPTRON Co., Ltd
+  value: 3757
+- name: BHClears Microelectronics (Shanghai) Co., Ltd
+  value: 3758
+- name: Unfolded Circle ApS
+  value: 3759
+- name: FactorySense
+  value: 3760
+- name: WearNex Limited
+  value: 3761
+- name: PRADCO Outdoor Brands
+  value: 3762
+- name: Zucchetti Axess
+  value: 3763
+- name: BLUEFIN DATA, LLC
+  value: 3764
+- name: Preseed Japan Corporation
+  value: 3765
+- name: Server Products, Inc
+  value: 3766
+- name: Embedded Solutions LLC
+  value: 3767
+- name: PARAGON ID
+  value: 3768
+- name: egojin co,.ltd
+  value: 3769
+- name: THERMY LTD
+  value: 3770
+- name: Asahi Denso Co.,Ltd
+  value: 3771
+- name: GP Acoustics International Limited
+  value: 3772
+- name: Tongfang Health Technology (Beijing) Co., Ltd
+  value: 3773
+- name: Deity Acoustic Technology Co
+  value: 3774
+- name: Schulte-Schlagbaum AG
+  value: 3775
+- name: WEST inx Ltd
+  value: 3776
+- name: Crossdoor
+  value: 3777
+- name: High Entropy, LLC
+  value: 3778
+- name: Herschel Infrared Ltd
+  value: 3779
+- name: PACIFIC MARINE BATTERIES PTY. LIMITED
+  value: 3780
+- name: Alibaba (China) Co., Ltd
+  value: 3781
+- name: AuthGate B.V
+  value: 3782
+- name: Canyon Bicycles GmbH
+  value: 3783
+- name: Codie LLC
+  value: 3784
+- name: NeuroPace Inc
+  value: 3785
+- name: NexRev LLC
+  value: 3786
+- name: Zhong Shan City Richsound Electronic Industrial Ltd
+  value: 3787
+- name: Shenzhen NEOECO Technology Co., Ltd
+  value: 3788
+- name: Nature Inc
+  value: 3789
+- name: Guangzhou Honor Microelectronic Co.,Ltd
+  value: 3790
+- name: GGEC America, Inc
+  value: 3791
+- name: Gibson, Inc
+  value: 3792
+- name: VINYL MATT MEDIA LIMITED
+  value: 3793
+- name: SHENZHEN BESTWAY ELECTRONICS CO.,LTD
+  value: 3794
+- name: Lichens Innovation inc
+  value: 3795
+- name: Goerdyna Group Co., Ltd
+  value: 3796
+- name: Relish Technologies Limited
+  value: 3797
+- name: Quintessential Design, Inc
+  value: 3798
+- name: CS INSTRUMENTS GmbH & Co.KG
+  value: 3799
+- name: DORAN MFG. LLC
+  value: 3800
+- name: Overhead Door Corporation
+  value: 3801
+- name: Kodira GmbH
+  value: 3802
+- name: ShenZhen BoYiChuangXin
+  value: 3803
+- name: Shenzhen Zoqin Technology Co., Ltd
+  value: 3804
+- name: Ceridwen Limited
+  value: 3805
+- name: Sony Honda Mobility Inc
+  value: 3806
+- name: Dynaudio A/S
+  value: 3807
+- name: MAERSK CONTAINER INDUSTRY A/S
+  value: 3808
+- name: MA MICRO LIMITED
+  value: 3809
+- name: shenzhen hongever technology Co,. Ltd
+  value: 3810
+- name: TAMRON Co., Ltd
+  value: 3811
+- name: CAPTEMP, LDA
+  value: 3812
+- name: Ambient Life Inc
+  value: 3813
+- name: NOCTRIX HEALTH, INC
+  value: 3814
+- name: RICKARD AIR DIFFUSION (PTY) LTD
+  value: 3815
+- name: SG Armaturen AS
+  value: 3816
+- name: PIXEL TI IND. E COM PROD ELETRONICOS
+  value: 3817
+- name: Core Devices LLC
+  value: 3818
+- name: Fujita Electric Works, Ltd
+  value: 3819
+- name: Willow Laboratories, Inc
+  value: 3820
+- name: BBC Bircher AG
+  value: 3821
+- name: ELLEA INGEGNERIA SRL UNIPERSONALE
+  value: 3822
+- name: Q42 Internet B.V
+  value: 3823
+- name: Seaward Electronic
+  value: 3824
+- name: Wuxi Does IOT Co., Ltd
+  value: 3825
+- name: CAPTAIN BLINK
+  value: 3826
+- name: Monil AS
+  value: 3827
+- name: SEMINOLE ELECTRONICS PRIVATE LIMITED
+  value: 3828
+- name: LS ELECTRIC Co., Ltd
+  value: 3829
+- name: Shenzhen Cyber Innovation Technology Co., Ltd
+  value: 3830
+- name: Trackonomy Systems, Inc
+  value: 3831
+- name: IoT Solutions Malta Limited
+  value: 3832
+- name: Aseptico, Inc
+  value: 3833
+- name: Sensear Pty Ltd
+  value: 3834
+- name: BLUEPROVIDERZ LLC
+  value: 3835
+- name: Jano Life Inc
+  value: 3836
+- name: PRIMES GmbH
+  value: 3837
+- name: Teledyne Instruments, Inc
+  value: 3838
+- name: Healthcare Technology Limited
+  value: 3839
+- name: TRACERCO LIMITED
+  value: 3840
+- name: HAPPLABS SOFTWARE PRIVATE LIMITED
+  value: 3841
+- name: GE HEALTHCARE TECHNOLOGIES INC
+  value: 3842
+- name: Olibra LLC
+  value: 3843
+- name: Lumen Labs (HK) Ltd
+  value: 3844
+- name: SHENZHEN GWSTAI TECHNOLOGY CO.,LTD
+  value: 3845
+- name: SHENZHEN POWEROAK NEWENER CO., LTD
+  value: 3846
+- name: Tech OVN Private Limited
+  value: 3847
+- name: Lezyne USA Inc
+  value: 3848
+- name: ANC CHINA LIMITED
+  value: 3849
+- name: LION GROUP, INC
+  value: 3850
+- name: Brightway Innovation Intelligent Technology (Suzhou) Co.,...
+  value: 3851
+- name: Hitachi Industrial Equipment Systems Co.,Ltd
+  value: 3852
+- name: Maennl Elektronik GmbH
+  value: 3853
+- name: IDEATRONIK Limited Liability Company
+  value: 3854
+- name: caive Inc
+  value: 3855
+- name: ShenZhen Doctors of Intelligence & Technology Co.,Ltd
+  value: 3856
+- name: Deep and Steep LLC
+  value: 3857
+- name: Endur ID, Inc
+  value: 3858
+- name: Freshape SA
+  value: 3859
+- name: PreEvnt, LLC
+  value: 3860
+- name: Oval Corporation
+  value: 3861
+- name: ADHD Friendly co.Ltd
+  value: 3862
+- name: RORENTECH Co., Ltd
+  value: 3863
+- name: iKeyless, LLC
+  value: 3864
+- name: Shenzhen SuperSound Technology Co.,Ltd
+  value: 3865
+- name: FLO SCIENCES, LLC
+  value: 3866
+- name: PalatiumCare LLC
+  value: 3867
+- name: Edge Semiconductors Inc
+  value: 3868
+- name: ZIMMERMANN PV-Steel Group GmbH & Co. KG
+  value: 3869
+- name: Yolni Inc
+  value: 3870
+- name: Ninebot (Changzhou) Tech Co., Ltd
+  value: 3871
+- name: Beijing Spring Creation Technology Co., Ltd
+  value: 3872
+- name: Rokk Limited
+  value: 3873
+- name: ONESPACE TECHNOLOGIES (PTY) LTD
+  value: 3874
+- name: Yuquan Semiconductor (Xiamen) Co., Ltd
+  value: 3875
+- name: Easy Measure Co., Ltd
+  value: 3876
+- name: Sichuan Changhong Neonet Technologies Co.,Ltd
+  value: 3877
+- name: Centromere Holding B.V
+  value: 3878
+- name: Global Link Distribution Corp
+  value: 3879
+- name: Amp Fit Israel LTD
+  value: 3880
+- name: Trezor Company s.r.o
+  value: 3881
+- name: KELLER Druckmesstechnik AG
+  value: 3882
+- name: ElitEngineering LLC
+  value: 3883
+- name: Vision Group Inc
+  value: 3884
+- name: ClipsClips LLC
+  value: 3885
+- name: BRITZ INTERNATIONAL CO.,LTD
+  value: 3886
+- name: ThingCo Limited
+  value: 3887
+- name: Opal Camera, Inc
+  value: 3888
+- name: TECHNOLOGIES FOR FREERIDE s.r.o
+  value: 3889
+- name: FLINTEC UK LIMITED
+  value: 3890
+- name: TETNET
+  value: 3891
+- name: NINGBO SHARKWARD ELECTRONICS CO.,LTD
+  value: 3892
+- name: Audeze LLC
+  value: 3893
+- name: NODER Joint Stock Company
+  value: 3894
+- name: Schueco International KG
+  value: 3895
+- name: GILL INSTRUMENTS LIMITED
+  value: 3896
+- name: Seitron Spa
+  value: 3897
+- name: Southern Audio Services, Inc
+  value: 3898
+- name: SANWA NEWTEC CO.,LTD
+  value: 3899
+- name: Mobile Technology Solutions LLC
+  value: 3900
+- name: Vitio Medical S.L
+  value: 3901
+- name: Salyx Medical Inc
+  value: 3902
+- name: Landig + Lava GmbH & Co. KG
+  value: 3903
+- name: Health Data Insight C.I.C
+  value: 3904
+- name: BONX INC
+  value: 3905
+- name: LINKEDCHIP TECHNOLOGY INC
+  value: 3906
+- name: 12mm Health Technology (Hainan) Co., Ltd
+  value: 3907
+- name: MAVERICK ENERGY SOLUTIONS INTERNATIONAL,INC
+  value: 3908
+- name: Tactica Defense LLC
+  value: 3909
+- name: Huizhou Meicanxin Electronics Technology Co.,Ltd
+  value: 3910
+- name: Lodestar Technology Inc
+  value: 3911
+- name: Shenzhen Xinfeiyi Technology Co., Ltd
+  value: 3912
+- name: IYO INC
+  value: 3913
+- name: Mitsubishi Motors Corporation
+  value: 3914
+- name: desamisCo.,Ltd
+  value: 3915
+- name: JL WORLD CORPORATION LIMITED
+  value: 3916
+- name: Qulinda AB
+  value: 3917
+- name: Ningbo Dooya Mechanic & Electronic Technology Co., Ltd
+  value: 3918
+- name: G-Vision GmbH
+  value: 3919
+- name: Lantern Innovations Incorporated
+  value: 3920
+- name: ebm-papst Mulfingen GmbH & Co. KGaA & Co. KG
+  value: 3921
+- name: Shenzhen Yunke Intelligent Co.Ltd
+  value: 3922
+- name: Fledt & Meiton Marin AB
+  value: 3923
+- name: ContiTech Deutschland GmbH
+  value: 3924
+- name: Sensoteq Ltd
+  value: 3925
+- name: Astute Access Group Limited
+  value: 3926
+- name: Silverlake Technologies
+  value: 3927
+- name: Shenzhen Guo-link Technology Co.,Ltd
+  value: 3928
+- name: Silicon Vandals PTY LTD
+  value: 3929
+- name: Vibe Energy B.V
+  value: 3930

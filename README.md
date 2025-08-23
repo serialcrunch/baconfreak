@@ -112,6 +112,9 @@ sudo python main.py scan --plugins wifi --interface wlan0
 # Run diagnostics
 ./baconfreak.sh doctor
 
+# Update official databases (IEEE OUI + Bluetooth SIG)
+./baconfreak.sh refresh-databases
+
 # Advanced scanning
 ./baconfreak.sh scan --interface 1 --log-level DEBUG
 ```
@@ -216,14 +219,52 @@ The tool can identify:
 - **Other Apple Devices** - Generic Apple device detection
 - **Unknown Devices** - Any BLE device with manufacturer data
 
+## BLE Company Identification
+
+The BLE plugin includes **Bluetooth SIG Company Identifier** lookup for manufacturer identification:
+
+### **Comprehensive Company Database**
+- **3,927+ Official Company IDs** from the Bluetooth SIG database
+- **Complete manufacturer coverage** including Apple (ID 76), Google (ID 224/398), Microsoft (ID 6), Samsung (ID 117), Intel (ID 2), Qualcomm (multiple IDs), and thousands more
+- **Automatic lookup** for all detected BLE devices with manufacturer data
+- **Real-time company display** in the live monitoring interface
+- **Historical coverage** from early Bluetooth companies to latest registrations
+
+### **Custom Company Identifiers**
+
+You can add custom company ID mappings by editing **`external/custom_identifiers.yaml`**:
+
+```yaml
+company_identifiers:
+  # Custom company assignments
+  - company_id: 65535
+    company_name: "My Test Company"
+    
+  # Override standard companies with specific info
+  - company_id: 76
+    company_name: "Apple Inc. (Cupertino)"
+    
+  # Private/experimental company IDs
+  - company_id: 65534
+    company_name: "Internal R&D Division"
+```
+
+**Key Features:**
+- ✅ **Override Support**: Custom entries override standard Bluetooth SIG database
+- ✅ **Private ID Support**: Perfect for internal development and testing
+- ✅ **Easy Updates**: Run `python scripts/update_bluetooth_companies.py --download` for latest official data
+- ✅ **Comprehensive Coverage**: From ID 0 (Ericsson) to latest registrations
+
 ## WiFi Vendor Identification
 
 The WiFi plugin includes **OUI (Organizationally Unique Identifier)** lookup for MAC address vendor identification:
 
-### **Included Vendors**
-- **100+ OUIs** from major networking vendors (Apple, Cisco, Intel, Microsoft, VMware, NETGEAR, Linksys, etc.)
+### **Comprehensive Vendor Database**
+- **37,822+ Official OUIs** from the IEEE Standards Association database
+- **Complete vendor coverage** including Apple (1,413 OUIs), Huawei (1,876 OUIs), Cisco (1,191 OUIs), Samsung (847 OUIs), Intel (629 OUIs), and thousands more
 - **Automatic lookup** for all detected WiFi devices (access points, clients)
 - **Real-time vendor display** in the live monitoring interface
+- **Randomized MAC detection** for privacy-enabled devices (iOS, Android, Windows 10)
 
 ### **Custom OUI Identifiers**
 
@@ -251,6 +292,7 @@ oui_identifiers:
 - ✅ **Private OUI Support**: Perfect for locally administered addresses
 - ✅ **Docker/VM Recognition**: Built-in recognition for virtualization platforms
 - ✅ **Easy Updates**: Run `python main.py update-oui-db` to reload custom entries
+- ✅ **Fresh IEEE Data**: Update with `python scripts/update_oui_database.py --download` for latest official OUIs
 
 **Common Use Cases:**
 - **Organization Networks**: Label your company's devices

@@ -51,7 +51,7 @@ class TestConfig(unittest.TestCase):
 
         self.assertEqual(len(sources), 2)
         self.assertTrue(all(isinstance(path, Path) for path in sources))
-        self.assertTrue(any("company_identifiers.yaml" in str(path) for path in sources))
+        self.assertTrue(any("bluetooth_sig_identifiers.yaml" in str(path) for path in sources))
         self.assertTrue(any("custom_identifiers.yaml" in str(path) for path in sources))
 
     def test_ensure_directories(self):
