@@ -1,5 +1,5 @@
 #!/bin/bash
-# Baconfreak - Bluetooth Low Energy packet analysis tool helper script
+# Baconfreak - BLE and WiFi packet analysis tool helper script
 # This script runs the baconfreak tool as sudo within the virtual environment
 
 set -e  # Exit on any error
@@ -78,7 +78,7 @@ show_usage() {
     cat << EOF
 Usage: $0 [OPTIONS] [COMMAND] [ARGS...]
 
-Baconfreak - Modern Bluetooth Low Energy and WiFi packet analysis tool
+Baconfreak - Modern BLE and WiFi packet analysis tool
 
 Commands:
   scan [OPTIONS]           Start BLE/WiFi packet scanning (default)

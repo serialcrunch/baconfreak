@@ -27,7 +27,7 @@ from src.models import DeviceType
 
 app = typer.Typer(
     name="baconfreak",
-    help="🥓  Bluetooth Low Energy packet analysis tool",
+    help="🥓  BLE and WiFi packet analysis tool",
     add_completion=False,
     rich_markup_mode="rich",
 )
@@ -38,7 +38,7 @@ console = Console()
 def version_callback(value: bool):
     """Show version information."""
     if value:
-        console.print("🥓  [bold blue]baconfreak[/bold blue] - Bluetooth Analysis Tool")
+        console.print("🥓  [bold blue]baconfreak[/bold blue] - BLE & WiFi Analysis Tool")
         console.print("Version: [green]1.0.0[/green]")
         console.print("Built with: [cyan]Scapy, Pydantic, Loguru, Rich, Typer[/cyan]")
         raise typer.Exit()
@@ -113,7 +113,7 @@ def scan(
     ),
 ):
     """
-    🛰️  Start network packet scanning with pluggable protocols.
+    🛰️  Start BLE and WiFi packet scanning with pluggable protocols.
 
     This command begins monitoring network packets using the specified protocols
     (BLE, WiFi, etc.) and categorizes devices by type and company identifiers.

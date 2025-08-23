@@ -138,7 +138,7 @@ class TestCLI(unittest.TestCase):
         # Test that app is properly configured
         self.assertIsInstance(app, typer.Typer)
         self.assertEqual(app.info.name, "baconfreak")
-        self.assertIn("Bluetooth", app.info.help)
+        self.assertIn("BLE", app.info.help)
 
     @patch('main.config')
     def test_config_integration(self, mock_config):

@@ -62,7 +62,7 @@ statistics_interval = 10  # seconds
 # Modern plugin architecture - each plugin has its own configuration
 
 [plugins.ble]
-# Bluetooth Low Energy plugin configuration
+# BLE plugin configuration
 enabled = true                      # Enable/disable BLE plugin
 interface = "hci1"                  # HCI interface (e.g., hci0, hci1)
 adapter_name = "Built-in Bluetooth" # Bluetooth adapter name for display

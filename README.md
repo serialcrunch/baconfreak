@@ -1,6 +1,6 @@
-# 🥓 baconfreak: Bluetooth Low Energy Analysis Tool
+# 🥓 baconfreak: BLE & WiFi Packet Analysis Tool
 
-A modern, Python-based tool for capturing and analyzing Bluetooth Low Energy (BLE) advertising packets. Built with industry-standard packages like **Pydantic**, **Loguru**, **Rich**, and **Typer** for professional-grade Bluetooth security research and monitoring.
+A modern, Python-based tool for capturing and analyzing BLE advertising packets and WiFi frames. Built with industry-standard packages like **Pydantic**, **Loguru**, **Rich**, and **Typer** for professional-grade wireless security research and monitoring.
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -349,7 +349,7 @@ iw phy info | grep -E "Band|MHz"
 
 ## License
 
-This project is for educational and research purposes. Please ensure compliance with local laws and regulations regarding Bluetooth monitoring and privacy.
+This project is for educational and research purposes. Please ensure compliance with local laws and regulations regarding Bluetooth and WiFi monitoring and privacy.
 
 ## Acknowledgments
 

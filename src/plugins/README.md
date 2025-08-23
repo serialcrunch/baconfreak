@@ -123,7 +123,7 @@ Multiple plugins can run simultaneously with a tabbed interface:
 ## Built-in Plugins
 
 ### BLE Plugin (`src/plugins/ble/`)
-- **Protocol**: Bluetooth Low Energy
+- **Protocol**: BLE
 - **Interface**: HCI (e.g., hci1)
 - **Features**: Device detection, manufacturer identification, RSSI tracking
 - **Output Files**: `BLE-{timestamp}-ble-known.pcap`, `BLE-{timestamp}-ble-unknown.pcap`, etc.

@@ -1,5 +1,5 @@
 """
-Bluetooth Low Energy (BLE) capture plugin.
+BLE capture plugin.
 """
 
 import signal
@@ -35,7 +35,7 @@ from ..base import CapturePlugin, PluginError, PluginInfo, PluginRequirementErro
 
 
 class BLEPlugin(CapturePlugin):
-    """Bluetooth Low Energy capture plugin."""
+    """BLE capture plugin."""
     
     def __init__(self, config: Dict[str, Any], console: Optional[Console] = None):
         super().__init__(config, console)
@@ -79,7 +79,7 @@ class BLEPlugin(CapturePlugin):
         return PluginInfo(
             name="BLE Scanner",
             version="1.0.0", 
-            description="Bluetooth Low Energy packet capture and device detection",
+            description="BLE packet capture and device detection",
             protocol="ble",
             requires_root=True,
             supported_platforms=["linux"],

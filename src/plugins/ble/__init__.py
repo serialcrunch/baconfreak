@@ -1,5 +1,5 @@
 """
-BLE (Bluetooth Low Energy) plugin package.
+BLE plugin package.
 """
 
 from .plugin import BLEPlugin

@@ -30,7 +30,7 @@ class TestCLICommands(unittest.TestCase):
     def test_app_configuration(self):
         """Test Typer app configuration."""
         self.assertEqual(app.info.name, "baconfreak")
-        self.assertIn("Bluetooth", app.info.help)
+        self.assertIn("BLE", app.info.help)
 
     @patch('main.console')
     def test_version_callback_true(self, mock_console):
@@ -85,7 +85,7 @@ class TestCLICommands(unittest.TestCase):
         
         result = self.runner.invoke(app, ["scan", "--help"])
         self.assertEqual(result.exit_code, 0)
-        self.assertIn("Start network packet scanning", result.stdout)
+        self.assertIn("Start BLE and WiFi packet scanning", result.stdout)
 
     @patch('src.baconfreak.BluetoothScanner')
     @patch('main.setup_logging')
@@ -319,7 +319,7 @@ class TestCLIErrorHandling(unittest.TestCase):
         # Test that scan help works (this verifies the command is properly set up)
         result = self.runner.invoke(app, ["scan", "--help"])
         self.assertEqual(result.exit_code, 0)
-        self.assertIn("Start network packet scanning", result.stdout)
+        self.assertIn("Start BLE and WiFi packet scanning", result.stdout)
         
         # The actual KeyboardInterrupt handling is tested in integration tests
         # or can be verified by examining the scan function code which shows:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Bluetooth Low Energy packet analysis tool.
+BLE and WiFi packet analysis tool.
 
 This module provides enhanced capabilities using Pydantic, Loguru, Rich, and other
 industry-standard packages for better performance, maintainability, and user experience.
@@ -94,7 +94,7 @@ def pcap_writers(known_path: Path, unknown_path: Path, devices_path: Path):
 
 
 class BluetoothScanner:
-    """Bluetooth Low Energy scanner with Rich UI and structured logging."""
+    """BLE scanner with Rich UI and structured logging."""
 
     def __init__(
         self,
