@@ -2,6 +2,7 @@
 WiFi packet capture plugin.
 """
 
+import os
 import threading
 import time
 from contextlib import contextmanager
@@ -12,11 +13,10 @@ from typing import Any, Dict, List, Optional
 from loguru import logger
 from rich.console import Console
 from rich.layout import Layout
-from rich.markup import escape
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
-from scapy.all import *
+from scapy.all import sniff
 from scapy.layers.dot11 import Dot11, Dot11Beacon, Dot11ProbeReq, Dot11ProbeResp
 from scapy.utils import PcapWriter
 

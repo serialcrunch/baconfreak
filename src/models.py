@@ -8,7 +8,6 @@ from typing import Any, Dict, List, Optional
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
-from pydantic.dataclasses import dataclass as pydantic_dataclass
 
 from .utils import normalize_mac_address
 

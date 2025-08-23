@@ -280,37 +280,38 @@ class TestBluetoothScannerMethods(unittest.TestCase):
         self.assertIsNotNone(table)
 
     def test_format_time_delta(self):
-        """Test time delta formatting."""
+        """Test time delta formatting using the utility function."""
         from datetime import timedelta
+        from src.utils import format_time_delta
 
         # Test seconds
         delta = timedelta(seconds=30)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "30s")
 
         # Test minutes (compact format)
         delta = timedelta(minutes=5, seconds=30)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "5m")
 
         # Test hours and minutes
         delta = timedelta(hours=2, minutes=30)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "2h30m")
 
         # Test hours only
         delta = timedelta(hours=3)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "3h")
 
         # Test days and hours
         delta = timedelta(days=1, hours=5)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "1d5h")
 
         # Test days only
         delta = timedelta(days=2)
-        result = self.scanner._format_time_delta(delta)
+        result = format_time_delta(delta)
         self.assertEqual(result, "2d")
 
     def test_handle_keyboard_input(self):

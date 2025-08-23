@@ -37,6 +37,7 @@ from .config import config
 from .device_detector import DeviceDetector
 from .logger import BaconFreakLogger, setup_logging
 from .models import BluetoothDevice, DeviceStats, DeviceType, PacketInfo, ScanConfiguration
+from .utils import format_time_delta
 
 
 class BaconFreakError(Exception):
@@ -297,16 +298,16 @@ class BluetoothScanner:
             total_time_delta = now - device.first_seen
 
             # Format last seen
-            last_seen_str = self._format_time_delta(last_seen_delta)
+            last_seen_str = format_time_delta(last_seen_delta)
 
             # Format first seen (show actual time if recent, otherwise relative)
             if total_time_delta.total_seconds() < 3600:  # Less than 1 hour
                 first_seen_str = device.first_seen.strftime("%H:%M:%S")
             else:
-                first_seen_str = self._format_time_delta(total_time_delta) + " ago"
+                first_seen_str = format_time_delta(total_time_delta) + " ago"
 
             # Format total time seen
-            total_time_str = self._format_time_delta(total_time_delta)
+            total_time_str = format_time_delta(total_time_delta)
 
             # Color RSSI based on signal strength
             rssi_style = "green" if device.rssi > -50 else "yellow" if device.rssi > -70 else "red"
@@ -323,30 +324,6 @@ class BluetoothScanner:
             )
 
         return table
-
-    def _format_time_delta(self, delta) -> str:
-        """Format a timedelta into a compact human-readable string."""
-        total_seconds = int(delta.total_seconds())
-
-        if total_seconds < 60:
-            return f"{total_seconds}s"
-        elif total_seconds < 3600:  # Less than 1 hour
-            minutes = total_seconds // 60
-            return f"{minutes}m"
-        elif total_seconds < 86400:  # Less than 1 day
-            hours = total_seconds // 3600
-            minutes = (total_seconds % 3600) // 60
-            if minutes > 0:
-                return f"{hours}h{minutes}m"
-            else:
-                return f"{hours}h"
-        else:  # 1 day or more
-            days = total_seconds // 86400
-            hours = (total_seconds % 86400) // 3600
-            if hours > 0:
-                return f"{days}d{hours}h"
-            else:
-                return f"{days}d"
 
     def _create_stats_panel(self) -> Panel:
         """Create statistics panel."""

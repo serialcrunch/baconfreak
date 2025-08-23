@@ -2,7 +2,6 @@
 BLE capture plugin.
 """
 
-import signal
 import threading
 import time
 from contextlib import contextmanager

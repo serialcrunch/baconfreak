@@ -3,7 +3,6 @@ Plugin discovery system for auto-loading plugins from individual folders.
 """
 
 import importlib
-import pkgutil
 from pathlib import Path
 from typing import Dict, List, Type
 
