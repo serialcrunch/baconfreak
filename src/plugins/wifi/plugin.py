@@ -888,7 +888,7 @@ class WiFiPlugin(CapturePlugin):
 
             # Update or create client device
             device = self._get_or_create_wifi_device(
-                client_mac, f"[yellow]Client ({ssid})[yellow]", "client"
+                client_mac, "Client", "client"
             )
             device.update_seen(rssi)
             device.probe_packets += 1
@@ -944,7 +944,7 @@ class WiFiPlugin(CapturePlugin):
             # Update client if we see data from it
             if client_mac and client_mac != ap_mac:
                 device = self._get_or_create_wifi_device(
-                    client_mac, "[dim]Client (Data Frame)[dim]", "client"
+                    client_mac, "Client (Data Frame)", "client"
                 )
                 device.update_seen(rssi)
                 device.data_packets += 1
@@ -1041,16 +1041,20 @@ class WiFiPlugin(CapturePlugin):
             # Format RSSI column
             rssi_display = DeviceTableFormatter.format_rssi_column(device.rssi)
 
-            # Truncate long SSIDs and apply gray styling to "Hidden"
+            # Truncate long SSIDs and apply styling
             ssid_truncated = truncate_string(device.ssid, 20)
             if ssid_truncated == "Hidden":
                 ssid_display = "[dim]Hidden[/dim]"
+            elif ssid_truncated == "Client":
+                ssid_display = "[dim]Client[/dim]"
+            elif ssid_truncated.startswith("Client ("):
+                ssid_display = f"[dim]{ssid_truncated}[/dim]"
             else:
                 ssid_display = ssid_truncated
 
             table.add_row(
                 "AP" if device.device_type == "access_point" else "Client",
-                Text(device.bssid, style=None),
+                Text(device.bssid),
                 ssid_display,
                 str(device.channel) if device.channel else "-",
                 rssi_display,

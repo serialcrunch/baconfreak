@@ -526,7 +526,7 @@ class BLEPlugin(CapturePlugin):
 
             table.add_row(
                 device.device_type.value,
-                Text(device.addr, style=None),
+                Text(device.addr),
                 rssi_display,
                 company_display,
                 str(device.packet_count),
