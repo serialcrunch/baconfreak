@@ -114,6 +114,21 @@ class BaconFreakConfig:
         return [external_dir / source for source in sources]
 
     @property
+    def oui_identifiers_db_path(self) -> Path:
+        """Get path for OUI identifiers database."""
+        filename = self.settings.get("database.oui_identifiers_db", "oui_identifiers.db")
+        return self.assets_dir_path / filename
+
+    @property
+    def oui_identifiers_sources(self) -> List[Path]:
+        """Get list of OUI identifier source files."""
+        external_dir = self.external_dir_path
+        sources = self.settings.get(
+            "database.oui_sources", ["oui_identifiers.yaml"]
+        )
+        return [external_dir / source for source in sources]
+
+    @property
     def scan_config(self) -> ScanConfiguration:
         """Get scan configuration as Pydantic model."""
         # Handle backward compatibility for integer interfaces

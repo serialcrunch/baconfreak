@@ -466,7 +466,7 @@ def update_db(
 ):
     """🗃️  Update company identifiers database from YAML sources."""
     try:
-        from src.company_identifiers import CompanyIdentifiers
+        from src.plugins.ble.company_identifiers import CompanyIdentifiers
 
         console.print("🗃️  [bold blue]Updating Company Identifiers Database[/bold blue]")
         console.print("Loading company identifiers...")
@@ -505,6 +505,45 @@ def update_db(
     except Exception as e:
         console.print(f"❌ [red]Failed to update database: {e}[/red]")
         logger.error(f"Database update failed: {e}")
+        raise typer.Exit(1)
+
+
+@app.command()
+def update_oui_db(
+    force: bool = typer.Option(
+        False, "--force", "-f", help="🔄 Force update even if files haven't changed"
+    )
+):
+    """📶  Update WiFi OUI identifiers database from YAML sources."""
+    try:
+        from src.plugins.wifi.oui_identifiers import OUIIdentifiers
+
+        console.print("📶  [bold blue]Updating OUI Identifiers Database[/bold blue]")
+        console.print("Loading OUI identifiers...")
+
+        oui_ids = OUIIdentifiers()
+
+        with console.status("[bold blue]Updating OUI database...", spinner="dots"):
+            oui_ids.update_from_sources()
+
+        # Show results
+        stats = oui_ids.get_statistics()
+        
+        table = Table(title="OUI Update Results")
+        table.add_column("Metric", style="cyan")
+        table.add_column("Value", style="green")
+
+        table.add_row("Total OUIs", str(stats["database"]["total_ouis"]))
+        table.add_row("Database Path", str(stats["database"]["database_path"]))
+
+        console.print(table)
+
+        console.print(f"\n✅ [green]OUI database updated successfully![/green]")
+        console.print(f"Database location: [cyan]{config.oui_identifiers_db_path}[/cyan]")
+
+    except Exception as e:
+        console.print(f"❌ [red]Failed to update OUI database: {e}[/red]")
+        logger.error(f"OUI database update failed: {e}")
         raise typer.Exit(1)
 
 

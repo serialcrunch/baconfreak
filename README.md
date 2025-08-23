@@ -216,6 +216,48 @@ The tool can identify:
 - **Other Apple Devices** - Generic Apple device detection
 - **Unknown Devices** - Any BLE device with manufacturer data
 
+## WiFi Vendor Identification
+
+The WiFi plugin includes **OUI (Organizationally Unique Identifier)** lookup for MAC address vendor identification:
+
+### **Included Vendors**
+- **100+ OUIs** from major networking vendors (Apple, Cisco, Intel, Microsoft, VMware, NETGEAR, Linksys, etc.)
+- **Automatic lookup** for all detected WiFi devices (access points, clients)
+- **Real-time vendor display** in the live monitoring interface
+
+### **Custom OUI Identifiers**
+
+You can add custom OUI-to-vendor mappings by editing **`external/custom_oui_identifiers.yaml`**:
+
+```yaml
+oui_identifiers:
+  # Custom organizational devices
+  - oui: "AA:BB:CC"
+    vendor_name: "My Company Device"
+    
+  # Override standard vendors with specific info
+  - oui: "00:05:02"
+    vendor_name: "Apple MacBook Pro"
+    
+  # Private/locally administered addresses
+  - oui: "02:42:00"
+    vendor_name: "Docker Container"
+  - oui: "52:54:00"
+    vendor_name: "QEMU/KVM Virtual NIC"
+```
+
+**Key Features:**
+- ✅ **Override Support**: Custom entries override standard IEEE database
+- ✅ **Private OUI Support**: Perfect for locally administered addresses
+- ✅ **Docker/VM Recognition**: Built-in recognition for virtualization platforms
+- ✅ **Easy Updates**: Run `python main.py update-oui-db` to reload custom entries
+
+**Common Use Cases:**
+- **Organization Networks**: Label your company's devices
+- **Lab Environments**: Identify test equipment and VMs
+- **Home Networks**: Custom names for personal devices
+- **Security Research**: Enhanced device categorization
+
 ## Output Files
 
 ### Bluetooth Files

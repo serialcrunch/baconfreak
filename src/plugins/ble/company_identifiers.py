@@ -19,7 +19,7 @@ from peewee import (
 )
 from pydantic import BaseModel, Field, field_validator
 
-from .config import config
+from ...config import config
 
 # Database connection
 db = SqliteDatabase(None)

@@ -1,0 +1,66 @@
+# Custom OUI Identifiers
+# 
+# This file allows you to define custom OUI-to-vendor mappings for WiFi devices.
+# These will supplement or override the standard IEEE OUI database.
+#
+# Format:
+#   oui_identifiers:
+#     - oui: "XX:XX:XX"      # First 3 bytes of MAC address in uppercase
+#       vendor_name: "Vendor Name"
+#
+# Examples:
+# - Private/Local OUIs (starting with x2, x6, xA, xE in first octet)
+# - Custom device naming for your network
+# - Organization-specific device identification
+# - Override standard vendor names with more specific descriptions
+
+oui_identifiers:
+  # Example: Private/Local OUIs - these are locally administered addresses
+  - oui: "02:00:00"
+    vendor_name: "Local Admin (Private)"
+  - oui: "06:00:00"
+    vendor_name: "Local Admin (Private)"
+  - oui: "0A:00:00"
+    vendor_name: "Local Admin (Private)"
+  - oui: "0E:00:00"
+    vendor_name: "Local Admin (Private)"
+
+  # Example: Custom organizational devices
+  - oui: "AA:BB:CC"
+    vendor_name: "Custom Organization Device"
+  - oui: "DD:EE:FF"
+    vendor_name: "Test Lab Equipment"
+
+  # Example: Override standard vendor with more specific info
+  # (Uncomment and modify as needed)
+  # - oui: "00:05:02"
+  #   vendor_name: "Apple MacBook Pro"
+  # - oui: "00:0C:29"
+  #   vendor_name: "VMware Workstation VM"
+
+  # Example: Common locally administered prefixes used by virtualization
+  - oui: "52:54:00"
+    vendor_name: "QEMU/KVM Virtual NIC"
+  - oui: "08:00:27"
+    vendor_name: "VirtualBox Virtual NIC"
+    
+  # Example: Docker and container networking
+  - oui: "02:42:00"
+    vendor_name: "Docker Container"
+  - oui: "02:42:01"
+    vendor_name: "Docker Container"
+  - oui: "02:42:AC"
+    vendor_name: "Docker Bridge Network"
+
+  # Example: Common test/development ranges
+  - oui: "DE:AD:BE"
+    vendor_name: "Test Device"
+  - oui: "CA:FE:BA"
+    vendor_name: "Development Device"
+
+# Notes:
+# 1. OUIs must be in XX:XX:XX format with uppercase hex digits
+# 2. This file is loaded after the main OUI database, so it can override entries
+# 3. Custom entries take precedence over standard IEEE OUI entries
+# 4. Private/local OUIs (bit 1 of first octet = 1) are not assigned by IEEE
+# 5. Use 'python main.py update-oui-db' to reload after making changes

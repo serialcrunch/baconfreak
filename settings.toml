@@ -30,10 +30,15 @@ device_types_for_devices_pcap = ["tile", "airtag_unregistered", "airtag_register
 
 [database]
 company_identifiers_db = "company_identifiers.db"
+oui_identifiers_db = "oui_identifiers.db"
 batch_size = 500
 sources = [
     "company_identifiers.yaml",
     "custom_identifiers.yaml"
+]
+oui_sources = [
+    "oui_identifiers.yaml",
+    "custom_oui_identifiers.yaml"
 ]
 
 [detection]

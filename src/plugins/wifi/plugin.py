@@ -26,6 +26,7 @@ from ..base import CapturePlugin, PluginError, PluginInfo
 from ..common_ui import SortManager, DeviceTableFormatter, StatsFormatter, TableColumnConfig, FooterBuilder
 from ..interface_utils import InterfaceValidator, InterfaceErrorHandler, RequirementsChecker
 from ..pcap_utils import PcapManager
+from .oui_identifiers import OUIIdentifiers
 
 
 class WiFiDevice:
@@ -75,6 +76,9 @@ class WiFiPlugin(CapturePlugin):
 
         # WiFi-specific components (initialize early for use in config methods)
         self.logger = BaconFreakLogger("wifi_plugin")
+        
+        # Initialize OUI identifier lookup
+        self.oui_identifiers: Optional[OUIIdentifiers] = None
 
         # WiFi-specific configuration
         self.interface = config.get("interface", "wlan0")
@@ -333,7 +337,7 @@ class WiFiPlugin(CapturePlugin):
                         bands["6e"] = True
 
         except (subprocess.TimeoutExpired, subprocess.SubprocessError, FileNotFoundError) as e:
-            self.logger.logger.debug(f"Could not detect band support via iw: {e}")
+            logger.debug(f"Could not detect band support via iw: {e}")
 
         self._supported_bands = bands
         return bands
@@ -355,9 +359,9 @@ class WiFiPlugin(CapturePlugin):
         if self.enable_2_4ghz:
             if supported_bands["2.4ghz"]:
                 channels.extend([1, 6, 11])  # Most common 2.4GHz channels
-                self.logger.logger.info("Added 2.4GHz channels to scan list")
+                logger.info("Added 2.4GHz channels to scan list")
             else:
-                self.logger.logger.warning(
+                logger.warning(
                     "2.4GHz band requested but not supported by adapter, skipping 2.4GHz channels"
                 )
 
@@ -393,9 +397,9 @@ class WiFiPlugin(CapturePlugin):
                     165,
                 ]
                 channels.extend(fiveghz_channels)
-                self.logger.logger.info("Added 5GHz channels to scan list")
+                logger.info("Added 5GHz channels to scan list")
             else:
-                self.logger.logger.warning(
+                logger.warning(
                     "5GHz band requested but not supported by adapter, skipping 5GHz channels"
                 )
 
@@ -431,15 +435,15 @@ class WiFiPlugin(CapturePlugin):
                     93,
                 ]
                 channels.extend(sixe_channels)
-                self.logger.logger.info("Added 6E channels to scan list")
+                logger.info("Added 6E channels to scan list")
             else:
-                self.logger.logger.warning(
+                logger.warning(
                     "6E band requested but not supported by adapter, skipping 6E channels"
                 )
 
         # Fallback: if no channels are enabled, enable 2.4GHz as default
         if not channels:
-            self.logger.logger.warning("No channels enabled, falling back to 2.4GHz channels")
+            logger.warning("No channels enabled, falling back to 2.4GHz channels")
             channels.extend([1, 6, 11])
 
         return sorted(list(set(channels)))  # Remove duplicates and sort
@@ -620,6 +624,10 @@ class WiFiPlugin(CapturePlugin):
         import shutil
 
         try:
+            # Initialize OUI identifiers
+            self.oui_identifiers = OUIIdentifiers()
+            logger.info("OUI identifiers initialized for WiFi plugin")
+            
             # Set interface down
             os.system(f"ip link set {self.interface} down")
 
@@ -964,8 +972,20 @@ class WiFiPlugin(CapturePlugin):
                 device.ssid = ssid
         else:
             device = WiFiDevice(mac, ssid, device_type)
+            
+            # Lookup vendor using OUI
+            if self.oui_identifiers:
+                try:
+                    vendor = self.oui_identifiers.lookup_vendor(mac)
+                    if vendor:
+                        device.vendor = vendor
+                        logger.debug(f"OUI lookup for {mac}: {vendor}")
+                    else:
+                        logger.debug(f"No OUI found for {mac}")
+                except Exception as e:
+                    logger.error(f"OUI lookup failed for {mac}: {e}")
+            
             self.wifi_devices[mac] = device
-
             self.logger.device_detected(device_type, mac, device.rssi, ssid, "WiFi")
 
         return device
@@ -1025,6 +1045,7 @@ class WiFiPlugin(CapturePlugin):
         TableColumnConfig.add_standard_column(table, "bssid", "MAC Address")
         table.add_column("SSID", style="yellow", width=20) 
         table.add_column("Ch", style="magenta", width=4, justify="right")
+        table.add_column("Vendor", style="green", width=15)
         TableColumnConfig.add_standard_column(table, "rssi")
         table.add_column("Pkts", style="magenta", width=4, justify="right")
         TableColumnConfig.add_standard_column(table, "first_seen", "First")
@@ -1052,11 +1073,19 @@ class WiFiPlugin(CapturePlugin):
             else:
                 ssid_display = ssid_truncated
 
+            # Format vendor column
+            vendor_display = truncate_string(device.vendor, 15)
+            if vendor_display == "Unknown":
+                vendor_display = "[dim]Unknown[/dim]"
+            elif vendor_display == "Randomized":
+                vendor_display = "[yellow]Randomized[/yellow]"
+
             table.add_row(
                 "AP" if device.device_type == "access_point" else "Client",
                 Text(device.bssid),
                 ssid_display,
                 str(device.channel) if device.channel else "-",
+                vendor_display,
                 rssi_display,
                 str(device.packet_count),
                 first_seen_str,

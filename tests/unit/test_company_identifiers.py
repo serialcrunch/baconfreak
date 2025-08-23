@@ -11,7 +11,7 @@ import yaml
 from peewee import SqliteDatabase
 from pydantic import ValidationError
 
-from src.company_identifiers import (
+from src.plugins.ble.company_identifiers import (
     CompanyDatabase,
     CompanyIdentifier,
     CompanyIdentifiers,

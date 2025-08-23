@@ -10,7 +10,7 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.company_identifiers import CompanyIdentifiers
+from src.plugins.ble.company_identifiers import CompanyIdentifiers
 
 
 def test_lookups():
